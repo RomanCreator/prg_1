@@ -27,10 +27,9 @@ class User extends Authenticatable
     /**
      * Возвращает коллекцию ролей пользователя
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function roles () {
-        return $this->hasMany('App\UsersRole');
+        return $this->belongsToMany(Role::class, 'users_role');
     }
 
     /**
@@ -40,7 +39,7 @@ class User extends Authenticatable
      * @return bool
      */
     public function hasRole ($roleName) {
-        $UserRole = $this->roles()->where('role_id', $roleName);
+        $UserRole = $this->roles()->where(['name_role'=> $roleName])->first();
         if ($UserRole) {
             return true;
         } else {
