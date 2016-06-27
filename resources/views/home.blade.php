@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.backend')
+
+@section('title', 'Административная панель')
 
 @section('content')
 <div class="container">

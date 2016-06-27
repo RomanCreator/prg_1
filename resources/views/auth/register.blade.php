@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.backend')
+
+@section('title', 'Регистрация нового пользователя')
 
 @section('content')
 <div class="container">
