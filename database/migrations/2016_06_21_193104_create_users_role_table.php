@@ -14,10 +14,7 @@ class CreateUsersRoleTable extends Migration
     {
         Schema::create('role', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
-            $table->increments('id');
             $table->string('name_role', 255)->unique();
-            $table->index('name_role');
         });
 
         Schema::create('users_role', function (Blueprint $table) {
