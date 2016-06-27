@@ -14,3 +14,15 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss');
 });
+
+elixir(function(mix) {
+    mix.less('bootstrap/bootstrap.less', 'public/css/bootstrap.less');
+});
+
+elixir(function(mix) {
+    mix.scripts('bootstrap/*.js', 'public/js/bootstrap.js');
+});
+
+elixir(function(mix) {
+    mix.scripts('jquery/*.js', 'public/js/jquery.js');
+})
