@@ -72,10 +72,7 @@ class AuthController extends Controller
         ]);
 
         /* Все пользователи изначально в роле User */
-        $UserRole = new UsersRole;
-        $UserRole->user_id = $User->id;
-        $UserRole->role_id = 'User';
-        $UserRole->save();
+        $User->roles()->attach('User');
 
         return $User;
     }
