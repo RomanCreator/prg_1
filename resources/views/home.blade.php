@@ -4,12 +4,12 @@
 
 @section('backendmenu')
     @if (Auth::user()->hasRole('Administrator'))
-        <li><a href="{{ url('/hospitals/') }}"><i class="fa fa-hospital-o" aria-hidden="true"></i> Медицинские учреждения</a> </li>
-        <li><a href="{{ url('/prices/') }}"><i class="fa fa-rub" aria-hidden="true"></i> Прайс-лист</a></li>
+        <li><a href="{{ url('/home/hospitals/') }}"><i class="fa fa-hospital-o" aria-hidden="true"></i> Медицинские учреждения</a> </li>
+        <li><a href="{{ url('/home/prices/') }}"><i class="fa fa-rub" aria-hidden="true"></i> Прайс-лист</a></li>
     @endif
 
     @if (Auth::user()->hasRole('Administrator') || Auth::user()->hasRole('Operator'))
-        <li><a href="{{ url('/callback/') }}"><i class="fa fa-mobile" aria-hidden="true"></i> Заявки на обратный звонок</a></li>
+        <li><a href="{{ url('/home/callback/') }}"><i class="fa fa-mobile" aria-hidden="true"></i> Заявки на обратный звонок</a></li>
     @endif
 
     @if (Auth::user()->hasRole('Administrator'))
@@ -18,7 +18,7 @@
                 Справочники <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ url('/reference/research/') }}">Исследования</a></li>
+                <li><a href="{{ url('/home/reference/research/') }}">Исследования</a></li>
             </ul>
         </li>
         <li>
@@ -26,10 +26,13 @@
                 Администрирование <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ url('/users/') }}">Пользователи</a></li>
-                <li><a href="{{ url('/pages/') }}">Статические страницы</a></li>
-                <li><a href="{{ url('/roles/') }}">Роли пользователей</a></li>
-                <li><a href="{{ url('/permissions/') }}">Права доступа</a></li>
+                <li><a href="{{ url('/home/users/') }}">Пользователи</a></li>
+                <li><a href="{{ url('/home/pages/') }}">Статические страницы</a></li>
+                <li><a href="{{ url('/home/roles/') }}">Роли пользователей</a></li>
+                @can('listModel', new App\RolePermission())
+adasdas
+                @endcan
+                <li><a href="{{ url('/home/permissions/') }}">Права доступа</a></li>
             </ul>
         </li>
     @endif

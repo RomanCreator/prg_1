@@ -88,7 +88,7 @@ class ModelPolicy
      */
     protected function checkPermission (User $user, Model $model, $action) {
         $userRoles = $user->roles();
-        $modelClassName = $model::class;
+        $modelClassName = get_class($model);
 
         foreach ($userRoles as $userRole) {
             $rolePermission = RolePermission::where([

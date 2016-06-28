@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\RolePermission;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,5 +26,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    /**
+     * Показывает доступные сущности и права на них
+     */
+    public function permission() {
+        return RolePermission::class;
     }
 }
