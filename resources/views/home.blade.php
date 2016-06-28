@@ -28,6 +28,8 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ url('/users/') }}">Пользователи</a></li>
                 <li><a href="{{ url('/pages/') }}">Статические страницы</a></li>
+                <li><a href="{{ url('/roles/') }}">Роли пользователей</a></li>
+                <li><a href="{{ url('/permissions/') }}">Права доступа</a></li>
             </ul>
         </li>
     @endif
