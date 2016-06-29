@@ -22,7 +22,20 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => 'auth'], function() {
 
 
+    /**
+     * Управление правами доступа
+     */
     Route::get('/home/permissions/', 'RolePermissionController@index');
+    Route::get('/home/permissions/add/', 'RolePermissionController@add');
+    Route::post('/home/permissions/add/', 'RolePermissionController@add');
+    Route::get('/home/permissions/{id}/edit/', 'RolePermissionController@edit');
+    Route::post('/home/permissions/{id}/edit/', 'RolePermissionController@edit');
+    Route::delete('/home/permissions/{id}/delete/', 'RolePermissionController@delete');
+
+    /**
+     * Управление пользователями
+     */
+    Route::resource('/home/users/', 'UserController');
 
 
 });

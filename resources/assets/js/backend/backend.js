@@ -6,4 +6,5 @@ $(document).ready(function () {
      * Инициализация всех тултипов
      */
     $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="countdown"]').countdown();
 });

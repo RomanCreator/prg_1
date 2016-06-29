@@ -28,5 +28,9 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.less('backend/*.less', 'public/css/backend.css');
+});
+
+elixir(function(mix) {
     mix.scripts('backend/*.js', 'public/js/backend.js');
 });
