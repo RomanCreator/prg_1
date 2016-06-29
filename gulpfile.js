@@ -16,7 +16,7 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
-    mix.scripts('bootstrap/*.js', 'public/js/bootstrap.js');
+    mix.scripts('bootstrap/bootstrap.js', 'public/js/bootstrap.js');
 });
 
 elixir(function(mix) {
@@ -25,4 +25,8 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.less('fontawesome/font-awesome.less', 'public/css/font-awesome.css');
-})
+});
+
+elixir(function(mix) {
+    mix.scripts('backend/*.js', 'public/js/backend.js');
+});

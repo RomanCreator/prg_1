@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+
+use App\RolePermission;
+use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -16,8 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'App\Model' => 'App\Policies\ModelPolicy',
-        Model::class => ModelPolicy::class,
+        'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => ModelPolicy::class,
+        RolePermission::class => ModelPolicy::class,
     ];
 
     /**
@@ -31,5 +35,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         //
+
     }
 }

@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\RolePermission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\User;
-use App\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelPolicy
 {
@@ -29,7 +29,7 @@ class ModelPolicy
      * @param Model $model
      * @return bool
      */
-    public function addModel (User $user, Model $model) {
+    public function add (User $user, Model $model) {
         return $this->checkPermission($user, $model, 'add');
     }
 
@@ -41,7 +41,7 @@ class ModelPolicy
      * @param Model $model
      * @return bool
      */
-    public function editModel (User $user, Model $model) {
+    public function edit (User $user, Model $model) {
         return $this->checkPermission($user, $model, 'edit');
     }
 
@@ -52,7 +52,7 @@ class ModelPolicy
      * @param Model $model
      * @return bool
      */
-    public function viewModel (User $user, Model $model) {
+    public function view (User $user, Model $model) {
         return $this->checkPermission($user, $model, 'view');
     }
 
@@ -63,7 +63,7 @@ class ModelPolicy
      * @param Model $model
      * @return bool
      */
-    public function deleteModel (User $user, Model $model) {
+    public function delete (User $user, Model $model) {
         return $this->checkPermission($user, $model, 'delete');
     }
 
@@ -73,7 +73,7 @@ class ModelPolicy
      * @param Model $model
      * @return bool
      */
-    public function listModel (User $user, Model $model) {
+    public function index (User $user, Model $model) {
         return $this->checkPermission($user, $model, 'list');
     }
 
@@ -87,18 +87,15 @@ class ModelPolicy
      * @return bool
      */
     protected function checkPermission (User $user, Model $model, $action) {
-        $userRoles = $user->roles();
+        $userRoles = $user->roles->pluck('name_role');
         $modelClassName = get_class($model);
 
-        foreach ($userRoles as $userRole) {
-            $rolePermission = RolePermission::where([
-                ['rp_role_name', $userRole->name_role],
-                ['rp_entity_name', $modelClassName],
-                ['rp_action', $action]
-            ])->first();
-            if ($rolePermission) {
-                return true;
-            }
+        $rolePermission = RolePermission::whereIn('rp_role_name', $userRoles)->where([
+            ['rp_entity_name', $modelClassName],
+            ['rp_action', $action]
+        ])->first();
+        if ($rolePermission) {
+            return true;
         }
 
         return false;

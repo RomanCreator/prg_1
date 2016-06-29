@@ -1,0 +1,1 @@
+{"version":3,"sources":["backend.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"backend.js","sourcesContent":["/**\n * Created by roman on 29.06.16.\n */\n$(document).ready(function () {\n    /**\n     * Инициализация всех тултипов\n     */\n    $('[data-toggle=\"tooltip\"]').tooltip();\n});"],"sourceRoot":"/source/"}

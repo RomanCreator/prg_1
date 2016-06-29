@@ -27,11 +27,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    /**
-     * Показывает доступные сущности и права на них
-     */
-    public function permission() {
-        return RolePermission::class;
-    }
 }
