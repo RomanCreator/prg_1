@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
+use Auth;
+use DB;
+use Hash;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
+use Validator;
 
 class UserController extends Controller
 {
@@ -63,9 +66,9 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'surname' => 'max:255',
             'middlename' => 'max:255',
-            'email' => 'required|email|max:255',
-            'password' => 'required|max:255',
-            'repassword' => 'required|confirmed|max:255'
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|confirmed|max:255',
+            'roles' => 'array'
         ]);
 
         if ($validator->fails()) {
@@ -73,23 +76,31 @@ class UserController extends Controller
         }
 
         /**
-         * Проверяем введенный E-mail на наличие такого Email в базе
-         */
-        $user = User::find(['email'=>$request->email]);
-        if ($user) {
-            $message = new MessageBag(['Пользователь с таким email уже существует']);
-            return redirect('/home/users/create/')->withInput()->withErrors($message);
-        }
-
-        /**
          * Создаем пользователя
          */
-        $user = new User();
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->middlename = $request->middlename;
-        $user->email = $request->email;
-        //$user->password =
+        try {
+            DB::transaction(function () use ($request) {
+                $user = new User();
+                $user->name = $request->name;
+                $user->surname = $request->surname;
+                $user->middlename = $request->middlename;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+                /**
+                 * Проверяем роли пользователя и выставляем их в БД
+                 */
+                $user->roles()->sync($request->input('roles', []));
+                return true;
+            });
+        } catch (Exception $e) {
+
+        }
+
+        return redirect('/home/users/');
+
+
     }
 
     /**

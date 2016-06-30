@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid">
         <h1>{{ $nameAction }}</h1>
-
+        @include('backend.common.form.contextmessages')
         <div class="panel panel-default">
             <div class="panel-body">
                 <form class="form-horizontal" method="POST"
@@ -95,13 +95,11 @@
                         </div>
                     </div>
 
-
-
                     @include('backend.common.form.action')
                 </form>
             </div>
         </div>
 
-        @include('backend.common.form.contextmessages')
+
     </div>
 @endsection
