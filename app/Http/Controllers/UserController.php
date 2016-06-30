@@ -61,8 +61,35 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-
+            'surname' => 'max:255',
+            'middlename' => 'max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|max:255',
+            'repassword' => 'required|confirmed|max:255'
         ]);
+
+        if ($validator->fails()) {
+            return redirect('/home/users/create/')->withInput()->withErrors($validator);
+        }
+
+        /**
+         * Проверяем введенный E-mail на наличие такого Email в базе
+         */
+        $user = User::find(['email'=>$request->email]);
+        if ($user) {
+            $message = new MessageBag(['Пользователь с таким email уже существует']);
+            return redirect('/home/users/create/')->withInput()->withErrors($message);
+        }
+
+        /**
+         * Создаем пользователя
+         */
+        $user = new User();
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->middlename = $request->middlename;
+        $user->email = $request->email;
+        //$user->password =
     }
 
     /**

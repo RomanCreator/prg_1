@@ -72,9 +72,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="repassword" class="col-sm-3 control-label">Повторите пароль</label>
+                        <label for="password_confirmation" class="col-sm-3 control-label">Повторите пароль</label>
                         <div class="col-sm-9">
-                            <input name="repassword" id="repassword" type="password" class="form-control" maxlength="255"
+                            <input name="password_confirmation" id="password_confirmation" type="password" class="form-control" maxlength="255"
                             @if ($controllerAction === 'add')
                                 required
                             @endif
