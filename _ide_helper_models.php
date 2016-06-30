@@ -30,6 +30,8 @@ namespace App{
  *
  * @property integer $id
  * @property string $name
+ * @property string $surname
+ * @property string $middlename
  * @property string $email
  * @property string $password
  * @property string $remember_token
@@ -38,6 +40,8 @@ namespace App{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[] $roles
  * @method static \Illuminate\Database\Query\Builder|\App\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereSurname($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereMiddlename($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
