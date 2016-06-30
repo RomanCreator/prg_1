@@ -36,7 +36,5 @@ Route::group(['middleware' => 'auth'], function() {
      * Управление пользователями
      */
     Route::resource('/home/users/', 'UserController');
-
-
 });
 

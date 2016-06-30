@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -16,8 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        if (Auth::user()->cannot('index', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
 
+        $users = User::paginate(20);
+        return view('backend.users.list', ['list'=>$users]);
     }
 
     /**
@@ -27,7 +34,17 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::user()->cannot('add', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        $roles = Role::all();
+
+        return view('backend.users.form', ['nameAction' => 'Создание нового пользователя',
+            'roles' => $roles,
+            'controllerPathList' => '/home/users/',
+            'controllerAction' => 'add',
+            'controllerEntity' => new User()]);
     }
 
     /**
@@ -38,7 +55,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::user()->cannot('add', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+
+        ]);
     }
 
     /**

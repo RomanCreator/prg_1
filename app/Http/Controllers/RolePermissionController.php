@@ -7,6 +7,7 @@ use App\RolePermission;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 use League\Flysystem\Exception;
@@ -18,6 +19,9 @@ class RolePermissionController extends Controller
      * Показывает доступные сущности и права на них
      */
     public function index() {
+        if (Auth::user()->cannot('index', new RolePermission())) {
+            abort(403, 'Доступ запрещен');
+        }
         $rolePermissions = RolePermission::paginate(20);
         return view('permissions.list', ['list'=>$rolePermissions]);
     }
@@ -29,6 +33,9 @@ class RolePermissionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add(Request $request) {
+        if (Auth::user()->cannot('add', new RolePermission())) {
+            abort(403, 'Доступ запрещен');
+        }
         if ($request->method() === 'GET') {
             /* Составим списки всех доступных ролей, и доступных действий */
             $roles = Role::all();
@@ -124,6 +131,11 @@ class RolePermissionController extends Controller
      */
     public function edit(Request $request, $id = null) {
         if ($request->method() === 'GET') {
+
+            if (Auth::user()->cannot('edit', new RolePermission()) || Auth::user()->cannot('view', new RolePermission())) {
+                abort(403, 'Доступ запрещен');
+            }
+
             $editableRolePermission = RolePermission::where('rp_id', $id)->get()->first();
 
             if (!$editableRolePermission) {
@@ -188,6 +200,9 @@ class RolePermissionController extends Controller
         }
 
         if ($request->method() === 'POST') {
+            if (Auth::user()->cannot('edit', new RolePermission())) {
+                abort(403, 'Доступ запрещен');
+            }
             $validator = Validator::make($request->all(), [
                 'rp_role_name' => 'required|max:255',
                 'rp_entity_name' => 'required|max:255',
@@ -243,6 +258,9 @@ class RolePermissionController extends Controller
      * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function delete (Request $request, $id = null) {
+        if (Auth::user()->cannot('delete', new RolePermission())) {
+            abort(403, 'Доступ запрещен');
+        }
         if (is_null($id)) {
             $message = new MessageBag(['Не передан параметр определяющий конкретное правило']);
             return redirect('/home/permissions/')->withErrors($message);
