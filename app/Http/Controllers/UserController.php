@@ -95,7 +95,8 @@ class UserController extends Controller
                 return true;
             });
         } catch (Exception $e) {
-
+            $message = new MessageBag([$e->getMessage()]);
+            return redirect('/home/users/create/')->with($message);
         }
 
         return redirect('/home/users/');
