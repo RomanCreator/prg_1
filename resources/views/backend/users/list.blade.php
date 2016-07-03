@@ -53,7 +53,7 @@
                                                 @endcan
                                             @endcannot
                                             @can('delete', new App\User())
-                                            <form action="{{ url('/home/users/'.$item->rp_id) }}" method="POST" class="form_action">
+                                            <form action="{{ url('/home/users/'.$item->id.'/') }}" method="POST" class="form_action">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                 <button class="btn btn-danger" type="submit" data-toggle="countdown"><i class="fa fa-trash-o" aria-hidden="true"></i> Удалить</button>

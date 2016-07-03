@@ -10,6 +10,18 @@
 
 namespace App{
 /**
+ * App\Role
+ *
+ * @property integer $id
+ * @property string $name_role
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Role whereNameRole($value)
+ */
+	class Role extends \Eloquent {}
+}
+
+namespace App{
+/**
  * App\RolePermission
  *
  * @property integer $rp_id
@@ -79,15 +91,5 @@ namespace App{
  * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereUpdatedAt($value)
  */
 	class Hospital extends \Eloquent {}
-}
-
-namespace App{
-/**
- * App\Role
- *
- * @property string $name_role
- * @method static \Illuminate\Database\Query\Builder|\App\Role whereNameRole($value)
- */
-	class Role extends \Eloquent {}
 }
 

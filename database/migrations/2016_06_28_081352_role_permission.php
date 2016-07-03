@@ -24,11 +24,11 @@ class RolePermission extends Migration
 
         DB::table ('role_permission')->
             insert([
-            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'RolePermission', 'rp_action'=>'add'],
-            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'RolePermission', 'rp_action'=>'edit'],
-            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'RolePermission', 'rp_action'=>'view'],
-            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'RolePermission', 'rp_action'=>'delete'],
-            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'RolePermission', 'rp_action'=>'list']
+            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'App\RolePermission', 'rp_action'=>'add'],
+            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'App\RolePermission', 'rp_action'=>'edit'],
+            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'App\RolePermission', 'rp_action'=>'view'],
+            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'App\RolePermission', 'rp_action'=>'delete'],
+            ['rp_role_name'=>'Administrator', 'rp_entity_name'=>'App\RolePermission', 'rp_action'=>'list']
         ]);
     }
 

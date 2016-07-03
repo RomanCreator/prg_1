@@ -31,13 +31,13 @@ class User extends Authenticatable
      *
      */
     public function roles () {
-        return $this->belongsToMany(Role::class, 'users_role');
+        return $this->belongsToMany(Role::class, 'users_role', 'user_id', 'role_id');
     }
 
     /**
      * Проверяет принадлежность пользователя к той или иной роли
      *
-     * @param $roleName Название роли пользователя
+     * @param $roleName string Название роли пользователя
      * @return bool
      */
     public function hasRole ($roleName) {

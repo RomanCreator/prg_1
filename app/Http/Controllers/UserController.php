@@ -6,10 +6,12 @@ use App\Role;
 use App\User;
 use Auth;
 use DB;
+use Exception;
 use Hash;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Mail\Message;
 use Illuminate\Support\MessageBag;
 use Validator;
 
@@ -100,8 +102,6 @@ class UserController extends Controller
         }
 
         return redirect('/home/users/');
-
-
     }
 
     /**
@@ -112,7 +112,19 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Auth::user()->cannot('view', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        $user = User::find($id);
+        $userData = $user->surname.' '.$user->name.' '.$user->middlename;
+
+        return view('backend.users.view', [
+            'nameAction' => $userData,
+            'email' => $user->email,
+            'roles' => $user->roles,
+            'controllerPathList' => '/home/users/'
+        ]);
     }
 
     /**
@@ -123,7 +135,43 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->cannot('edit', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        /* Получили пользователя */
+        $user = User::find($id);
+
+        if (!$user) {
+            abort(404, 'Запрашиваемый пользователь не найден');
+        }
+
+        /* Получили список всех ролей пользователя */
+        $userRoles = $user->roles;
+        $rolesAll = Role::all();
+
+        foreach ($rolesAll as &$role) {
+
+            foreach ($userRoles as $roleUser) {
+
+                if ($role->name_role === $roleUser->name_role) {
+                    $role->active = 'active';
+                    $role->checked = 'checked';
+                }
+            }
+
+        }
+
+        return view('backend.users.form', ['nameAction' => $user->surname.' '.$user->name.' '.$user->middlename,
+            'surname' => $user->surname,
+            'name' => $user->name,
+            'middlename' => $user->middlename,
+            'email' => $user->email,
+            'roles' => $rolesAll,
+            'idEntity' => $user->id,
+            'controllerPathList' => '/home/users/',
+            'controllerAction' => 'edit',
+            'controllerEntity' => new User()]);
     }
 
     /**
@@ -135,7 +183,59 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::user()->cannot('edit', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        $user = User::find($id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'surname' => 'max:255',
+            'middlename' => 'max:255',
+            'password' => 'confirmed|max:255',
+            'roles' => 'array'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/home/users/'.$id.'/edit/')->withInput()->withErrors($validator);
+        }
+
+        try {
+            DB::transaction(function () use ($request, $id) {
+                $user = User::find($id);
+                $user->name = $request->name;
+                $user->surname = $request->surname;
+                $user->middlename = $request->middlename;
+
+                if ($user->email !== $request->email && $request->email !== '') {
+                    $user = User::find(['email'=>$request->email]);
+                    if ($user) {
+                        //Выкидываем сообщение об ошибке
+                        $message = new MessageBag(['email уже используется ситемой']);
+                        return redirect('/home/users/'.$id.'/edit/')->with($message);
+                    } else {
+                        $user->email = $request->email;
+                    }
+
+                }
+
+                if ($user->password != '' && $request->password === $request->password_confirmation) {
+                    $user->password = Hash::make($request->password);
+                }
+                $user->save();
+                /**
+                 * Проверяем роли пользователя и выставляем их в БД
+                 */
+                $user->roles()->sync($request->input('roles', []));
+                return true;
+            });
+        } catch (Exception $e) {
+            $message = new MessageBag([$e->getMessage()]);
+            return redirect('/home/users/'.$id.'/edit/')->with($message);
+        }
+
+        return redirect('/home/users/'.$id.'/edit/');
+
     }
 
     /**
@@ -146,6 +246,21 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::user()->cannot('delete', new User())) {
+            abort(403, 'Доступ запрещен');
+        }
+
+        $user = User::find($id);
+        if (!$user) {
+            abort(404, 'Пользователя с таким id не существует');
+        }
+
+        $userData = $user->surname.' '.$user->name.' '.$user->middlename;
+
+        $user->delete();
+
+        return redirect('/home/users/')->with(['success'=>[
+            'Пользователь '.$userData.' успешно удален.'
+        ]]);
     }
 }
