@@ -187,12 +187,12 @@ class UserController extends Controller
             abort(403, 'Доступ запрещен');
         }
 
-        $user = User::find($id);
+        $success = [];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'surname' => 'max:255',
             'middlename' => 'max:255',
-            'password' => 'confirmed|max:255',
             'roles' => 'array'
         ]);
 
@@ -200,8 +200,10 @@ class UserController extends Controller
             return redirect('/home/users/'.$id.'/edit/')->withInput()->withErrors($validator);
         }
 
+
+
         try {
-            DB::transaction(function () use ($request, $id) {
+            DB::transaction(function () use ($request, $id, &$success) {
                 $user = User::find($id);
                 $user->name = $request->name;
                 $user->surname = $request->surname;
@@ -215,13 +217,17 @@ class UserController extends Controller
                         return redirect('/home/users/'.$id.'/edit/')->with($message);
                     } else {
                         $user->email = $request->email;
+                        $success[] = 'E-mail адрес успешно изменен';
                     }
 
                 }
 
                 if ($user->password != '' && $request->password === $request->password_confirmation) {
                     $user->password = Hash::make($request->password);
+                    $success[] = 'Пароль успешно изменен';
                 }
+
+
                 $user->save();
                 /**
                  * Проверяем роли пользователя и выставляем их в БД
@@ -234,7 +240,7 @@ class UserController extends Controller
             return redirect('/home/users/'.$id.'/edit/')->with($message);
         }
 
-        return redirect('/home/users/'.$id.'/edit/');
+        return redirect('/home/users/'.$id.'/edit/')->with(['success' => $success]);
 
     }
 

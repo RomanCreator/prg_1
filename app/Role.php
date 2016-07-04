@@ -10,5 +10,7 @@ class Role extends Model
     public $incrementing = false;
     public $primaryKey = 'name_role';
 
+    protected $fillable = ['name_role'];
+
     public $timestamps = false;
 }

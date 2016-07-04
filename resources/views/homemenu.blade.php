@@ -27,7 +27,10 @@
                 @endcan
 
                 <li><a href="{{ url('/home/pages/') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Статические страницы</a></li>
+
+                @can('index', new App\User())
                 <li><a href="{{ url('/home/roles/') }}"><i class="fa fa-user-secret" aria-hidden="true"></i> Роли пользователей</a></li>
+                @endcan
 
                 @can('index', new App\RolePermission())
                 <li><a href="{{ url('/home/permissions/') }}"><i class="fa fa-user-times" aria-hidden="true"></i> Права доступа</a></li>

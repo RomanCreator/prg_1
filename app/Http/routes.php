@@ -36,5 +36,19 @@ Route::group(['middleware' => 'auth'], function() {
      * Управление пользователями
      */
     Route::resource('/home/users', 'UserController');
+
+    /**
+     * Управление ролями перепишем вручную, так как у нас все отказывается работать
+     * с не инкрементируемыми первичными ключами
+     */
+    //Route::resource('/home/roles/', 'RolesController');
+    Route::get('/home/roles', 'RolesController@index');
+    Route::get('/home/roles/create', 'RolesController@create');
+    Route::post('/home/roles', 'RolesController@store');
+    Route::get('/home/roles/{name_role}', 'RolesController@show');
+    Route::get('/home/roles/{name_role}/edit', 'RolesController@edit');
+    Route::put('/home/roles/{name_role}', 'RolesController@update');
+    Route::delete('/home/roles/{name_role}', 'RolesController@destroy');
+
 });
 

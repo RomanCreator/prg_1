@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use App\Role;
 use App\RolePermission;
 use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
@@ -22,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         User::class => ModelPolicy::class,
         RolePermission::class => ModelPolicy::class,
+        Role::class => ModelPolicy::class,
     ];
 
     /**
