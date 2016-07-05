@@ -50,5 +50,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/home/roles/{name_role}', 'RolesController@update');
     Route::delete('/home/roles/{name_role}', 'RolesController@destroy');
 
+    /**
+     * Управление статическими страницами сайта
+     */
+    Route::resource('/home/pages', 'StaticPageController');
+
 });
 

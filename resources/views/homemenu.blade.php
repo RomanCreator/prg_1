@@ -26,7 +26,9 @@
                 <li><a href="{{ url('/home/users/') }}"><i class="fa fa-users" aria-hidden="true"></i> Пользователи</a></li>
                 @endcan
 
+                @can('index', new App\StaticPage())
                 <li><a href="{{ url('/home/pages/') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Статические страницы</a></li>
+                @endcan
 
                 @can('index', new App\User())
                 <li><a href="{{ url('/home/roles/') }}"><i class="fa fa-user-secret" aria-hidden="true"></i> Роли пользователей</a></li>

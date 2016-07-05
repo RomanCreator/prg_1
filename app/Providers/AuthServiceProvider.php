@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Role;
 use App\RolePermission;
+use App\StaticPage;
 use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => ModelPolicy::class,
         RolePermission::class => ModelPolicy::class,
         Role::class => ModelPolicy::class,
+        StaticPage::class => ModelPolicy::class,
     ];
 
     /**
