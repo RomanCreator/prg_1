@@ -55,5 +55,9 @@ Route::group(['middleware' => 'auth'], function() {
      */
     Route::resource('/home/pages', 'StaticPageController');
 
+    /**
+     * Управление исследованиями
+     */
+    Route::resource('/home/research', 'ResearchController');
 });
 

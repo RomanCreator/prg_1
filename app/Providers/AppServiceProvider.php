@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Research;
 use Illuminate\Support\ServiceProvider;
+use Storage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Research::deleting(function ($research) {
+            if (Storage::disk('public')->exists('researces/'.$research->id)) {
+                Storage::disk('public')->delete('researches/'.$research->id);
+            }
+        });
     }
 
     /**

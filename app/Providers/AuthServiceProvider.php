@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use App\Research;
 use App\Role;
 use App\RolePermission;
 use App\StaticPage;
@@ -26,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         RolePermission::class => ModelPolicy::class,
         Role::class => ModelPolicy::class,
         StaticPage::class => ModelPolicy::class,
+        Research::class => ModelPolicy::class,
     ];
 
     /**

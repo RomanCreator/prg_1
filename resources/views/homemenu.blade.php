@@ -14,7 +14,9 @@
                 <i class="fa fa-book" aria-hidden="true"></i> Справочники <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ url('/home/reference/research/') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Исследования</a></li>
+                @can('index', new App\Research())
+                <li><a href="{{ url('/home/research/') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Исследования</a></li>
+                @endcan
             </ul>
         </li>
         <li>
