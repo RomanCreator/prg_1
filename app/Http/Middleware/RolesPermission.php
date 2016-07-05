@@ -10,62 +10,82 @@ class RolesPermission
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param String $entity
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $entity)
     {
-        $Entity = new $role();
+        $Entity = new $entity();
+
+        $path = $request->path();
+        /* Получаем массив нашего пути */
+        $path = explode('/', $path);
 
         if ($request->isMethod('GET')) {
-            if ($request->is('/home/*/create')) {
-                //echo 'создание';
+            /* У нас все разделы в админке начинаются с /home/<название_сущности>/<что_то_там> */
+            if (!isset($path[2])) {
+                /* это точно вызов метода index */
+                if (Auth::user()->cannot('index', $Entity)) {
+                    abort(403, 'Доступ запрещен');
+                }
+
+            }
+
+            if (isset($path[2]) && $path[2]==='create') {
+                /* точно отобразим форму создания сущности */
                 if (Auth::user()->cannot('add', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
-            } elseif ($request->is('/home/*/edit')) {
-                //echo 'редактирование';
-                if (Auth::user()->cannot('edit', $Entity)) {
-                    abort(403, 'Доступ запрещен');
-                }
-            } elseif ($request->is('/home/*/(^\d+$)')) {
+
+            }
+
+            if (isset($path[2]) && !isset($path[3]) && is_int($path[2])) {
+                /* точно форма для просмотра сущности */
                 if (Auth::user()->cannot('view', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
-            } else {
-                if (Auth::user()->cannot('index', $Entity)) {
+
+            }
+
+            if (isset($path[3]) && $path[3] === 'edit') {
+                /* Точно редактирование сущности */
+                if (Auth::user()->cannot('edit', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
             }
         }
 
         if ($request->isMethod('POST')) {
-            if ($request->is('/home/*')) {
-                //echo 'создание';
+            if (!isset($path[2])) {
+                /* точно сохранение после создания */
                 if (Auth::user()->cannot('add', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
+
             }
         }
 
         if ($request->isMethod('PUT')) {
-            if ($request->is('/home/*/(^\d+$)')) {
-                //echo 'обновление';
+            if (isset($path[2]) && is_int($path[2])) {
+                /* точно сохранение данных при обновлении */
                 if (Auth::user()->cannot('edit', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
+
             }
         }
 
         if ($request->isMethod('DELETE')) {
-            if ($request->is('/home/*/(^\d+$)')) {
-                //echo 'удаление';
+            if (isset($path[2]) && is_int($path[2])) {
+                /* точно удаление сущности */
                 if (Auth::user()->cannot('delete', $Entity)) {
                     abort(403, 'Доступ запрещен');
                 }
             }
         }
+
 
 
         return $next($request);
