@@ -59,5 +59,10 @@ Route::group(['middleware' => 'auth'], function() {
      * Управление исследованиями
      */
     Route::resource('/home/research', 'ResearchController');
+
+    /**
+     * Управление медицинскими учреждениями
+     */
+    Route::resource('/home/hospitals', 'HospitalController');
 });
 

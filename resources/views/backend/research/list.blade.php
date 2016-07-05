@@ -48,7 +48,7 @@
                                         <a class="btn btn-info" href="{{ url('/home/research/'.$item->id.'/') }}"><i class="fa fa-eye" aria-hidden="true"></i> Показать</a>
                                         @endcan
                                         @endcannot
-                                        @can('delete', new App\StaticPage())
+                                        @can('delete', new App\Research())
                                         <form action="{{ url('/home/research/'.$item->id.'/') }}" method="POST" class="form_action">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}

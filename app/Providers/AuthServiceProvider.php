@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use App\Hospital;
 use App\Research;
 use App\Role;
 use App\RolePermission;
@@ -28,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => ModelPolicy::class,
         StaticPage::class => ModelPolicy::class,
         Research::class => ModelPolicy::class,
+        Hospital::class => ModelPolicy::class,
     ];
 
     /**
