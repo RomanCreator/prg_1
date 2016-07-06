@@ -1,7 +1,11 @@
 @section('backendmenu')
     @if (Auth::user()->hasRole('Administrator'))
+        @can('index', new App\Hospital())
         <li><a href="{{ url('/home/hospitals/') }}"><i class="fa fa-hospital-o" aria-hidden="true"></i> Медицинские учреждения</a> </li>
+        @endcan
+        @can('index', new App\Price())
         <li><a href="{{ url('/home/prices/') }}"><i class="fa fa-rub" aria-hidden="true"></i> Прайс-лист</a></li>
+        @endcan
     @endif
 
     @if (Auth::user()->hasRole('Administrator') || Auth::user()->hasRole('Operator'))

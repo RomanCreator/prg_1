@@ -10,11 +10,37 @@
 
 namespace App{
 /**
- * App\Role
+ * App\StaticPage
  *
  * @property integer $id
+ * @property string $path
+ * @property string $title
+ * @property string $keywords
+ * @property string $description
+ * @property string $content
+ * @property string $entity
+ * @property integer $id_entity
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage wherePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereKeywords($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereEntity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereIdEntity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\StaticPage whereUpdatedAt($value)
+ */
+	class StaticPage extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\Role
+ *
  * @property string $name_role
- * @method static \Illuminate\Database\Query\Builder|\App\Role whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Role whereNameRole($value)
  */
 	class Role extends \Eloquent {}
@@ -34,6 +60,54 @@ namespace App{
  * @method static \Illuminate\Database\Query\Builder|\App\RolePermission whereRpAction($value)
  */
 	class RolePermission extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\Research
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $description
+ * @property boolean $state
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Research whereUpdatedAt($value)
+ */
+	class Research extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * App\Price
+ *
+ * @property integer $id
+ * @property integer $hospital_id
+ * @property integer $research_id
+ * @property float $price_from
+ * @property float $price_to
+ * @property string $description
+ * @property boolean $status
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Hospital $hospital
+ * @property-read \App\Research $research
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereHospitalId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereResearchId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price wherePriceFrom($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price wherePriceTo($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Price whereUpdatedAt($value)
+ */
+	class Price extends \Eloquent {}
 }
 
 namespace App{
@@ -69,24 +143,22 @@ namespace App{
  * Медицинское учреждение
  *
  * @package App
- * @property integer $hos_id
- * @property string $hos_name
- * @property string $hos_description
- * @property string $hos_logo
- * @property string $hos_address
- * @property string $hos_technical_address
- * @property string $hos_description_about
- * @property boolean $hos_status
+ * @property integer $id
+ * @property string $name
+ * @property string $description
+ * @property string $address
+ * @property string $technical_address
+ * @property string $description_about
+ * @property boolean $status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosLogo($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosAddress($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosTechnicalAddress($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosDescriptionAbout($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereHosStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereTechnicalAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereDescriptionAbout($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereStatus($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Hospital whereUpdatedAt($value)
  */

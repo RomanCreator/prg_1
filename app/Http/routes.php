@@ -64,5 +64,11 @@ Route::group(['middleware' => 'auth'], function() {
      * Управление медицинскими учреждениями
      */
     Route::resource('/home/hospitals', 'HospitalController');
+
+    /**
+     * Управление прайс листом
+     */
+    Route::resource('/home/prices', 'PriceController');
+
 });
 
