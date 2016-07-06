@@ -70,5 +70,9 @@ Route::group(['middleware' => 'auth'], function() {
      */
     Route::resource('/home/prices', 'PriceController');
 
+    /**
+     * Управление завками на обратный звонок
+     */
+    Route::resource('/home/callback', 'CallBackRequestController');
 });
 

@@ -55,7 +55,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/home') }}"><i class="fa fa-tachometer" aria-hidden="true"></i>Рабочий стол</a></li>
-                                <li><a href="{{ url('/profile/') }}"><i class="fa fa-user" aria-hidden="true"></i> Настройки</a></li>
+                                <!-- <li><a href="{{ url('/profile/') }}"><i class="fa fa-user" aria-hidden="true"></i> Настройки</a></li> -->
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i>Выход</a></li>
                             </ul>
                         </li>
