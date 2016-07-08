@@ -4,84 +4,131 @@
 +function ($) {
     'use strict';
 
-    var Countdown = function (element, options) {
-        this.$element = null;
-        this.inState = null;
-        this.type = null;
-        this.timeout = null;
-        this.options = null;
-        this.innerHtml = null;
-        this.timeout = null;
+    var Countdown = function (options) {
+        //вернуть надо объект jQuery
+        return this.each(function () {
 
-        this.init('delete_entity', element, options);
-    }
+            Countdown.init(this, options);
+        });
+    };
 
-    Countdown.VERSION = '1.0.0';
+    Countdown.prototype.VERSION = '1.0.0';
 
-    Countdown.DEFAULTS = {
-        timeout: 1000,
-        time: 3,
-        trigger: 'click',
-    }
+    /**
+     * Дефолтные настройки плагина обратного отсчета
+     *
+     * параметр type может быть задан значением link в таком случае
+     * развитие инициализации идет по сценарию ссылки с обратным отсчетом
+     * иначе по кнопке submit в форме
+     *
+     * параметр countdownType задается в секундах
+     *
+     * callback должен быть функцией или bool
+     * переменной в значении false если тело функции не
+     * установлено
+     *
+     * @type {{type: string, countdownTime: number, callback: boolean}}
+     */
+    Countdown.prototype.DEFAULTS = {
+        type: 'form',
+        countdownTime: 3,
+        callback: false,
+    };
 
-    Countdown.prototype.init = function (type, element, options) {
-        this.type = type;
-        this.$element = $(element);
-        this.options = this.getOptions(options);
-        this.inState = {
-            click: false,
+    /**
+     * Основная функция инициализации обратного отсчета
+     * @param elem
+     */
+    Countdown.prototype.init = function (elem, options) {
+        var OptionsElem = this.getOption(options);
+
+        var $elem = $(elem);
+        $elem.data('countdownState', 'start');
+
+        /* читаем опции, и идем по разным сценариям инициализации */
+        switch (OptionsElem.type) {
+            case 'form':
+                /* перехватываем submit у ближайшй к элементу форме */
+                /* внутри смотрим на текущее состояние countdownState элемента */
+                /* если оно финально то отправляем форму в противном случае ничего не делаем */
+                    var $form = $elem.closest('form');
+                    $form.bind('submit.countdown', this.formSubmit);
+                break;
+            case 'link':
+                break;
         }
 
-        var triggers = this.options.trigger.split(' ');
+        $elem.bind('click.countdown', function () {
 
-        for (var i = triggers.length; i--;) {
-            var trigger = triggers[i];
-            if (trigger == 'click') {
-                this.$element.on('click.'+ this.type, $.proxy(this.toggle, this));
+        });
+
+    };
+
+    /**
+     * Функция для обработки формы
+     * @returns {boolean}
+     */
+    Countdown.prototype.formSubmit = function () {
+        var state = $(this).find('[data-toggle="countdown"]').data('countdownState');
+        switch (state) {
+            case 'end':
+                return true;
+                break;
+            default:
+                return false;
+        }
+    }
+
+    Countdown.prototype.action = function () {
+        /**
+         * Тут обратный отсчет
+         */
+    }
+
+    /**
+     * Возвращает дефолные и переданные опции слитые в
+     * общие
+     *
+     * @param options
+     */
+    Countdown.prototype.getOption = function (options) {
+        if (!options.type) {
+            options.type = this.DEFAULTS.type;
+        } else {
+            switch (options.type) {
+                case 'form':
+                case 'link':
+                    break;
+                default:
+                    throw new Error('Не верно указан тип элемента обратного отсчета');
             }
         }
 
-    }
+        if (!options.countdownTime) {
+            options.countdownTime = this.DEFAULTS.countdownTime;
+        } else {
+            if (isNaN(options.countdownTime)) {
+                throw new Error('Не верно указано время обратного отсчета');
+            }
+        }
 
-    Countdown.prototype.getDefaults = function () {
-        return Countdown.DEFAULTS;
-    }
-
-    Countdown.prototype.getOptions = function (options) {
-        options = $.extend({}, this.getDefaults(), this.$element.data(), options);
-
-        if (options.timeout && !typeof options.timeout == 'number') {
-            options.timeout = this.getDefaults().timeout;
+        if (!options.callback) {
+            options.callback = this.DEFAULTS.callback;
+        } else {
+            switch (typeof options.callback) {
+                case 'function':
+                case 'boolean':
+                    break;
+                default:
+                    throw new Error('CallBack имеет значение не разрешенного типа');
+            }
         }
 
         return options;
     }
 
-    Countdown.prototype.toggle = function() {
-        if (this.inState === null) {
-            this.inState = 'countdown';
-            this.innerHtml = this.$element.html();
-            this.$element.html(this.options.time);
-            this.timeout = setInterval(this.toggle, this.options.timeout);
-        } else {
-            if (this.inState === 'countdown') {
-                var time = 0+this.$element.text();
-                if (time > 0 ) {
-                    time--;
-                    this.$element.text(time);
-                } else {
-                    this.$element.html(this.innerHtml);
-                    this.inState = 'finish';
-                    clearInterval(this.timeout);
-                }
-            }
 
-            if (this.inState === 'finish') {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     var old = $.fn.countdown;
 

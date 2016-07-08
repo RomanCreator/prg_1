@@ -36,5 +36,5 @@ $(document).ready(function () {
     }
 
     //$('[data-toggle="buttons"]').
-    //$('[data-toggle="countdown"]').countdown();
+    $('[data-toggle="countdown"]').countdown();
 });
