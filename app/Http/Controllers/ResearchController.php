@@ -88,11 +88,12 @@ class ResearchController extends Controller
                 $research->description = $request->description;
                 $research->state = $request->state;
                 $research->save();
-
-                Storage::disk('public')->put(
-                    'researches/'.$research->id,
-                    file_get_contents($request->file('diagram')->getRealPath())
-                );
+                if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
+                    Storage::disk('public')->put(
+                        'researches/'.$research->id,
+                        file_get_contents($request->file('diagram')->getRealPath())
+                    );
+                }
                 return true;
             });
         } catch (Exception $e) {
@@ -193,7 +194,7 @@ class ResearchController extends Controller
         $research->state = $request->state;
         $research->save();
 
-        if ($request->diagram) {
+        if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
             if (Storage::disk('public')->exists('researches/'.$id)) {
                 Storage::disk('public')->delete('researches/'.$id);
             }

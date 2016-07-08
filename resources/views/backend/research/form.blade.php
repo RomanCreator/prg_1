@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">Название исследования</label>
                         <div class="col-sm-9">
-                            <input name="name" id="name" class="form-control" value="{{ isset($name) ? $name : '' }}" >
+                            <input name="name" id="name" class="form-control" value="{{ isset($name) ? $name : '' }}" required>
                         </div>
                     </div>
 

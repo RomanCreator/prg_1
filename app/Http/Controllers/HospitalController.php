@@ -70,10 +70,10 @@ class HospitalController extends Controller
             return redirect('/home/hospitals/create/')->with($message);
         }
 
-        if (!$request->state) {
-            $request->state = 0;
+        if (!$request->status) {
+            $request->status = 0;
         } else {
-            $request->state = 1;
+            $request->status = 1;
         }
 
         /**
@@ -87,11 +87,12 @@ class HospitalController extends Controller
                 $hospital->address = $request->address;
                 $hospital->status = $request->status;
                 $hospital->save();
-
-                Storage::disk('public')->put(
-                    'hospitals/'.$hospital->id,
-                    file_get_contents($request->file('logo')->getRealPath())
-                );
+                if (!empty($request->diagram) && $request->file('logo')->isValid()) {
+                    Storage::disk('public')->put(
+                        'hospitals/'.$hospital->id,
+                        file_get_contents($request->file('logo')->getRealPath())
+                    );
+                }
                 return true;
             });
         } catch (Exception $e) {
