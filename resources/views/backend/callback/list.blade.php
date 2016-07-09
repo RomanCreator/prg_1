@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="alert alert-info" role="alert">
-                            <strong>К сожлению ни одной заявки не оставлено</strong>
+                            <strong>Ни одного элемента не добавлено.</strong>
                         </div>
                     </div>
                 </div>

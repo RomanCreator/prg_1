@@ -63,7 +63,7 @@
                         <?php echo $list->render(); ?>
                         @else
                             <div class="alert alert-info" role="alert">
-                                <strong>К сожлению не добавлено ни одного исследования</strong>
+                                <strong>Ни одного элемента не добавлено.</strong>
                             </div>
                         @endif
                     </div>
