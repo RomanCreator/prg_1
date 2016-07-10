@@ -36,10 +36,7 @@
                     <div class="form-group">
                         <label for="diagram" class="col-sm-3 control-label">Логотип медицинского учреждения</label>
                         <div class="col-sm-9">
-                            @if (isset($logo) && $logo)
-                                <img src="{{ $logo }}">
-                            @endif
-                            <input name="logo" id="logo" type="file">
+                            <input name="logo" id="logo" type="file" data-toggle="imagepicker" data-src="{{ isset($logo) ? $logo : '' }}">
                         </div>
                     </div>
 

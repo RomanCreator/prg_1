@@ -1,0 +1,78 @@
+/*
+Структура разметки:
+<div class="imagepicker__container">
+    <label class="imagepicker">
+        <img class="imagepicker__miniature img-responsive" src="{{ $logo }}">
+        <input class="imagepicker__input" name="logo" id="logo" type="file" data-toggle="imagepicker" data-src="{{ isset($logo) ? $logo : '' }}">
+    </label>
+</div>
+*/
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins/grid.less";
+@import "../bootstrap/mixins/vendor-prefixes.less";
+
+.imagepicker__container {
+    .make-row();
+
+    .imagepicker {
+        .make-lg-column(4);
+        overflow: hidden;
+
+        &__hover-place {
+            position: relative;
+            display: block;
+            min-width: 300px;
+            min-height: 300px;
+            background: url("/img/imgpic_icon_photo.png") no-repeat center;
+            background-size: 64px, 64px;
+
+            cursor: pointer;
+
+            padding: 5px;
+
+            border: 1px solid #7a7a7a;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+
+            &:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: #000000 url("/img/imgpic_icon_add.png") no-repeat center;
+                background-size: 64px, 64px;
+                opacity: 0;
+
+                border-top-right-radius: 2px;
+                border-top-left-radius: 2px;
+                border-bottom-right-radius: 2px;
+                border-bottom-left-radius: 2px;
+
+                .transition (opacity 0.6s ease-out 0.1s);
+
+            }
+
+            &:hover:after {
+                opacity: 0.7;
+            }
+        }
+
+        &__miniature {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+        }
+
+        &__input {
+            display: none;
+        }
+    }
+
+
+}

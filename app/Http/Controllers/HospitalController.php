@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\MessageBag;
+use Image;
 use Storage;
 use Validator;
 
@@ -114,9 +115,22 @@ class HospitalController extends Controller
         $hospital = Hospital::find($id);
 
         $logo = false;
+
         if (Storage::disk('public')->exists('hospitals/'.$id)) {
-            $urlToImg = Storage::disk('public')->url('hospitals/'.$id);
-            $logo = $urlToImg;//Image::make($urlToImg);
+            if (Storage::disk('public')->exists('hospitals/'.$id.'x300x300')) {
+                echo 'work';
+                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(Storage::url('hospitals/'.$id.'x300x300'));
+                $logo = Storage::disk('public')->url('hospitals/'.$id.'x300x300');
+            } else {
+                echo 'work';
+                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(Storage::url('hospitals/'.$id.'x300x300'));
+                $logo = Storage::disk('public')->url('hospitals/'.$id.'x300x300');
+            }
+            //$urlToImg = Storage::disk('public')->url('hospitals/'.$id);
+            //$logo = $urlToImg;//Image::make($urlToImg);
+            //$logo =
+            //$logo->crop(300, 300);
+            //$logo = $logo->response();
         }
 
         return view('backend.hospitals.view', [

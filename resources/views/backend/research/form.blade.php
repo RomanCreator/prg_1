@@ -36,10 +36,7 @@
                     <div class="form-group">
                         <label for="diagram" class="col-sm-3 control-label">Диаграмма исследования</label>
                         <div class="col-sm-9">
-                            @if (isset($diagram) && $diagram)
-                            <img src="{{ $diagram }}">
-                            @endif
-                            <input name="diagram" id="diagram" type="file">
+                            <input name="diagram" id="diagram" type="file" data-toggle="imagepicker" data-src="{{ isset($diagram) ? $diagram : '' }}">
                         </div>
                     </div>
 

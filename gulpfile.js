@@ -34,3 +34,7 @@ elixir(function(mix) {
 elixir(function(mix) {
     mix.scripts('backend/*.js', 'public/js/backend.js');
 });
+
+elixir(function(mix) {
+    mix.copy('resources/assets/img', 'public/img');
+})

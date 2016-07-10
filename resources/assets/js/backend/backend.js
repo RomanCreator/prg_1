@@ -35,6 +35,7 @@ $(document).ready(function () {
         CKEDITOR.replace(id);
     }
 
-    //$('[data-toggle="buttons"]').
+
     $('[data-toggle="countdown"]').countdown();
+    $('[data-toggle="imagepicker"]').imagepicker();
 });
