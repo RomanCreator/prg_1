@@ -88,7 +88,7 @@ class HospitalController extends Controller
                 $hospital->address = $request->address;
                 $hospital->status = $request->status;
                 $hospital->save();
-                if (!empty($request->diagram) && $request->file('logo')->isValid()) {
+                if (!empty($request->logo) && $request->file('logo')->isValid()) {
                     Storage::disk('public')->put(
                         'hospitals/'.$hospital->id,
                         file_get_contents($request->file('logo')->getRealPath())
@@ -117,20 +117,12 @@ class HospitalController extends Controller
         $logo = false;
 
         if (Storage::disk('public')->exists('hospitals/'.$id)) {
-            if (Storage::disk('public')->exists('hospitals/'.$id.'x300x300')) {
-                echo 'work';
-                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(Storage::url('hospitals/'.$id.'x300x300'));
-                $logo = Storage::disk('public')->url('hospitals/'.$id.'x300x300');
-            } else {
-                echo 'work';
-                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(Storage::url('hospitals/'.$id.'x300x300'));
-                $logo = Storage::disk('public')->url('hospitals/'.$id.'x300x300');
+            if (!Storage::disk('public')->exists('hospitals/'.$id.'.derived_300x300.png')) {
+                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(public_path().'/storage/hospitals/'.$id.'.derived_300x300.png');
             }
-            //$urlToImg = Storage::disk('public')->url('hospitals/'.$id);
-            //$logo = $urlToImg;//Image::make($urlToImg);
-            //$logo =
-            //$logo->crop(300, 300);
-            //$logo = $logo->response();
+
+            $logo = Storage::disk('public')->url('hospitals/'.$id.'.derived_300x300.png');
+            $logo .= '?'.time();
         }
 
         return view('backend.hospitals.view', [
@@ -155,7 +147,11 @@ class HospitalController extends Controller
 
         $logo = false;
         if (Storage::disk('public')->exists('hospitals/'.$id)) {
-            $logo = Storage::disk('public')->url('hospitals/'.$id);
+            if (!Storage::disk('public')->exists('hospitals/'.$id.'.derived_300x300.png')) {
+                Image::make(Storage::disk('public')->get('hospitals/'.$id))->crop(300,300)->save(public_path().'/storage/hospitals/'.$id.'.derived_300x300.png');
+            }
+
+            $logo = Storage::disk('public')->url('hospitals/'.$id.'.derived_300x300.png');
             $logo .= '?'.time();
         }
 
