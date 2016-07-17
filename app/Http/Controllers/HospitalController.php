@@ -66,7 +66,7 @@ class HospitalController extends Controller
         /**
          * Проверим файл на корректность
          */
-        if ($request->diagram && !$request->file('logo')->isValid()) {
+        if ($request->logo && !$request->file('logo')->isValid()) {
             $message = new MessageBag(['Не корректный файл']);
             return redirect('/home/hospitals/create/')->with($message);
         }
@@ -210,6 +210,10 @@ class HospitalController extends Controller
         if ($request->logo) {
             if (Storage::disk('public')->exists('hospitals/'.$id)) {
                 Storage::disk('public')->delete('hospitals/'.$id);
+            }
+
+            if (Storage::disk('public')->exists('hospitals/'.$id.'.derived_300x300.png')) {
+                Storage::disk('public')->delete('hospitals/'.$id.'.derived_300x300.png');
             }
 
             Storage::disk('public')->put(

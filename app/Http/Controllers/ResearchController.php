@@ -115,9 +115,14 @@ class ResearchController extends Controller
         $research = Research::find($id);
 
         $diagram = false;
+
         if (Storage::disk('public')->exists('researches/'.$id)) {
-            $urlToImg = Storage::disk('public')->url('researches/'.$id);
-            $diagram = $urlToImg;//Image::make($urlToImg);
+            if (!Storage::disk('public')->exists('researches/'.$id.'.derived_300x300.png')) {
+                Image::make(Storage::disk('public')->get('researches/'.$id))->crop(300,300)->save(public_path().'/storage/researches/'.$id.'.derived_300x300.png');
+            }
+
+            $diagram = Storage::disk('public')->url('researches/'.$id.'.derived_300x300.png');
+            $diagram .= '?'.time();
         }
 
         return view ('backend.research.view', [
@@ -141,8 +146,13 @@ class ResearchController extends Controller
         $research = Research::find($id);
 
         $diagram = false;
+
         if (Storage::disk('public')->exists('researches/'.$id)) {
-            $diagram = Storage::disk('public')->url('researches/'.$id);
+            if (!Storage::disk('public')->exists('researches/'.$id.'.derived_300x300.png')) {
+                Image::make(Storage::disk('public')->get('researches/'.$id))->crop(300,300)->save(public_path().'/storage/researches/'.$id.'.derived_300x300.png');
+            }
+
+            $diagram = Storage::disk('public')->url('researches/'.$id.'.derived_300x300.png');
             $diagram .= '?'.time();
         }
 
@@ -197,6 +207,10 @@ class ResearchController extends Controller
         if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
             if (Storage::disk('public')->exists('researches/'.$id)) {
                 Storage::disk('public')->delete('researches/'.$id);
+            }
+
+            if (Storage::disk('public')->exists('researches/'.$id.'.derived_300x300.png')) {
+                Storage::disk('public')->delete('researches/'.$id.'.derived_300x300.png');
             }
 
             Storage::disk('public')->put(
