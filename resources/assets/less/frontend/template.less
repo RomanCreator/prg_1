@@ -1,0 +1,19 @@
+@import "../bootstrap/mixins/vendor-prefixes.less";
+
+body {
+    font-family: ProbaProRegular, Arial, sans-serif;
+    font-size: 14px;
+
+    background-color: #ffffff;
+    color: #54677a;
+}
+
+a {
+    text-decoration: none;
+    .transition(color 0.3s ease-out 0s);
+
+    &:hover {
+        color: #5ab6e7;
+        text-decoration: none;
+    }
+}

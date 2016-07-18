@@ -36,5 +36,14 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.less('frontend/frontend.less', 'public/css/style.css');
+});
+
+elixir(function(mix) {
     mix.copy('resources/assets/img', 'public/img');
-})
+});
+
+elixir(function(mix) {
+    mix.copy('resources/assets/fonts', 'public/fonts');
+});
+

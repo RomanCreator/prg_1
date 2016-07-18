@@ -1,0 +1,103 @@
+@font-face {
+  font-family: ProbaProItalic;
+  src: url("/fonts/ProbaPro-Italic.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: ProbaProRegular;
+  src: url("/fonts/ProbaPro-Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: ProbaProRegular, Arial, sans-serif;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #54677a;
+}
+a {
+  text-decoration: none;
+  transition: color 0.3s ease-out 0s;
+}
+a:hover {
+  color: #5ab6e7;
+  text-decoration: none;
+}
+.navbar {
+  height: 130px;
+}
+.navbar.navbar-default {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8ecef;
+}
+.navbar.navbar-default .navbar-header .navbar-brand {
+  height: 74px;
+  padding: 28px 28px;
+}
+.mainmenu {
+  margin: 0;
+  padding: 0;
+}
+.mainmenu .mainmenu-item {
+  display: inline-block;
+  float: left;
+  position: relative;
+  padding-top: 23px;
+}
+.mainmenu .mainmenu-item:hover .mainmenu-item-dropdown {
+  opacity: 1;
+}
+.mainmenu .mainmenu-item .mainmenu-item-label {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding: 27px 0;
+  color: #54677a;
+}
+.mainmenu .mainmenu-item .mainmenu-item-label span {
+  display: block;
+  text-align: center;
+  padding: 0 27px;
+  transition: color 0.3s ease-out 0s;
+}
+.mainmenu .mainmenu-item .mainmenu-item-label span.delimiter {
+  border-left: 1px solid #e0e5e9;
+}
+.mainmenu .mainmenu-item .mainmenu-item-label span:hover {
+  color: #5ab6e7;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown {
+  display: block;
+  width: 100%;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  background: url("/img/mainmenu-dropdown-bg.png");
+  transition: all 0.3s ease-out 0s;
+  opacity: 0;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown .mainmenu-item-dropdown-item {
+  display: block;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown .mainmenu-item-dropdown-item:first-child {
+  margin-top: 13px;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown .mainmenu-item-dropdown-item:last-child {
+  margin-bottom: 8px;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown .mainmenu-item-dropdown-item span {
+  display: block;
+  text-align: center;
+  color: #54677a;
+  transition: color 0.3s ease-out 0s;
+}
+.mainmenu .mainmenu-item .mainmenu-item-dropdown .mainmenu-item-dropdown-item span:hover {
+  color: #5ab6e7;
+}
+
+/*# sourceMappingURL=style.css.map */
