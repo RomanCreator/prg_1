@@ -37,11 +37,14 @@ class HospitalController extends Controller
      */
     public function create()
     {
+        $scripts = [];
+        $scripts[] = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
         return view ('backend.hospitals.form', [
             'nameAction' => 'Создание нового учреждения',
             'controllerPathList' => '/home/hospitals/',
             'controllerAction' => 'add',
-            'controllerEntity' => new Hospital()
+            'controllerEntity' => new Hospital(),
+            'scripts' => $scripts
         ]);
     }
 
@@ -87,6 +90,7 @@ class HospitalController extends Controller
                 $hospital->description = $request->description;
                 $hospital->address = $request->address;
                 $hospital->status = $request->status;
+                $hospital->technical_address = $request->technical_address;
                 $hospital->save();
                 if (!empty($request->logo) && $request->file('logo')->isValid()) {
                     Storage::disk('public')->put(
@@ -143,6 +147,9 @@ class HospitalController extends Controller
      */
     public function edit($id)
     {
+        $scripts = [];
+        $scripts[] = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+
         $hospital = Hospital::find($id);
 
         $logo = false;
@@ -161,12 +168,14 @@ class HospitalController extends Controller
             'logo' => $logo,
             'address' => $hospital->address,
             'status' => $hospital->status,
+            'technical_address' => $hospital->technical_address,
 
             'nameAction' => $hospital->name,
             'idEntity' => $hospital->id,
             'controllerPathList' => '/home/hospitals/',
             'controllerAction' => 'edit',
-            'controllerEntity' => new Hospital()
+            'controllerEntity' => new Hospital(),
+            'scripts' => $scripts
         ]);
     }
 
@@ -204,6 +213,7 @@ class HospitalController extends Controller
         $hospital->name = $request->name;
         $hospital->description = $request->description;
         $hospital->address = $request->address;
+        $hospital->technical_address = $request->technical_address;
         $hospital->status = $request->status;
         $hospital->save();
 

@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label for="address" class="col-sm-3 control-label">Адрес</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="address" id="address" value="{{ isset($address) ? $address : '' }}" required>
+                            <input type="text" class="form-control" name="address" id="address" data-toggle="ymap" data-id-modal="map" data-id-map="hosmap" data-hidden-name="technical_address" data-tech-data="{{ isset($technical_address) ? $technical_address : '' }}" value="{{ isset($address) ? $address : '' }}" required>
                         </div>
                     </div>
 

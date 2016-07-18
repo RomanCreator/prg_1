@@ -9,10 +9,15 @@
 
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script type="application/javascript" src="/js/bootstrap.js"></script>
-    <script type="application/javascript" src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
-    <script type="application/javascript" src="/js/backend.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+    @if (isset($scripts))
+        @foreach($scripts as $script)
+            <script type="text/javascript" src="{{ $script }}"></script>
+        @endforeach
+    @endif
+    <script type="text/javascript" src="/js/backend.js"></script>
 
     <!-- Fonts -->
 
