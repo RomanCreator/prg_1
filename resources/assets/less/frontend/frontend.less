@@ -1,6 +1,23 @@
+//Константы поведения
+@transitionColors: color 0.3s ease-out 0s;
+@transitionAll: all 0.3s ease-out 0s;
+
+@fontProbaProRegular: ProbaProRegular, Arial, sans-serif;
+
+
+//Подключаемые глобальные библиотеки
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins/grid.less";
+@import "../bootstrap/mixins/vendor-prefixes.less";
+
+//Основные переопределяющие модули
 @import "fonts.less";
 @import "template.less";
 
+//Компоненты
 @import "navbar.less";
 @import "mainmenu.less";
+@import "promophone.less";
+@import "segmentpanel.less";
+@import "footer.less";
 

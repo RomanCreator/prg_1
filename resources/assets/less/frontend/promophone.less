@@ -1,0 +1,56 @@
+.promophone {
+
+    @media (min-width: 1200px) {
+        display: block;
+        float: right;
+    }
+
+    @media (max-width: 1200px) {
+        display: block;
+        position: absolute;
+        width: 236px;
+        left: 50%;
+        margin-left: -75px;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    padding-left: 35px;
+    margin-top: 39px;
+
+    background: url("/img/phone_icon.png") no-repeat left top;
+    background-size: 23px;
+
+    &__label {
+        display: block;
+        font-size: 15px;
+    }
+
+    &__number {
+        display: block;
+        font-size: 28px;
+        color: #5ab6e7;
+    }
+}
+
+.promophone_static {
+
+    @media (min-width: 1200px) {
+        display: block;
+        float: none;
+    }
+
+    @media (max-width: 1200px) {
+        display: block;
+        position: static;
+        width: 236px;
+        left: 0;
+        margin-left: 0;
+    }
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+}

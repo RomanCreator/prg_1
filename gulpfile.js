@@ -47,3 +47,7 @@ elixir(function(mix) {
     mix.copy('resources/assets/fonts', 'public/fonts');
 });
 
+elixir(function(mix) {
+    mix.browserSync();
+});
+

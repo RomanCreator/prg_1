@@ -1,14 +1,33 @@
-@import "../bootstrap/mixins/vendor-prefixes.less";
-
 .mainmenu {
     margin: 0;
     padding: 0;
+
+    @media (min-width: 1200px) {
+        display: block;
+    }
+
+    @media (max-width: 1200px) {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        display: block;
+        background-color: #ffffff;
+    }
+
+
 
     .mainmenu-item {
         display: inline-block;
         float: left;
         position: relative;
         padding-top: 23px;
+
+        @media (max-width: 768px) {
+            float: none;
+            display: block;
+        }
+
 
         &:hover {
             .mainmenu-item-dropdown {
@@ -26,8 +45,8 @@
             span {
                 display: block;
                 text-align: center;
-                padding: 0 27px;
-                .transition(color 0.3s ease-out 0s);
+                padding: 0 0 0 27px;
+                .transition(@transitionColors);
 
 
                 &.delimiter {
@@ -47,9 +66,14 @@
             padding: 0;
             margin: 0;
             list-style-type: none;
-            background: url("/img/mainmenu-dropdown-bg.png");
-            .transition(all 0.3s ease-out 0s);
+            background: url("/img/mainmenu-dropdown-bg.png") repeat;
+            .transition(@transitionAll);
             opacity: 0;
+
+            @media (max-width: 768px) {
+                position: relative;
+                opacity: 1;
+            }
 
             .mainmenu-item-dropdown-item {
                 display: block;
@@ -70,13 +94,40 @@
                     text-align: center;
                     color: #54677a;
 
-                    .transition(color 0.3s ease-out 0s);
+                    @media (max-width: 768px) {
+                        text-align: left;
+                        padding-left: 54px;
+                    }
+
+                    .transition(@transitionColors);
 
                     &:hover {
                         color: #5ab6e7;
                     }
                 }
             }
+        }
+    }
+}
+
+.mainmenu_reduct {
+
+    padding: 0 0 40px 0;
+
+    .mainmenu-item {
+        display: block;
+        float: none;
+        padding-top: 15px;
+
+
+        &:hover {
+            .mainmenu-item-dropdown {
+                opacity: 0;
+            }
+        }
+
+        .mainmenu-item-label {
+            padding: 0;
         }
     }
 }

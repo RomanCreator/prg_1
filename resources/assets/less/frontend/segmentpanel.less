@@ -1,0 +1,47 @@
+.segmentpanel_promo {
+
+    background: #76b4c7 url("/img/promopanel_bg.jpg") no-repeat center;
+    background-size: cover;
+    min-height: 543px;
+
+}
+
+.segmentpanel_white {
+
+    position: relative;
+    padding: 37px 0;
+
+    &:after,
+    &:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        background: url("/img/segmentpanel_white_divider_bg.png") no-repeat center;
+        width: 125px;
+        height: 66px;
+
+        left: 50%;
+        margin-left: -62px;
+    }
+
+    &:before {
+        top: -50px;
+    }
+
+    &:after {
+        .rotate(180deg);
+        bottom: -50px;
+    }
+
+}
+
+.segmentpanel_blue {
+
+    padding: 50px 0;
+    background-color: #d6e4ea;
+
+}
+
+.segmentpanel {
+    display: block;
+}
