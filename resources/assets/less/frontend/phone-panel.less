@@ -1,0 +1,52 @@
+.phone-panel {
+    display: block;
+    position: relative;
+    z-index: 2;
+    float: right;
+    background: #5ab6e7 url('/img/shadow_phone_panel.png') no-repeat top center;
+    width: 255px;
+    margin: 10px 0 0 0;
+    box-shadow: 0 0 10px 0 #000000;
+
+
+
+    .phone-panel__footer {
+        display: block;
+        position: relative;
+        background-color: #5ab6e7;
+        color: #ffffff;
+        text-align: center;
+        font-size: 17px;
+        padding: 8px 0 0 0;
+        margin-top: 14px;
+        cursor: pointer;
+
+
+        &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 255px;
+            height: 26px;
+            background: transparent url('/img/phone_panel_tail.png') no-repeat bottom center;
+
+        }
+    }
+
+    .phone-panel__body {
+        display: none;
+        width: 255px;
+        text-align: center;
+        margin-top: 42px;
+
+        .form-horizontal {
+            display: inline-block;
+            text-align: left;
+            width: 195px;
+
+            .form-control {
+                border-radius: 0;
+            }
+        }
+    }
+}

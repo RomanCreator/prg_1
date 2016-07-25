@@ -36,6 +36,10 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.scripts('frontend/*.js', 'public/js/frontend.js');
+})
+
+elixir(function(mix) {
     mix.less('frontend/frontend.less', 'public/css/style.css');
 });
 
