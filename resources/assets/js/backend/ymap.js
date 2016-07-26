@@ -1,5 +1,5 @@
 +function ($) {
-    'use strict';
+
 
     var YMapElement = function (element, $options) {
 
@@ -101,9 +101,11 @@
         this.userData = this.$element.val();
 
         this.$templateModal.find('input[name="address"]').val(this.userData);
-        var Placemark = new ymaps.Placemark(this.technicalData);
-        this.map.geoObjects.add(Placemark);
-        this.map.setCenter(this.technicalData, 16);
+        if (ymaps && ymaps.Placemark && this.technicalData.length == 2) {
+            var Placemark = new ymaps.Placemark(this.technicalData);
+            this.map.geoObjects.add(Placemark);
+            this.map.setCenter(this.technicalData, 16);
+        }
     }
 
     /* Функция обработки выбранного объекта на карте */
