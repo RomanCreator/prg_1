@@ -40,6 +40,15 @@
                         </div>
                     </div>
 
+                    @if ($controllerAction === 'edit')
+                        <div class="form-group">
+                            <label for="gallery" class="col-sm-3 control-label">Галерея фотографий</label>
+                            <div class="col-sm-9">
+                                <input name="gallery[]" id="gallery" type="file" data-toggle="imagepickermult" accept="image/*" multiple>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Описание медицинского учреждения</label>
                         <div class="col-sm-9">

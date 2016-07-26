@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hospital;
+use App\ImageStorage;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -162,6 +163,9 @@ class HospitalController extends Controller
             $logo .= '?'.time();
         }
 
+        $IM = new ImageStorage($hospital);
+        $IM->get('gallery');
+
         return view ('backend.hospitals.form', [
             'name' => $hospital->name,
             'description' => $hospital->description,
@@ -231,6 +235,13 @@ class HospitalController extends Controller
                 file_get_contents($request->file('logo')->getRealPath())
             );
         }
+
+        if ($request->gallery) {
+            $IS = new ImageStorage($hospital);
+            $IS->save($request->gallery, 'gallery');
+        }
+
+
 
         return redirect('/home/hospitals/'.$hospital->id.'/edit/')->with(['success'=>['Медицинское учреждение успешно обновлено!']]);
     }
