@@ -57,6 +57,28 @@ class ImageStorage {
         foreach ($uploadedFiles as $uploadedFile) {
             /*Тут добавить проверку на наличие такого же файла по имени*/
             $name = urlencode($uploadedFile->getClientOriginalName());
+
+            $info = pathinfo($name);
+
+            $baseName = basename($name,'.'.$info['extension']);
+            $extension = $info['extension'];
+            $nameIsFree = false;
+            $nameIterator = '';
+            while (!$nameIsFree) {
+                if (Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$nameSpace.'/'.$baseName.$nameIterator.'.'.$extension)) {
+                    if ($nameIterator == '') {
+                        $nameIterator = 1;
+                    } else {
+                        $nameIterator++;
+                    }
+                } else {
+                    $nameIsFree = true;
+                    if ($nameIterator != '') {
+                        $name = $baseName.$nameIterator.'.'.$extension;
+                    }
+                }
+            }
+
             Storage::disk($this::$defaultDisk)->put(
                 $this->pathToDir.$nameSpace.'/'.$name,
                 file_get_contents($uploadedFile->getRealPath())
@@ -71,7 +93,7 @@ class ImageStorage {
     public function get ($nameSpace, $command = null, $param = null) {
         $files = Storage::disk($this::$defaultDisk)->files($this->pathToDir.$nameSpace);
         $filesArray = [];
-        dd($files);
+        //dd($files);
         /*
         foreach ($files as $file) {
             $elem = [];
