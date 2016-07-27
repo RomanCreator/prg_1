@@ -164,7 +164,7 @@ class HospitalController extends Controller
         }
 
         $IM = new ImageStorage($hospital);
-        $IM->get('gallery');
+        $gallery = $IM->getCropped('gallery', 300, 300);
 
         return view ('backend.hospitals.form', [
             'name' => $hospital->name,
@@ -173,6 +173,7 @@ class HospitalController extends Controller
             'address' => $hospital->address,
             'status' => $hospital->status,
             'technical_address' => $hospital->technical_address,
+            'gallery' => $gallery,
 
             'nameAction' => $hospital->name,
             'idEntity' => $hospital->id,

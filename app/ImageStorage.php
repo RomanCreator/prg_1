@@ -15,6 +15,7 @@ namespace App;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Image;
 use Storage;
 
 class ImageStorage {
@@ -87,21 +88,69 @@ class ImageStorage {
     }
 
     /**
+     * Возвращает список всех url путей файлов находящихся в неймспейсе
      * @param $nameSpace
      * @return array
      */
-    public function get ($nameSpace, $command = null, $param = null) {
+    public function get ($nameSpace, $urlPathType=true) {
         $files = Storage::disk($this::$defaultDisk)->files($this->pathToDir.$nameSpace);
         $filesArray = [];
-        //dd($files);
-        /*
+
         foreach ($files as $file) {
-            $elem = [];
-            $elem['url'] = $file->
+            if ($urlPathType) {
+                $filesArray[] = Storage::disk($this::$defaultDisk)->url($file);
+            } else {
+                $filesArray[] = $file;
+            }
         }
 
-        return $filesArray;*/
+        return $filesArray;
     }
+
+    /**
+     * Возвращает массив кропированных изображений находящихся в неймспейсе
+     * если миниатюра изображения уже создана, то просто возвращает url пути
+     * @param $namespace
+     * @param int $width
+     * @param int $height
+     * @return array
+     */
+    public function getCropped ($namespace, $width=300, $height=300) {
+        $files = $this->get($namespace, false);
+        $croppedFiles = [];
+        foreach ($files as $file) {
+            list($baseName, $extension) = $this->getFileNameAndExtension($file);
+
+            if (!Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension)) {
+                Image::make(Storage::disk('public')->get($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension))->crop($width,$height)->save(storage_path('app/'.$this::$defaultDisk.'/'.$this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension));
+
+            }
+
+            $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension);
+        }
+
+        return $croppedFiles;
+    }
+
+
+    /**
+     * Возвращает имя файла и его расширение в виде массива
+     * @param $fullNameOfFile
+     * @return mixed
+     */
+    private function getFileNameAndExtension ($fullNameOfFile) {
+        $info = pathinfo($fullNameOfFile);
+        $baseName = basename($fullNameOfFile,'.'.$info['extension']);
+        $extension = $info['extension'];
+
+        $name = [];
+        $name[] = $baseName;
+        $name[] = $extension;
+
+        return $name;
+    }
+
+
 
 }
 
