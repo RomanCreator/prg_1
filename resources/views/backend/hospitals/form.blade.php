@@ -47,6 +47,11 @@
                                 <input name="gallery[]" id="gallery" type="file" data-toggle="imagepickermult" accept="image/*" multiple>
                             </div>
                         </div>
+                        <div class="form-group">
+                            @foreach($gallery as $gal)
+                                <img src="{{ $gal }}">
+                            @endforeach
+                        </div>
                     @endif
 
                     <div class="form-group">

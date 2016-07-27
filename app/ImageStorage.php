@@ -116,17 +116,21 @@ class ImageStorage {
      * @return array
      */
     public function getCropped ($namespace, $width=300, $height=300) {
-        /* Тут проблема с повторным созданием кропа изображений */
         $files = $this->get($namespace, false);
         $croppedFiles = [];
         foreach ($files as $file) {
             list($baseName, $extension) = $this->getFileNameAndExtension($file);
 
-            if (!Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension)) {
+            if (!preg_match("/(.*)_derived_(.*).{$extension}/", $file) && !Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension)) {
                 Image::make(Storage::disk('public')->get($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension))->crop($width,$height)->save(storage_path('app/'.$this::$defaultDisk.'/'.$this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension));
+                $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension);
+            } else {
+                if (preg_match("/(.*)_derived_{$width}x{$height}.{$extension}/", $file)) {
+                    $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
+                }
             }
 
-            $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension);
+
         }
 
         return $croppedFiles;
@@ -140,9 +144,10 @@ class ImageStorage {
     public function deleteFile ($namespace, $fullNameOfFile) {
         list($baseName, $extension) = $this->getFileNameAndExtension($fullNameOfFile);
         $files = $this->get($namespace, false);
+        //echo $this->pathToDir.$namespace.'/'.$baseName.'.'.$extension;
         Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
         foreach ($files as $file) {
-            if (preg_match_all("/{$baseName}_derived(.*).{$extension}/")) {
+            if (preg_match("/(.*){$baseName}_derived_(.*)/", $file)) {
                 /*Удаляем файл*/
                 list($nameDeletedFiles, $extensionDeletedFiles) = $this->getFileNameAndExtension($file);
                 Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$nameDeletedFiles.'.'.$extensionDeletedFiles);
