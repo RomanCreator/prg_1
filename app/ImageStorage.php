@@ -116,6 +116,7 @@ class ImageStorage {
      * @return array
      */
     public function getCropped ($namespace, $width=300, $height=300) {
+        /* Тут проблема с повторным созданием кропа изображений */
         $files = $this->get($namespace, false);
         $croppedFiles = [];
         foreach ($files as $file) {
@@ -123,13 +124,30 @@ class ImageStorage {
 
             if (!Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension)) {
                 Image::make(Storage::disk('public')->get($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension))->crop($width,$height)->save(storage_path('app/'.$this::$defaultDisk.'/'.$this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension));
-
             }
 
             $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension);
         }
 
         return $croppedFiles;
+    }
+
+    /**
+     * Удаляет файл а так же его диревативы
+     * @param $namespace
+     * @param $fullNameOfFile
+     */
+    public function deleteFile ($namespace, $fullNameOfFile) {
+        list($baseName, $extension) = $this->getFileNameAndExtension($fullNameOfFile);
+        $files = $this->get($namespace, false);
+        Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
+        foreach ($files as $file) {
+            if (preg_match_all("/{$baseName}_derived(.*).{$extension}/")) {
+                /*Удаляем файл*/
+                list($nameDeletedFiles, $extensionDeletedFiles) = $this->getFileNameAndExtension($file);
+                Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$nameDeletedFiles.'.'.$extensionDeletedFiles);
+            }
+        }
     }
 
 
