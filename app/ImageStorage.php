@@ -144,7 +144,7 @@ class ImageStorage {
     public function deleteFile ($namespace, $fullNameOfFile) {
         list($baseName, $extension) = $this->getFileNameAndExtension($fullNameOfFile);
         $files = $this->get($namespace, false);
-        //echo $this->pathToDir.$namespace.'/'.$baseName.'.'.$extension;
+
         Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
         foreach ($files as $file) {
             if (preg_match("/(.*){$baseName}_derived_(.*)/", $file)) {

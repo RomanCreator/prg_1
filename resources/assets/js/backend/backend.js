@@ -39,4 +39,5 @@ $(document).ready(function () {
     $('[data-toggle="countdown"]').countdown();
     $('[data-toggle="imagepicker"]').imagepicker();
     $('[data-toggle="ymap"]').ymap();
+    $('[data-toggle="imagepickermult"]').imagepickermult();
 });

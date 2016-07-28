@@ -44,13 +44,10 @@
                         <div class="form-group">
                             <label for="gallery" class="col-sm-3 control-label">Галерея фотографий</label>
                             <div class="col-sm-9">
-                                <input name="gallery[]" id="gallery" type="file" data-toggle="imagepickermult" accept="image/*" multiple>
+                                <input name="gallery[]" id="gallery" type="file" data-toggle="imagepickermult" accept="image/*" multiple
+                                data-upload-images="@foreach($gallery as $gal){{ $gal }},@endforeach"
+                                >
                             </div>
-                        </div>
-                        <div class="form-group">
-                            @foreach($gallery as $gal)
-                                <img src="{{ $gal }}">
-                            @endforeach
                         </div>
                     @endif
 
