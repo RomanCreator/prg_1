@@ -52,6 +52,7 @@ class ImageStorage {
             Storage::disk($this::$defaultDisk)->makeDirectory($this->pathToDir.$nameSpace);
         }
 
+        print_r($uploadedFiles);
         /* Мы не можем сохранить пустоту */
         if (is_null($uploadedFiles)) {
             return;
