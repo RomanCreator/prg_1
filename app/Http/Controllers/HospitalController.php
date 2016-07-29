@@ -166,8 +166,6 @@ class HospitalController extends Controller
         $IM = new ImageStorage($hospital);
         $gallery = $IM->getCropped('gallery', 300, 300);
 
-        //$IM->deleteFile('gallery', '1432842014_av-425608.jpg');
-
         return view ('backend.hospitals.form', [
             'name' => $hospital->name,
             'description' => $hospital->description,
