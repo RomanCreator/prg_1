@@ -52,6 +52,9 @@
                     } else {
                         self.$template.find('img.imagepicker__miniature').attr('src', e.target.result);
                     }
+                    self.$template.find('.imagepicker__hover-place').css({
+                        'background':'transparent'
+                    });
                 };
             })(file);
 
