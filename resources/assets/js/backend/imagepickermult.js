@@ -26,17 +26,71 @@
                             '</label>'+
                         '</div>';
 
+        this.templateImg = '<div class="imagepickermult__item">'+
+                                '<div class="imagepickermult__item__container">'+
+                                    '<img>'+
+                                    '<span class="imagepickermult__ation-panel">'+
+                                        '<button class="imagepickermult__btn imagepickermult__btn_remove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>'+
+                                    '</span>'+
+                                '</div>'+
+                            '</div>';
+        this.deleteInputTmp = '<input type="hidden">';
+
         $elem.after($template);
         $elem.css({
             'display':'none'
         });
 
         this.$addBtn = $(addBtnTpl);
+        this.$elem = $elem;
+        this.$template = $template;
+
         $template.append(this.$addBtn);
 
         this.$addBtn.find('label').append($elem);
 
+        var self = this;
         /* Тут инициализация действий при выборе изображения, изображений */
+        this.$elem.bind('change', function () {
+            self.addSelectedImage();
+        });
+    };
+
+    ImagePickerAddItem.prototype.addSelectedImage = function () {
+        /* Создаем миниатюру */
+        /* Перемещаем туда наш $elem */
+        /* Помещаем в кнопку добавления клон */
+        var files = this.$elem[0].files;
+
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            var self = this;
+            reader.onload = (function (files){
+                return function (e) {
+                    console.log (files);
+                    var $Image = $(self.templateImg);
+                    $Image.find('img').attr('src', e.target.result);
+                    $Image.find('.imagepicker__hover-place').css({
+                        'background':'transparent'
+                    });
+                    $Image.data('file-name', files.name);
+                    $Image.find('.imagepickermult__btn_remove').bind('click.imagepickermult', function () {
+                        var name = $(this).closest('.imagepickermult__item').data('file-name');
+                        var nameElem = self.$elem.attr('name')+"[notupload]";
+                        var $input = $(self.deleteInputTmp);
+                        $input.attr('name', nameElem);
+                        $input.val(name);
+                        $(this).closest('.imagepickermult__item').after($input);
+                        $(this).closest('.imagepickermult__item').remove();
+
+                    });
+
+                    self.$template.find('.add-toggle').before($Image);
+                };
+            })(files[i]);
+            reader.readAsDataURL(files[i]);
+        }
+
     };
 
     var ImagePickerMult = function (option) {

@@ -57,6 +57,8 @@ class ImageStorage {
             return;
         }
 
+        dd($uploadedFiles);
+
         /**
          * @var $uploadedFile UploadedFile
          */
