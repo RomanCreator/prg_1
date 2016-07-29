@@ -52,7 +52,6 @@ class ImageStorage {
             Storage::disk($this::$defaultDisk)->makeDirectory($this->pathToDir.$nameSpace);
         }
 
-        print_r($uploadedFiles);
         /* Мы не можем сохранить пустоту */
         if (is_null($uploadedFiles)) {
             return;
@@ -62,34 +61,36 @@ class ImageStorage {
          * @var $uploadedFile UploadedFile
          */
         foreach ($uploadedFiles as $uploadedFile) {
-            /*Тут добавить проверку на наличие такого же файла по имени*/
-            $name = urlencode($uploadedFile->getClientOriginalName());
+            if (!empty($uploadedFile)) {
+                /*Тут добавить проверку на наличие такого же файла по имени*/
+                $name = urlencode($uploadedFile->getClientOriginalName());
 
-            $info = pathinfo($name);
+                $info = pathinfo($name);
 
-            $baseName = basename($name,'.'.$info['extension']);
-            $extension = $info['extension'];
-            $nameIsFree = false;
-            $nameIterator = '';
-            while (!$nameIsFree) {
-                if (Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$nameSpace.'/'.$baseName.$nameIterator.'.'.$extension)) {
-                    if ($nameIterator == '') {
-                        $nameIterator = 1;
+                $baseName = basename($name,'.'.$info['extension']);
+                $extension = $info['extension'];
+                $nameIsFree = false;
+                $nameIterator = '';
+                while (!$nameIsFree) {
+                    if (Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$nameSpace.'/'.$baseName.$nameIterator.'.'.$extension)) {
+                        if ($nameIterator == '') {
+                            $nameIterator = 1;
+                        } else {
+                            $nameIterator++;
+                        }
                     } else {
-                        $nameIterator++;
-                    }
-                } else {
-                    $nameIsFree = true;
-                    if ($nameIterator != '') {
-                        $name = $baseName.$nameIterator.'.'.$extension;
+                        $nameIsFree = true;
+                        if ($nameIterator != '') {
+                            $name = $baseName.$nameIterator.'.'.$extension;
+                        }
                     }
                 }
-            }
 
-            Storage::disk($this::$defaultDisk)->put(
-                $this->pathToDir.$nameSpace.'/'.$name,
-                file_get_contents($uploadedFile->getRealPath())
-            );
+                Storage::disk($this::$defaultDisk)->put(
+                    $this->pathToDir.$nameSpace.'/'.$name,
+                    file_get_contents($uploadedFile->getRealPath())
+                );
+            }
         }
     }
 
