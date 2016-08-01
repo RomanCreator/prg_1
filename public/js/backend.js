@@ -242,9 +242,28 @@ $(document).ready(function () {
         nameOfFile = nameOfFile[nameOfFile.length-1];
         this.$elem.find('button.imagepickermult__btn_remove').data('name', nameOfFile);
         $template.prepend(this.$elem);
+        this.$template = $template;
+
+        var self = this;
 
         /* Тут инициализация действий при нажатии на кнопку */
+        this.$elem.find('.imagepickermult__btn_remove').bind('click.imagepickermult', function () {
+            self.deleteItem();
+            return false;
+        });
     };
+
+    ImagePickerMultItem.prototype.deleteItem = function () {
+        var templateInput = '<input type="hidden">';
+        var nameSpace = this.$template.data('namespace');
+        nameSpace = nameSpace+'[][remove]';
+
+        var nameOfFile = this.$elem.find('button.imagepickermult__btn_remove').data('name');
+        var $InputToRemove = $(templateInput);
+        $InputToRemove.attr('name', nameSpace).val(nameOfFile);
+        this.$elem.after($InputToRemove);
+        this.$elem.remove();
+    }
 
     var ImagePickerAddItem = function ($elem, $template) {
         var addBtnTpl = '<div class="imagepickermult__item add-toggle">'+
@@ -342,10 +361,11 @@ $(document).ready(function () {
 
             var $template = $(template);
             $template.data('namespace', namespace);
+            /*
             var $hiddenInput = $(hiddenNamespace);
             $hiddenInput.attr('name', 'namespace');
             $hiddenInput.val(namespace);
-            $template.append($hiddenInput);
+            $template.append($hiddenInput);*/
             /* Создаем кнопку добалвения элементов */
             new ImagePickerAddItem($elem, $template);
 
@@ -511,12 +531,15 @@ $(document).ready(function () {
                                                     '<div class="modal-content">'+
                                                         '<form class="form-horizontal">'+
                                                             '<div class="modal-header">'+
+                                                                'Выбор местаположения'+
                                                                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
                                                                     '<span aria-hidden="true">&times;</span>'+
                                                                 '</button>'+
                                                                 '<h4 class="modal-title"></h4>'+
                                                             '</div>'+
                                                             '<div class="modal-body">'+
+                                                                '<div class="alert alert-info">Введите необходимый адрес в стрку поиска на карте и нажмите Enter<br>'+
+                                                                'Убедитесь что соответствующий адрес отображается в поле под картой</div>'+
                                                                 '<div class="form-group maps">'+
                                                                     '<div class="col-sm-12" id="" style="height:300px;"></div>'+
                                                                 '</div>'+

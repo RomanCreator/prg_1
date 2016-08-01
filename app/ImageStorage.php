@@ -57,6 +57,27 @@ class ImageStorage {
             return;
         }
 
+        //dd($_REQUEST);
+
+        /* Удалим изображения, которые удалил пользователь в форме */
+        if (isset($_REQUEST[$nameSpace])) {
+            foreach($_REQUEST[$nameSpace] as $fileToDelete) {
+                if (isset($fileToDelete['remove'])) {
+                    $this->deleteFile($nameSpace, $fileToDelete['remove']);
+                }
+            }
+        }
+
+        $notSaveImage = [];
+        /* Определим файлы которые были удалены перед отправкой формы */
+        if (isset($_REQUEST[$nameSpace])) {
+            foreach($_REQUEST[$nameSpace] as $filename) {
+                if (isset($filename['notupload'])) {
+                    $notSaveImage[] = urlencode($filename['notupload']);
+                }
+            }
+        }
+
         /**
          * @var $uploadedFile UploadedFile
          */
@@ -64,6 +85,20 @@ class ImageStorage {
             if (!empty($uploadedFile)) {
                 /*Тут добавить проверку на наличие такого же файла по имени*/
                 $name = urlencode($uploadedFile->getClientOriginalName());
+
+                /* Поищем полученное имя в массиве для файлов которые не надо загружать */
+                if (!empty($notSaveImage)) {
+                    $skipSave = false;
+                    foreach ($notSaveImage as $notSaveName) {
+                        if ($name === $notSaveName) {
+                            $skipSave = true;
+                        }
+                    }
+
+                    if ($skipSave) {
+                        continue;
+                    }
+                }
 
                 $info = pathinfo($name);
 
@@ -151,6 +186,14 @@ class ImageStorage {
     public function deleteFile ($namespace, $fullNameOfFile) {
         list($baseName, $extension) = $this->getFileNameAndExtension($fullNameOfFile);
         $files = $this->get($namespace, false);
+
+        /* Тут предполагаем что почти всегда будет диреватив файла */
+        /* По этому готовим правильное имя */
+        $clearName = preg_replace('/_derived_(.*)/i', '', $baseName);
+        if ($clearName !== $baseName) {
+            /* Было передано имя дереватива, так что изменим $baseName */
+            $baseName = $clearName;
+        }
 
         Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
         foreach ($files as $file) {

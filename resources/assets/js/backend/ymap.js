@@ -140,12 +140,15 @@
                                                     '<div class="modal-content">'+
                                                         '<form class="form-horizontal">'+
                                                             '<div class="modal-header">'+
+                                                                'Выбор местаположения'+
                                                                 '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
                                                                     '<span aria-hidden="true">&times;</span>'+
                                                                 '</button>'+
                                                                 '<h4 class="modal-title"></h4>'+
                                                             '</div>'+
                                                             '<div class="modal-body">'+
+                                                                '<div class="alert alert-info">Введите необходимый адрес в стрку поиска на карте и нажмите Enter<br>'+
+                                                                'Убедитесь что соответствующий адрес отображается в поле под картой</div>'+
                                                                 '<div class="form-group maps">'+
                                                                     '<div class="col-sm-12" id="" style="height:300px;"></div>'+
                                                                 '</div>'+
