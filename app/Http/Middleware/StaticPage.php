@@ -24,7 +24,7 @@ class StaticPage
                 $page = $page->first();
                 Route::get('/'.$request->path().'/', function () use($page) {
                     $Controller = new \App\Http\Controllers\StaticPageFrontendController();
-                    $Controller->showPage($page);
+                    return $Controller->showPage($page);
                 });
             }
         }

@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $hospitals = Hospital::where('status', 1)
+        ->take(5)
+        ->get();
+    return view('welcome', [
+        'hospitals' => $hospitals
+    ]);
 });
 
 

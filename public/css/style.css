@@ -36,6 +36,7 @@ h2 {
   font-size: 30px;
   text-align: center;
   color: #5ab6e7;
+  margin: 20px 0;
 }
 .as_h1 {
   display: block;
@@ -49,15 +50,14 @@ h2 {
   color: #54677a;
 }
 .navbar {
-  height: 130px;
+  height: 142px;
   margin-bottom: 0px;
 }
 .navbar.navbar-default {
   background-color: #ffffff;
   border-bottom: 1px solid #e8ecef;
 }
-.navbar.navbar-default:after {
-  content: " ";
+.navbar.navbar-default .divider {
   display: block;
   height: 12px;
   background-color: #d5dbe1;
@@ -136,8 +136,9 @@ h2 {
   width: 100%;
   position: absolute;
   padding: 0;
-  margin: 0;
+  margin: -10px 0 0 0;
   list-style-type: none;
+  z-index: 10;
   background: url("/img/mainmenu-dropdown-bg.png") repeat;
   transition: all 0.3s ease-out 0s;
   opacity: 0;
@@ -278,6 +279,9 @@ h2 {
 .segmentpanel {
   display: block;
 }
+.segmentpanel .container {
+  position: relative;
+}
 .info-panel {
   display: inline-block;
   position: relative;
@@ -305,12 +309,12 @@ h2 {
 }
 .phone-panel {
   display: block;
-  position: relative;
-  z-index: 2;
-  float: right;
+  position: absolute;
+  right: 0;
+  top: -12px;
+  z-index: 1200;
   background: #5ab6e7 url('/img/shadow_phone_panel.png') no-repeat top center;
   width: 255px;
-  margin: 10px 0 0 0;
   box-shadow: 0 0 10px 0 #000000;
 }
 .phone-panel .phone-panel__footer {

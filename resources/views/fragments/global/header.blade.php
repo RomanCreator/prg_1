@@ -27,7 +27,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="mainmenu">
                 <li class="mainmenu-item">
-                    <a href="#" class="mainmenu-item-label">
+                    <a href="/information/" class="mainmenu-item-label">
                         <span class="delimiter">Информация</span>
                     </a>
                 </li>
@@ -67,4 +67,5 @@
 
         </div>
     </div>
+    <div class="divider"></div>
 </header>

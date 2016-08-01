@@ -9,8 +9,11 @@ use App\Http\Requests;
 class StaticPageFrontendController extends Controller
 {
     public function showPage($page) {
-        dd('ураааа есть такая страница');
-        return view('welcome');
-
+        return view('static', [
+            'keywords' => $page->keywords,
+            'description' => $page->description,
+            'title' => $page->title,
+            'content' => $page->content
+        ]);
     }
 }
