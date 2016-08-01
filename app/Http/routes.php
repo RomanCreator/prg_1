@@ -11,10 +11,26 @@
 |
 */
 
+use App\Hospital;
+
 Route::get('/', function () {
     $hospitals = Hospital::where('status', 1)
         ->take(5)
         ->get();
+    foreach ($hospitals as &$hospital) {
+        if (Storage::disk('public')->exists('hospitals/'.$hospital->id)) {
+            if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_150x200.png')) {
+                Image::make(Storage::disk('public')
+                    ->get('hospitals/'.$hospital->id))
+                    ->crop(150,200)
+                    ->save(public_path().'/storage/hospitals/'.$hospital->id.'.derived_150x200.png');
+            }
+
+            $hospital->logo = Storage::disk('public')->url('hospitals/'.$hospital->id.'.derived_150x200.png');
+            $hospital->logo .= '?'.time();
+        }
+    }
+
     return view('welcome', [
         'hospitals' => $hospitals
     ]);

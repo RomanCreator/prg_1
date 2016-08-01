@@ -35,6 +35,26 @@
     <div class="segmentpanel segmentpanel_white">
         <div class="container">
             <h1>Медицинские центры в Cанкт-петербурге</h1>
+            Тут выводим карту
+            @if (isset($hospitals))
+                @foreach($hospitals as $hospital)
+                <div class="hospitals">
+
+                    <div class="hospitals__item">
+                        <img class="hospitals__item__cover" src="{{ $hospital->logo }}">
+                        <div class="hospitals__item__info">
+                            <a class="hospitals__item__name" href="hospitals/{{$hospital->id}}">{{$hospital->name}}</a>
+                            <div class="hospitals__item__address">
+                                {{ $hospital->address }}
+                            </div>
+                        </div>
+                        <div class="hospitals__item__action">
+                            <button class="btn btn-info">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            @endif
         </div>
     </div>
     <div class="segmentpanel segmentpanel_blue">
