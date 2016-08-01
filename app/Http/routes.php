@@ -74,5 +74,8 @@ Route::group(['middleware' => 'auth'], function() {
      * Управление завками на обратный звонок
      */
     Route::resource('/home/callback', 'CallBackRequestController');
+
 });
+
+
 
