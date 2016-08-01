@@ -28,6 +28,7 @@ class StaticPage
                 });
             }
         }
+
         return $next($request);
     }
 }

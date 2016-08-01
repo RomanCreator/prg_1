@@ -11,5 +11,6 @@ class StaticPageFrontendController extends Controller
     public function showPage($page) {
         dd('ураааа есть такая страница');
         return view('welcome');
+
     }
 }
