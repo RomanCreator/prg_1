@@ -92,6 +92,11 @@ class HospitalController extends Controller
                 $hospital->address = $request->address;
                 $hospital->status = $request->status;
                 $hospital->technical_address = $request->technical_address;
+                /* Сохранение метро */
+                $technicalJSON = json_decode($request->technical_address, true);
+                if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
+                    $hospital->subway = $technicalJSON['stops'][0]['name'];
+                }
                 $hospital->save();
                 if (!empty($request->logo) && $request->file('logo')->isValid()) {
                     Storage::disk('public')->put(
@@ -219,6 +224,10 @@ class HospitalController extends Controller
         $hospital->description = $request->description;
         $hospital->address = $request->address;
         $hospital->technical_address = $request->technical_address;
+        $technicalJSON = json_decode($request->technical_address, true);
+        if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
+            $hospital->subway = $technicalJSON['stops'][0]['name'];
+        }
         $hospital->status = $request->status;
         $hospital->save();
 

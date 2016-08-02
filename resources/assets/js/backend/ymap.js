@@ -23,21 +23,25 @@
             throw new Error('Не подключены яндекс карты');
         }
 
+        /* Проинициализируем поле с технической информацией об адресе */
         this.nameTechInput = this.$element.data('hidden-name');
         if (this.nameTechInput == undefined || this.nameTechInput == '') {
             throw new Error('Не задан атрибут data-hidden-name');
         }
 
         /* Посмотрим технические данные и человекопонятный адрес в элементе */
-        this.technicalData = this.$element.data('tech-data');
+        try {
+            this.technicalData = JSON.parse(this.$element.data('tech-data'));
+        } catch (err) {
+            this.technicalData = {};
+        }
+
         this.userData = this.$element.val();
 
         /* Добавляем поле для сохранения технической информации */
         this.$hiddenInput = $('<input type="hidden">');
         this.$hiddenInput.attr('name', this.nameTechInput);
-        this.$hiddenInput.val(this.technicalData);
-        /* Преобразуем технические данные в массив для дальнейшей работы */
-        this.technicalData = this.technicalData.split(',');
+        this.$hiddenInput.val(JSON.stringify(this.technicalData));
         this.$element.after(this.$hiddenInput);
 
         /* Текуший элемент только readonly */
@@ -50,21 +54,23 @@
 
 
         var self = this;
-        this.$element.on('click', function() {
-            /* инициализируем карту исходя из установленных значений */
-            self.initMap();
-            $('#'+self.idModal).modal('show');
-        });
 
-        /* Инизиализируем сохранение данных после выбора объекта на карте */
-        this.$templateModal.find('form').on('submit', function () {
-            self.saveSelectedObject();
-            $('#'+self.idModal).modal('hide');
-            return false;
-        })
-
-        /* Инициализируем карту */
+        /* Инициализируем карту и поведение элемента */
         ymaps.ready(function () {
+
+            self.$element.on('click', function() {
+                /* инициализируем карту исходя из установленных значений */
+                self.initMap();
+                $('#'+self.idModal).modal('show');
+            });
+
+            /* Инизиализируем сохранение данных после выбора объекта на карте */
+            self.$templateModal.find('form').on('submit', function () {
+                self.saveSelectedObject();
+                $('#'+self.idModal).modal('hide');
+                return false;
+            });
+
             self.map = new ymaps.Map(self.idMap, {
                 center: self.defaults.defaultShowPoint,
                 zoom: self.defaults.zoom,
@@ -73,7 +79,8 @@
 
             self.searchControl = new ymaps.control.SearchControl({
                 options: {
-                    provider: 'yandex#search'
+                    provider: 'yandex#search',
+                    kind: 'district'
                 }
             });
 
@@ -95,16 +102,36 @@
     };
 
     YMapElement.prototype.initMap = function () {
+        console.log ('initMap');
         /* Берем техническую информацию, создаем объект геолокации, добавляем его на карту */
-        this.technicalData = this.$element.data('tech-data');
-        this.selectedCoordinats = this.technicalData = this.technicalData.split(',');
+        try {
+            this.technicalData = this.$element.data('tech-data');
+            if ((typeof this.technicalData) !== 'object') {
+                this.technicalData = JSON.parse(this.technicalData);
+            }
+        } catch (err) {
+            this.technicalData = {};
+        }
+        if (this.technicalData.coordinates) {
+            this.selectedCoordinats = this.technicalData.coordinates;
+        } else {
+            this.selectedCoordinats = undefined;
+        }
+
+        if (this.technicalData.stops) {
+            this.stops = this.technicalData.stops;
+        } else {
+            this.stops = undefined;
+        }
+
+
         this.userData = this.$element.val();
 
         this.$templateModal.find('input[name="address"]').val(this.userData);
-        if (ymaps && ymaps.Placemark && this.technicalData.length == 2) {
-            var Placemark = new ymaps.Placemark(this.technicalData);
+        if (ymaps && ymaps.Placemark && this.technicalData.coordinates && this.technicalData.coordinates.length == 2) {
+            var Placemark = new ymaps.Placemark(this.technicalData.coordinates);
             this.map.geoObjects.add(Placemark);
-            this.map.setCenter(this.technicalData, 16);
+            this.map.setCenter(this.technicalData.coordinates, 16);
         }
     }
 
@@ -112,19 +139,33 @@
     YMapElement.prototype.objectSelected = function (searchResult) {
         /* searchResult тип IGeoObject */
         /* Достаем человекопонятный адрес и координаты */
-        this.$templateModal.find('input[name="address"]').val(searchResult.properties._data.address);
+        this.$templateModal.find('input[name="address"]').val(searchResult.properties.get('address'));//searchResult.properties._data.address);
         this.selectedCoordinats = searchResult.geometry.getCoordinates();
+        this.stops = searchResult.properties.get('stops'); //Получили ближайшие станции метро, их может быть несколько
     }
 
     /* Функция для присвоения полученного результата в соответствующие поля формы для дальнейшего сохранения */
     YMapElement.prototype.saveSelectedObject = function () {
         var coordinats = this.selectedCoordinats;
         var textOfAddress = this.$templateModal.find('input[name="address"]').val();
+        var stops = this.stops;
 
         if (coordinats != '' && textOfAddress != '') {
             this.$element.val(textOfAddress);
-            this.$element.data('tech-data', coordinats.join(','));
-            this.$hiddenInput.val(coordinats);
+            var data;
+            try {
+                data = this.$element.data('tech-data');
+                if ((typeof data) !== 'object') {
+                    data = JSON.parse(data);
+                }
+            } catch (err) {
+                data = {};
+            }
+
+            data.coordinates = coordinats;
+            data.stops = stops;
+            this.$element.data('tech-data', JSON.stringify(data));
+            this.$hiddenInput.val(JSON.stringify(data));
         }
     }
 
