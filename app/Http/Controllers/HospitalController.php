@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\District;
 use App\Hospital;
 use App\ImageStorage;
 use DB;
@@ -41,6 +42,7 @@ class HospitalController extends Controller
         $scripts = [];
         $scripts[] = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
         return view ('backend.hospitals.form', [
+            'districts' => District::all(),
             'nameAction' => 'Создание нового учреждения',
             'controllerPathList' => '/home/hospitals/',
             'controllerAction' => 'add',
@@ -91,6 +93,7 @@ class HospitalController extends Controller
                 $hospital->description = $request->description;
                 $hospital->address = $request->address;
                 $hospital->status = $request->status;
+                $hospital->district = $request->district;
                 $hospital->technical_address = $request->technical_address;
                 /* Сохранение метро */
                 $technicalJSON = json_decode($request->technical_address, true);
@@ -135,7 +138,15 @@ class HospitalController extends Controller
             $logo .= '?'.time();
         }
 
+        $districts = District::all();
+        foreach ($districts as &$district) {
+            if ($district->id == $hospital->district) {
+                $district->selected = 'selected';
+            }
+        }
+
         return view('backend.hospitals.view', [
+            '$districts' => $districts,
             'nameAction' => $hospital->name,
             'name' => $hospital->name,
             'logo' => $logo,
@@ -171,7 +182,15 @@ class HospitalController extends Controller
         $IM = new ImageStorage($hospital);
         $gallery = $IM->getCropped('gallery', 300, 300);
 
+        $districts = District::all();
+        foreach ($districts as &$district) {
+            if ($district->id == $hospital->district) {
+                $district->selected = 'selected';
+            }
+        }
+
         return view ('backend.hospitals.form', [
+            'districts' => $districts,
             'name' => $hospital->name,
             'description' => $hospital->description,
             'logo' => $logo,
@@ -228,6 +247,7 @@ class HospitalController extends Controller
         if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
             $hospital->subway = $technicalJSON['stops'][0]['name'];
         }
+        $hospital->district = $request->district;
         $hospital->status = $request->status;
         $hospital->save();
 

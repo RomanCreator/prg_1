@@ -21,6 +21,9 @@
                 @can('index', new App\Research())
                 <li><a href="{{ url('/home/research/') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Исследования</a></li>
                 @endcan
+                @can('index', new App\District())
+                <li><a href="{{ url('/home/districts/') }}"><i class="fa fa-map-signs" aria-hidden="true"></i> Районы города</a> </li>
+                @endcan
             </ul>
         </li>
         <li>

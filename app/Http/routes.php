@@ -97,6 +97,11 @@ Route::group(['middleware' => 'auth'], function() {
      */
     Route::resource('/home/callback', 'CallBackRequestController');
 
+    /**
+     * Управление районами города
+     */
+    Route::resource('/home/districts', 'DistrictController');
+
 });
 
 

@@ -69,6 +69,21 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="district" class="col-sm-3 control-label">Район города</label>
+                        <div class="col-sm-9">
+                            <select name="district" class="form-control" id="district">
+                                @if($districts)
+                                    @foreach($districts as $district)
+                                        <option value="{{ $district->id }}" {{ $district->selected }}>{{ $district->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
                         <label for="status" class="col-sm-3 control-label">Статус медицинского учреждения</label>
                         <div class="col-sm-9">
                             <div class="btn-group" data-toggle="buttons">

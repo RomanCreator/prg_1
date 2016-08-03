@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use App\District;
 use App\Hospital;
 use App\Price;
 use App\Research;
@@ -32,6 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         Research::class => ModelPolicy::class,
         Hospital::class => ModelPolicy::class,
         Price::class => ModelPolicy::class,
+        District::class => ModelPolicy::class,
     ];
 
     /**
