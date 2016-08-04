@@ -100,6 +100,7 @@ class HospitalController extends Controller
                 if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
                     $hospital->subway = $technicalJSON['stops'][0]['name'];
                 }
+                $hospital->weekwork = $request->worktime;
                 $hospital->save();
                 if (!empty($request->logo) && $request->file('logo')->isValid()) {
                     Storage::disk('public')->put(
@@ -146,7 +147,8 @@ class HospitalController extends Controller
         }
 
         return view('backend.hospitals.view', [
-            '$districts' => $districts,
+            'worktime' => $hospital->weekwork,
+            'districts' => $districts,
             'nameAction' => $hospital->name,
             'name' => $hospital->name,
             'logo' => $logo,
@@ -191,6 +193,7 @@ class HospitalController extends Controller
 
         return view ('backend.hospitals.form', [
             'districts' => $districts,
+            'worktime' => $hospital->weekwork,
             'name' => $hospital->name,
             'description' => $hospital->description,
             'logo' => $logo,
@@ -247,6 +250,7 @@ class HospitalController extends Controller
         if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
             $hospital->subway = $technicalJSON['stops'][0]['name'];
         }
+        $hospital->weekwork = $request->worktime;
         $hospital->district = $request->district;
         $hospital->status = $request->status;
         $hospital->save();

@@ -40,4 +40,5 @@ $(document).ready(function () {
     $('[data-toggle="imagepicker"]').imagepicker();
     $('[data-toggle="ymap"]').ymap();
     $('[data-toggle="imagepickermult"]').imagepickermult();
+    $('[data-toggle="weekwork"]').weekwork();
 });

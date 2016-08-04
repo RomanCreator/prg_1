@@ -81,6 +81,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="worktime" class="col-sm-3 control-label">Время работы</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="worktime" class="form-control" data-toggle="weekwork" id="worktime" value="{{isset($worktime) ? $worktime : ''}}">
+                        </div>
+                    </div>
+
 
 
                     <div class="form-group">

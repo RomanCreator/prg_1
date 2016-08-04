@@ -18,6 +18,25 @@ Route::get('/', function () {
         ->take(5)
         ->get();
     foreach ($hospitals as &$hospital) {
+        /* Получим рабочее время нашего медицинского центра */
+        $timeWorks = $hospital->getWeekWorksTime();
+        $hospital->timeWorks = $timeWorks;
+        /* Получим правильный адрес нашего медицинского центра */
+        /* Так как любой адрес в нашей системе содержит название страны и города */
+        /* Через запятую, то мы можем спокойно их удалить из адреса */
+        $address = $hospital->address;
+        $address = explode(',', $address);
+        if (count($address) > 2) {
+            unset($address[0]);
+            unset($address[1]);
+            ksort($address);
+            $address = implode(', ', $address);
+            $hospital->address = $address;
+        }
+
+
+
+
         if (Storage::disk('public')->exists('hospitals/'.$hospital->id)) {
             if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_150x200.png')) {
                 Image::make(Storage::disk('public')
