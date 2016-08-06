@@ -76,7 +76,7 @@
             if (hours < 0 || hours > 23) {
                 return '00:00';
             } else {
-                if (hours > 0 && hours < 10) {
+                if (hours >= 0 && hours < 10) {
                     hours = '0'+hours;
                 }
             }
@@ -91,7 +91,7 @@
             if (minute < 0 || minute > 59) {
                 return '00:00';
             } else {
-                if (minute > 0 && minute < 10) {
+                if (minute >= 0 && minute < 10) {
                     minute = '0'+minute;
                 }
             }

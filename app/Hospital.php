@@ -84,7 +84,12 @@ class Hospital extends Model
                             $nextIndex = $i;
                         }
                     } else {
-                        $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                        if (isset($stringTime[1])) {
+                            $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                        } else {
+                            $time[] = $stringTime[0].':'.$previousTime;
+                        }
+
                         $stringTime = [];
                         $stringTime[0] = $returnedArr[$i]['day'];
                         $previousTime = $returnedArr[$i]['time'];

@@ -58,7 +58,7 @@
                             <div class="hospitals__item__phone">(812) 490-75-73</div>
                         </div>
                         <div class="hospitals__item__action">
-                            <button class="btn btn-info">Записаться</button>
+                            <button class="btn btn-info checkin">Записаться</button>
                         </div>
                     </div>
                 @endforeach

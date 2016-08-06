@@ -24,21 +24,57 @@
         .hospitals__item__info {
             display: inline-block;
             vertical-align: top;
-            width: 900px;
+            width: 725px;
             margin-right: 20px;
 
             .hospitals__item__name {
                 color: #5ab6e7;
                 text-transform: uppercase;
-                font-size: 30px;
+                font-size: 23px;
+            }
+
+            .hospitals__item__timeToWork {
+                display: block;
+                padding: 0;
+                list-style-type: none;
+
+                li {
+                    display: block;
+
+                    &:first-child {
+                        &:before {
+                            background: transparent url("/img/icon_workweek.png") no-repeat center;
+                        }
+                    }
+
+                    &:before {
+                        display: inline-block;
+                        vertical-align: middle;
+                        content: " ";
+                        background: transparent;
+                        width: 27px;
+                        height: 27px;
+                        margin-right: 13px;
+                    }
+
+                }
             }
         }
 
         .hospitals__item__action {
             display: inline-block;
             vertical-align: top;
-            width: 40px;
+            width: 215px;
             margin: 0;
+
+
+            text-transform: uppercase;
+
+            .btn {
+                font-size: 18px;
+                padding: 7px 33px;
+                text-transform: uppercase;
+            }
         }
     }
 }

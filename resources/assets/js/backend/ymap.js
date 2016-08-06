@@ -31,7 +31,11 @@
 
         /* Посмотрим технические данные и человекопонятный адрес в элементе */
         try {
-            this.technicalData = JSON.parse(this.$element.data('tech-data'));
+            this.technicalData = this.$element.data('tech-data');
+
+            if ((typeof this.technicalData) !== 'object') {
+                this.technicalData = JSON.parse(this.technicalData);
+            }
         } catch (err) {
             this.technicalData = {};
         }
