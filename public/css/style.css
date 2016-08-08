@@ -317,6 +317,22 @@ h2 {
   width: 255px;
   box-shadow: 0 0 10px 0 #000000;
 }
+.phone-panel.phone-panel_static-footer {
+  position: static;
+}
+.phone-panel.phone-panel_static-footer .phone-panel__footer {
+  padding-bottom: 10px;
+}
+.phone-panel.phone-panel_static-footer .phone-panel__footer:after {
+  content: "";
+  display: none;
+  background: none;
+}
+.phone-panel.phone-panel_static-footer .phone-panel__body {
+  display: block;
+  margin-top: 0;
+  padding-top: 42px;
+}
 .phone-panel .phone-panel__footer {
   display: block;
   position: relative;
@@ -497,8 +513,9 @@ h2 {
 }
 .hospitals .hospitals__item .hospitals__item__action .btn {
   font-size: 18px;
-  padding: 7px 33px;
+  padding: 10px 33px 7px 33px;
   text-transform: uppercase;
+  line-height: 1.5em;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -8,6 +8,25 @@
     width: 255px;
     box-shadow: 0 0 10px 0 #000000;
 
+    &.phone-panel_static-footer {
+        position: static;
+
+        .phone-panel__footer {
+            padding-bottom: 10px;
+            &:after {
+                content: "";
+                display: none;
+                background: none;
+            }
+        }
+
+        .phone-panel__body {
+            display: block;
+            margin-top: 0;
+            padding-top: 42px;
+        }
+    }
+
 
 
     .phone-panel__footer {

@@ -13,45 +13,19 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.less('bootstrap/bootstrap.less', 'public/css/bootstrap.css');
-});
-
-elixir(function(mix) {
-    mix.scripts('bootstrap/bootstrap.js', 'public/js/bootstrap.js');
-});
-
-elixir(function(mix) {
-    mix.scripts('jquery/*.js', 'public/js/jquery.js');
-});
-
-elixir(function(mix) {
     mix.less('fontawesome/font-awesome.less', 'public/css/font-awesome.css');
-});
-
-elixir(function(mix) {
     mix.less('backend/*.less', 'public/css/backend.css');
-});
-
-elixir(function(mix) {
-    mix.scripts('backend/*.js', 'public/js/backend.js');
-});
-
-elixir(function(mix) {
-    mix.scripts('frontend/*.js', 'public/js/frontend.js');
-})
-
-elixir(function(mix) {
     mix.less('frontend/frontend.less', 'public/css/style.css');
-});
 
-elixir(function(mix) {
+    mix.scripts('jquery/*.js', 'public/js/jquery.js');
+    mix.scripts('frontend/*.js', 'public/js/frontend.js');
+    mix.scripts('bootstrap/bootstrap.js', 'public/js/bootstrap.js');
+    mix.scripts('backend/*.js', 'public/js/backend.js');
+
     mix.copy('resources/assets/img', 'public/img');
-});
-
-elixir(function(mix) {
     mix.copy('resources/assets/fonts', 'public/fonts');
-});
 
-elixir(function(mix) {
-    mix.browserSync();
-});
 
+
+
+});

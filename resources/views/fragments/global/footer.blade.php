@@ -39,6 +39,22 @@
                         8 800 888-00-00
                     </div>
                 </div>
+
+                <div class="phone-panel phone-panel_static-footer">
+                    <div class="phone-panel__body">
+                        <form class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="phone" placeholder="Введите номер телефона" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" placeholder="Ваше имя" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="phone-panel__footer">
+                        Заказать звонок
+                    </div>
+                </div>
             </div>
         </div>
     </div>
