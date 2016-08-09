@@ -517,5 +517,11 @@ h2 {
   text-transform: uppercase;
   line-height: 1.5em;
 }
+.searchmap {
+  display: block;
+  height: 649px;
+  border: 2px solid #d5dbe1;
+  margin: 30px 0;
+}
 
 /*# sourceMappingURL=style.css.map */

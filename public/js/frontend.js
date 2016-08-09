@@ -12,6 +12,10 @@ var PhonePanel = function (selector) {
         self.showForm();
     });
 
+    this.$body.bind('click', function (ev) {
+        ev.stopPropagation();
+    });
+
     $('body').bind('click', function (){
         self.hideForm();
     });
@@ -30,6 +34,6 @@ PhonePanel.prototype.sendForm = function () {
 }
 
 $(document).ready (function (){
-    new PhonePanel('.phone-panel');
+    new PhonePanel('.phone-panel.enabled');
 });
 //# sourceMappingURL=frontend.js.map

@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class="phone-panel">
+            <div class="phone-panel enabled">
                 <div class="phone-panel__body">
                     <form class="form-horizontal" method="post">
                         <div class="form-group">
@@ -35,7 +35,9 @@
     <div class="segmentpanel segmentpanel_white">
         <div class="container">
             <h1>Медицинские центры в Cанкт-петербурге</h1>
-            Тут выводим карту
+            <div class="searchmap">
+
+            </div>
             @if (isset($hospitals))
                 <div class="hospitals">
                 @foreach($hospitals as $hospital)
