@@ -73,7 +73,7 @@ class ImageStorage {
         if (isset($_REQUEST[$nameSpace])) {
             foreach($_REQUEST[$nameSpace] as $filename) {
                 if (isset($filename['notupload'])) {
-                    $notSaveImage[] = urlencode($filename['notupload']);
+                    $notSaveImage[] = $filename['notupload'];//urlencode($filename['notupload']);
                 }
             }
         }
@@ -82,9 +82,9 @@ class ImageStorage {
          * @var $uploadedFile UploadedFile
          */
         foreach ($uploadedFiles as $uploadedFile) {
-            if (!empty($uploadedFile)) {
+            if (!empty($uploadedFile) && !isset($uploadedFile->remove) && !isset($uploadedFile->notupload)) {
                 /*Тут добавить проверку на наличие такого же файла по имени*/
-                $name = urlencode($uploadedFile->getClientOriginalName());
+                $name = $uploadedFile->getClientOriginalName();//urlencode($uploadedFile->getClientOriginalName());
 
                 /* Поищем полученное имя в массиве для файлов которые не надо загружать */
                 if (!empty($notSaveImage)) {
@@ -165,10 +165,10 @@ class ImageStorage {
 
             if (!preg_match("/(.*)_derived_(.*).{$extension}/", $file) && !Storage::disk($this::$defaultDisk)->exists($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension)) {
                 Image::make(Storage::disk('public')->get($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension))->crop($width,$height)->save(storage_path('app/'.$this::$defaultDisk.'/'.$this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension));
-                $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'_derived_'.$width.'x'.$height.'.'.$extension);
+                $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.urlencode($baseName).'_derived_'.$width.'x'.$height.'.'.$extension);
             } else {
                 if (preg_match("/(.*)_derived_{$width}x{$height}.{$extension}/", $file)) {
-                    $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.$baseName.'.'.$extension);
+                    $croppedFiles[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.urlencode($baseName).'.'.$extension);
                 }
             }
 
