@@ -35,7 +35,7 @@
     <div class="segmentpanel segmentpanel_white">
         <div class="container">
             <h1>Медицинские центры в Cанкт-петербурге</h1>
-            <div class="searchmap">
+            <div class="searchmap" id="searchmap" data-hospitals='{!! $hospitalsData !!}'>
 
             </div>
             @if (isset($hospitals))

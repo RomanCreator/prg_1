@@ -17,6 +17,7 @@ Route::get('/', function () {
     $hospitals = Hospital::where('status', 1)
         ->take(5)
         ->get();
+
     foreach ($hospitals as &$hospital) {
         /* Получим рабочее время нашего медицинского центра */
         $timeWorks = $hospital->getWeekWorksTime();
@@ -48,10 +49,38 @@ Route::get('/', function () {
             $hospital->logo = Storage::disk('public')->url('hospitals/'.$hospital->id.'.derived_150x200.png');
             $hospital->logo .= '?'.time();
         }
+
+
     }
 
+    $hospitalForMap = Hospital::where('status', 1)->get();
+    $hospitalsData = [];
+    foreach ($hospitalForMap as $hospital) {
+        $timeWorks = $hospital->getWeekWorksTime();
+        $address = $hospital->address;
+        $address = explode(',', $address);
+        if (count($address) > 2) {
+            unset($address[0]);
+            unset($address[1]);
+            ksort($address);
+            $address = implode(', ', $address);
+        }
+
+
+        $localData['technical_address'] = $hospital->technical_address;
+        $localData['name'] = $hospital->name;
+        $localData['district'] = !empty($hospital->getDistrict) ? $hospital->getDistrict->name : '';
+
+        $localData['address'] = $address;
+        $localData['weekwork'] = $timeWorks;
+        $hospitalsData[] = $localData;
+    }
+
+    $hospitalsData = json_encode($hospitalsData);
+
     return view('welcome', [
-        'hospitals' => $hospitals
+        'hospitals' => $hospitals,
+        'hospitalsData' => $hospitalsData
     ]);
 });
 
