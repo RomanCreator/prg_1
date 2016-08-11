@@ -70,7 +70,7 @@ Route::get('/', function () {
         $localData['technical_address'] = $hospital->technical_address;
         $localData['name'] = $hospital->name;
         $localData['district'] = !empty($hospital->getDistrict) ? $hospital->getDistrict->name : '';
-
+        $localData['subway'] = $hospital->subway;
         $localData['address'] = $address;
         $localData['weekwork'] = $timeWorks;
         $hospitalsData[] = $localData;

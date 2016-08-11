@@ -33,6 +33,14 @@
                 font-size: 23px;
             }
 
+            .hospitals__item__address {
+                margin: 10px 0 20px 0;
+
+                .hospitals__item__address__district {
+                    display: block;
+                }
+            }
+
             .hospitals__item__timeToWork {
                 display: block;
                 padding: 0;
@@ -57,6 +65,18 @@
                         margin-right: 13px;
                     }
 
+                }
+            }
+
+            .hospitals__item__phone {
+                &:before {
+                    display: inline-block;
+                    vertical-align: middle;
+                    content: " ";
+                    background: transparent url("/img/phone_icon_1.png") no-repeat center;
+                    width: 21px;
+                    height: 21px;
+                    margin-right: 17px;
                 }
             }
         }

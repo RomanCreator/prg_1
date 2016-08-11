@@ -38,6 +38,24 @@
             <div class="searchmap" id="searchmap" data-hospitals='{!! $hospitalsData !!}'>
 
             </div>
+            <form action="/" method="post" class="search-panel">
+                <div class="search-panel__elem col-lg-4 col-md-4">
+                    <input type="text" name="district" class="form-element" placeholder="Введите метро или район">
+                </div>
+                <div class="search-panel__elem col-lg-3 col-md-3">
+                    <select name="type_equipment" class="form-element" data-toggle="jselect">
+                        <option selected disabled>Тип томографа</option>
+                    </select>
+                </div>
+                <div class="search-panel__elem col-lg-4 col-md-4">
+                    <select name="type_equipment" class="form-element" data-toggle="jselect">
+                        <option selected disabled>Тип исследования</option>
+                    </select>
+                </div>
+                <div class="col-lg-1 col-md-1">
+                    <button type="submit" class="btn btn-search"></button>
+                </div>
+            </form>
             @if (isset($hospitals))
                 <div class="hospitals">
                 @foreach($hospitals as $hospital)
@@ -46,7 +64,7 @@
                         <div class="hospitals__item__info">
                             <a class="hospitals__item__name" href="hospitals/{{$hospital->id}}">{{$hospital->name}}</a>
                             <div class="hospitals__item__address">
-                                {{ !empty($hospital->getDistrict) ? $hospital->getDistrict->name : '' }}<br>
+                                <span class="hospitals__item__address__district">{{ !empty($hospital->getDistrict) ? $hospital->getDistrict->name : '' }}</span>
                                 {{ $hospital->address }}<br>
                                 {{ $hospital->subway }}
                             </div>

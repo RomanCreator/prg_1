@@ -44,3 +44,46 @@ h2 {
         color: #54677a;
     }
 }
+
+input[type="text"] {
+    border: 1px solid #5ab6e7;
+    color: #54677a;
+    padding: 10px 20px;
+    background: #ffffff;
+    text-overflow: ellipsis;
+    outline: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input[type="text"]::-webkit-input-placeholder {color:#54677a;}
+input[type="text"]::-moz-placeholder          {color:#54677a;}/* Firefox 19+ */
+input[type="text"]:-moz-placeholder           {color:#54677a;}/* Firefox 18- */
+input[type="text"]:-ms-input-placeholder      {color:#54677a;}
+
+input[type="text"]::-moz-placeholder     {text-overflow:ellipsis;}
+input[type="text"]:-moz-placeholder      {text-overflow:ellipsis;}
+input[type="text"]:-ms-input-placeholder {text-overflow:ellipsis;}
+
+select {
+    border: 1px solid #5ab6e7;
+    background: #ffffff;
+    color: #54677a;
+    padding: 10px 40px 10px 20px;
+    background: #ffffff url("/img/icon_select_arrow.png") no-repeat right center;
+    text-overflow: ellipsis;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.form-element {
+    width: 100%;
+}

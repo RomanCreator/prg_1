@@ -49,6 +49,58 @@ h2 {
 .as_h1 span {
   color: #54677a;
 }
+input[type="text"] {
+  border: 1px solid #5ab6e7;
+  color: #54677a;
+  padding: 10px 20px;
+  background: #ffffff;
+  text-overflow: ellipsis;
+  outline: none;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+input[type="text"]::-webkit-input-placeholder {
+  color: #54677a;
+}
+input[type="text"]::-moz-placeholder {
+  color: #54677a;
+}
+/* Firefox 19+ */
+input[type="text"]:-moz-placeholder {
+  color: #54677a;
+}
+/* Firefox 18- */
+input[type="text"]:-ms-input-placeholder {
+  color: #54677a;
+}
+input[type="text"]::-moz-placeholder {
+  text-overflow: ellipsis;
+}
+input[type="text"]:-moz-placeholder {
+  text-overflow: ellipsis;
+}
+input[type="text"]:-ms-input-placeholder {
+  text-overflow: ellipsis;
+}
+select {
+  border: 1px solid #5ab6e7;
+  background: #ffffff;
+  color: #54677a;
+  padding: 10px 40px 10px 20px;
+  background: #ffffff url("/img/icon_select_arrow.png") no-repeat right center;
+  text-overflow: ellipsis;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select::-ms-expand {
+  display: none;
+}
+.form-element {
+  width: 100%;
+}
 .navbar {
   height: 142px;
   margin-bottom: 0px;
@@ -260,10 +312,10 @@ h2 {
   display: block;
   position: absolute;
   background: url("/img/segmentpanel_white_divider_bg.png") no-repeat center;
-  width: 125px;
+  width: 153px;
   height: 66px;
   left: 50%;
-  margin-left: -62px;
+  margin-left: -76px;
 }
 .segmentpanel_white:before {
   top: -50px;
@@ -484,6 +536,12 @@ h2 {
   text-transform: uppercase;
   font-size: 23px;
 }
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__address {
+  margin: 10px 0 20px 0;
+}
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__address .hospitals__item__address__district {
+  display: block;
+}
 .hospitals .hospitals__item .hospitals__item__info .hospitals__item__timeToWork {
   display: block;
   padding: 0;
@@ -503,6 +561,15 @@ h2 {
   width: 27px;
   height: 27px;
   margin-right: 13px;
+}
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__phone:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  background: transparent url("/img/phone_icon_1.png") no-repeat center;
+  width: 21px;
+  height: 21px;
+  margin-right: 17px;
 }
 .hospitals .hospitals__item .hospitals__item__action {
   display: inline-block;
@@ -524,6 +591,101 @@ h2 {
   border: 3px solid #d5dbe1;
   margin: 30px 0;
   box-shadow: 0 112px 63px -103px rgba(0, 0, 0, 0.4);
+}
+.searchmap__window {
+  display: block;
+  position: absolute;
+  width: 373px;
+  top: 40px;
+  left: 46px;
+}
+.searchmap__window__header {
+  display: block;
+  background: #5ab6e7 url("/img/icon_window_header.png") no-repeat top right;
+  padding: 30px 30px;
+}
+.searchmap__window__header__label {
+  display: inline;
+  color: #ffffff;
+  font-size: 27px;
+  line-height: 1em;
+}
+.searchmap__window__body {
+  display: block;
+  border-left: 4px solid #5ab6e7;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px 30px;
+  color: #54677a;
+  font-size: 24px;
+}
+.searchmap__window__district {
+  display: block;
+}
+.searchmap__window__address {
+  display: block;
+}
+.searchmap__window__workweek {
+  display: block;
+  padding: 0;
+  list-style-type: none;
+}
+.searchmap__window__workweek li {
+  display: block;
+}
+.searchmap__window__workweek li:first-child:before {
+  background: transparent url("/img/icon_workweek.png") no-repeat center;
+}
+.searchmap__window__workweek li:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  background: transparent;
+  width: 27px;
+  height: 27px;
+  margin-right: 13px;
+}
+.searchmap__window__phone:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  background: transparent url("/img/phone_icon_1.png") no-repeat center;
+  width: 21px;
+  height: 21px;
+  margin-right: 17px;
+}
+.searchmap__window__promophone {
+  display: block;
+  margin-top: 40px;
+  color: #5ab6e7;
+  font-size: 35px;
+}
+.searchmap__window__promophone__label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+.search-panel {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.search-panel__elem {
+  display: block;
+}
+.btn {
+  display: inline-block;
+  border-radius: 3px;
+  outline: none;
+  border: 0;
+  font-size: 18px;
+  padding: 10px 33px 7px 33px;
+  text-transform: uppercase;
+  line-height: 1.5em;
+}
+.btn-search {
+  width: 48px;
+  height: 47px;
+  background: #5ab6e7 url("/img/icon_search.png") no-repeat center;
 }
 
 /*# sourceMappingURL=style.css.map */

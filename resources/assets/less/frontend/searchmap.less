@@ -5,4 +5,99 @@
     border: 3px solid #d5dbe1;
     margin: 30px 0;
     box-shadow: 0 112px 63px -103px rgba(0, 0, 0, 0.4);
+
+    &__window {
+        display: block;
+        position: absolute;
+        width: 373px;
+        top: 40px;
+        left: 46px;
+
+        &__header {
+            display: block;
+            background: #5ab6e7 url("/img/icon_window_header.png") no-repeat top right;
+            padding: 30px 30px;
+
+            &__label {
+                display: inline;
+                color: #ffffff;
+                font-size: 27px;
+                line-height: 1em;
+            }
+        }
+
+        &__body {
+            display: block;
+            border-left: 4px solid #5ab6e7;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px 30px;
+            color: #54677a;
+            font-size: 24px;
+        }
+
+        &__district {
+            display: block;
+        }
+
+        &__address {
+            display: block;
+        }
+
+        &__workweek {
+            display: block;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: block;
+
+                &:first-child {
+                    &:before {
+                        background: transparent url("/img/icon_workweek.png") no-repeat center;
+                    }
+                }
+
+                &:before {
+                    display: inline-block;
+                    vertical-align: middle;
+                    content: " ";
+                    background: transparent;
+                    width: 27px;
+                    height: 27px;
+                    margin-right: 13px;
+                }
+
+            }
+        }
+
+        &__phone {
+            &:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                background: transparent url("/img/phone_icon_1.png") no-repeat center;
+                width: 21px;
+                height: 21px;
+                margin-right: 17px;
+            }
+        }
+
+        &__promophone {
+            display: block;
+            margin-top: 40px;
+            color: #5ab6e7;
+            font-size: 35px;
+
+            &__label {
+                display: block;
+                text-transform: uppercase;
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+        }
+
+
+
+
+    }
 }

@@ -116,6 +116,7 @@ SearchMap.prototype.setObjectsOnAMap = function () {
             var placemark = new ymaps.Placemark(this.MedicalCenters[i].technical_address.coordinates, {
                         district: this.MedicalCenters[i].district,
                         address: this.MedicalCenters[i].address,
+                        subway: this.MedicalCenters[i].subway,
                         name: this.MedicalCenters[i].name,
                         weekwork: this.MedicalCenters[i].weekwork,
                     },
@@ -146,8 +147,8 @@ SearchMap.prototype.showInfo = function (placemark) {
     this.$mapContainer.find($window.attr('class')).remove();
     $window.find('.searchmap__window__header__label').text(placemark._cache.target.properties._data.name);
     $window.find('.searchmap__window__district').text(placemark._cache.target.properties._data.district);
-    $window.find('.searchmap__window__address').text(placemark._cache.target.properties._data.address);
-    var workWeek = null;
+    $window.find('.searchmap__window__address').html(placemark._cache.target.properties._data.address+'<br>'+'м. '+placemark._cache.target.properties._data.subway);
+    var workWeek = '';
     var workWeekProp = placemark._cache.target.properties._data.weekwork;
     for (var i =0; i < workWeekProp.length; i++) {
         workWeek += '<li>'+workWeekProp[i]+'</li>';
