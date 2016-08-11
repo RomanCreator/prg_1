@@ -50,6 +50,11 @@
                 <div class="search-panel__elem col-lg-4 col-md-4">
                     <select name="type_equipment" class="form-element" data-toggle="jselect">
                         <option selected disabled>Тип исследования</option>
+                        @if(isset($researches))
+                            @foreach($researches as $research)
+                                <option value="{{ $research->id }}">{{ $research->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="col-lg-1 col-md-1">
