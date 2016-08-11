@@ -16,6 +16,8 @@ use App\Research;
 
 Route::get('/', 'FrontEndController@index');
 
+Route::get('/hospitals', 'FrontEndController@hospitals');
+
 
 Route::auth();
 

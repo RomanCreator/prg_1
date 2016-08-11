@@ -85,4 +85,13 @@ class FrontEndController extends Controller
             'hospitalsData' => $hospitalsData
         ]);
     }
+
+    public function hospitals () {
+        /* Выяснить как делается пагинация с условиями выборки и реализовать это тут */
+        $hospitals = Hospital::paginate(20);
+
+        return view('hospitals', [
+            'hospitals'=>$hospitals
+        ]);
+    }
 }
