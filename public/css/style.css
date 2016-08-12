@@ -793,5 +793,51 @@ select::-ms-expand {
 .sidesearch__elem:-ms-input-placeholder {
   color: #5ab5e6 !important;
 }
+.gallery {
+  display: block;
+  margin: 30px 0;
+}
+.gallery .gallery__big {
+  display: inline-block;
+  vertical-align: top;
+  width: 696px;
+  height: 496px;
+  border: 3px solid #d5dbe1;
+  overflow: hidden;
+}
+.gallery .gallery__big .gallery__big__elem {
+  display: block;
+  width: 100%;
+}
+.gallery .gallery__nav {
+  display: inline-block;
+  vertical-align: top;
+  width: 150px;
+  margin-left: 31px;
+}
+.gallery .gallery__nav .gallery__nav__wrapper {
+  display: block;
+  height: 416px;
+  overflow: hidden;
+}
+.gallery .gallery__nav .gallery__nav__control {
+  display: block;
+  height: 20px;
+}
+.gallery .gallery__nav .gallery__nav__control.gallery__nav__control_up {
+  margin-bottom: 20px;
+  background: transparent url('/img/gallery_arrow.png') no-repeat center;
+}
+.gallery .gallery__nav .gallery__nav__control.gallery__nav__control_down {
+  background: transparent url('/img/gallery_arrow.png') no-repeat center;
+  margin-top: 20px;
+  transform: rotate(180deg);
+}
+.gallery .gallery__nav .gallery__nav__elem {
+  display: block;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 90px;
+}
 
 /*# sourceMappingURL=style.css.map */

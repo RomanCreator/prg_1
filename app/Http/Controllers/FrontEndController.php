@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hospital;
+use App\ImageStorage;
 use App\Research;
 use Illuminate\Http\Request;
 
@@ -97,15 +98,44 @@ class FrontEndController extends Controller
     }
 
     public function hospital($id) {
-        $hospital = Hospital::find('id', $id);
+        $hospital = Hospital::find($id)->where('status', 1)->first();
+
         if (!$hospital) {
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
+        $research = Research::where('state', 1)->take(10)->get();
+
         /* Вытаскиваем галерею */
         /* Район, адрес, время работы */
         /* Прайс лист */
+        $IM = new ImageStorage($hospital);
+        $gallerySmall = $IM->getCropped('gallery', 150, 90);
+        $galleryBig = $IM->getCropped('gallery', 690, 490);
 
+        $timeWorks = $hospital->getWeekWorksTime();
 
+        $address = $hospital->address;
+        $address = explode(',', $address);
+        if (count($address) > 2) {
+            unset($address[0]);
+            unset($address[1]);
+            ksort($address);
+            $address = implode(', ', $address);
+        }
+
+        $district = $hospital->getDistrict();
+        $name = $hospital->name;
+
+        /* Прайс лист вытащим позже */
+
+        return view('hospital', [
+            'researches' => $research,
+            'gallerySmall' => $gallerySmall,
+            'galleryBig' => $galleryBig,
+            'address' => $address,
+            'district' => $district,
+            'name' => $name
+        ]);
     }
 }
