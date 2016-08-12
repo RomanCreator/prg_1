@@ -1,0 +1,60 @@
+.hospital-info {
+    display: block;
+    margin: 30px 0;
+
+    .hospital-info__data {
+        display: inline-block;
+        width: 486px;
+        vertical-align: top;
+
+        .hospital-info__data__label {
+            display: block;
+        }
+
+        .hospital-info__data__timeToWork {
+            display: block;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: block;
+
+                &:first-child {
+                    &:before {
+                        background: transparent url("/img/icon_workweek.png") no-repeat center;
+                    }
+                }
+
+                &:before {
+                    display: inline-block;
+                    vertical-align: middle;
+                    content: " ";
+                    background: transparent;
+                    width: 27px;
+                    height: 27px;
+                    margin-right: 13px;
+                }
+
+            }
+        }
+
+        .hospital-info__data__phone {
+            &:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                background: transparent url("/img/phone_icon_1.png") no-repeat center;
+                width: 21px;
+                height: 21px;
+                margin-right: 17px;
+            }
+        }
+    }
+
+    .hospital-info__action {
+        display: inline-block;
+        width: 180px;
+        vertical-align: top;
+        margin-left: 30px;
+    }
+}

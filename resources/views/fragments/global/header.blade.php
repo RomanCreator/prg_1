@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="mainmenu-item">
-                    <a href="#" class="mainmenu-item-label">
+                    <a href="/researches" class="mainmenu-item-label">
                         <span>Исследования</span>
                     </a>
                     <ul class="mainmenu-item-dropdown">

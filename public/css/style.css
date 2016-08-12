@@ -839,5 +839,84 @@ select::-ms-expand {
   width: 150px;
   height: 90px;
 }
+.hospital-info {
+  display: block;
+  margin: 30px 0;
+}
+.hospital-info .hospital-info__data {
+  display: inline-block;
+  width: 486px;
+  vertical-align: top;
+}
+.hospital-info .hospital-info__data .hospital-info__data__label {
+  display: block;
+}
+.hospital-info .hospital-info__data .hospital-info__data__timeToWork {
+  display: block;
+  padding: 0;
+  list-style-type: none;
+}
+.hospital-info .hospital-info__data .hospital-info__data__timeToWork li {
+  display: block;
+}
+.hospital-info .hospital-info__data .hospital-info__data__timeToWork li:first-child:before {
+  background: transparent url("/img/icon_workweek.png") no-repeat center;
+}
+.hospital-info .hospital-info__data .hospital-info__data__timeToWork li:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  background: transparent;
+  width: 27px;
+  height: 27px;
+  margin-right: 13px;
+}
+.hospital-info .hospital-info__data .hospital-info__data__phone:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  background: transparent url("/img/phone_icon_1.png") no-repeat center;
+  width: 21px;
+  height: 21px;
+  margin-right: 17px;
+}
+.hospital-info .hospital-info__action {
+  display: inline-block;
+  width: 180px;
+  vertical-align: top;
+  margin-left: 30px;
+}
+.price-list {
+  display: block;
+  width: 696px;
+  margin: 30px 0;
+}
+.price-list .price-list__header {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #5ab5e6;
+  color: #fff;
+  text-transform: uppercase;
+}
+.price-list .price-list__body {
+  display: block;
+  list-style-type: none;
+  border-left: 3px solid #5ab5e6;
+  padding: 0;
+  margin: 0;
+}
+.price-list .price-list__body li {
+  padding: 5px 10px;
+  border-top: 1px solid #d5dbe1;
+  border-right: 1px solid #d5dbe1;
+  border-bottom: 1px solid #d5dbe1;
+  color: #5ab5e6;
+}
+.price-list .price-list__body li a {
+  color: #5ab5e6;
+}
+.price-list .price-list__body li .price-list__body__pice {
+  float: right;
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -10,7 +10,7 @@
     @if(isset($description) && !empty($description))
         <meta name="description" content="$description">
     @endif
-    <title>{{ $title }}</title>
+    <title>{{ isset($title) ? $title : '' }}</title>
 
 
     @include('fragments.global.scriptsandstyles')

@@ -15,17 +15,18 @@
                         </a>
                     </li>
                     <li class="mainmenu-item">
-                        <a href="#" class="mainmenu-item-label">
+                        <a href="/researches" class="mainmenu-item-label">
                             <span>Исследования</span>
                         </a>
                     </li>
+                    <!--
                     <li class="mainmenu-item">
                         <a href="#" class="mainmenu-item-label">
                             <span>Поиск по карте</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="mainmenu-item">
-                        <a href="#" class="mainmenu-item-label">
+                        <a href="/hospitals" class="mainmenu-item-label">
                             <span>Медицинские центры</span>
                         </a>
                     </li>

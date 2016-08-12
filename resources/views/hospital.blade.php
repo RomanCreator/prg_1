@@ -50,6 +50,50 @@
                 </div>
             </div>
             @endif
+
+            <div class="hospital-info">
+                <div class="hospital-info__data">
+                    <span class="hospital-info__data__tag"></span>
+                    <span class="hospital-info__data__label">{{ $district }}</span>
+                    <span class="hospital-info__data__label">{{ $address }}</span>
+                    <span class="hospital-info__data__label">м. {{ $subway }}</span>
+                    <ul class="hospital-info__data__timeToWork">
+                        @if (isset($timeToWork))
+                            @foreach($timeToWork as $time)
+                                <li>{{ $time }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                    <span class="hospital-info__data__phone">(812) 490-75-73</span>
+                </div>
+                <div class="hospital-info__action">
+                    <a href="#" class="btn btn-info">Записаться</a>
+                </div>
+            </div>
+
+            {!! $description !!}
+
+            @if ($prices)
+            <div class="price-list">
+                <div class="price-list__header">
+                    Цены
+                </div>
+                <ul class="price-list__body">
+                    @foreach($prices as $price)
+                        <li>  <a href="/researches/{{ $price->id }}">{{ $price->research->name }}</a>
+                            <span class="price-list__body__pice">
+                                @if (isset($price->price_to) && $price->price_to > 0)
+                                    от {{ $price->price_from }}
+                                @else
+                                    {{ $price->price_from }}
+                                @endif
+                                 руб
+                            </span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hospital;
 use App\ImageStorage;
+use App\Price;
 use App\Research;
 use Illuminate\Http\Request;
 
@@ -124,18 +125,33 @@ class FrontEndController extends Controller
             $address = implode(', ', $address);
         }
 
-        $district = $hospital->getDistrict();
+        $district = $hospital->getDistrict->name;
+        $subway = $hospital->subway;
         $name = $hospital->name;
+        $description = $hospital->description;
 
         /* Прайс лист вытащим позже */
+        $prices = Price::where([
+            'hospital_id' => $hospital->id,
+            'status' => 1
+        ])->get();
+
+        if ($prices->count() < 1) {
+            $prices = false;
+        }
 
         return view('hospital', [
             'researches' => $research,
             'gallerySmall' => $gallerySmall,
             'galleryBig' => $galleryBig,
             'address' => $address,
+            'subway' => $subway,
+            'timeToWork' => $timeWorks,
             'district' => $district,
-            'name' => $name
+            'description' => $description,
+            'name' => $name,
+            'prices' => $prices,
+            'title' => $name
         ]);
     }
 }
