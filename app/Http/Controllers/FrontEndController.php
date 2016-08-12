@@ -108,6 +108,22 @@ class FrontEndController extends Controller
         ]);
     }
 
+    public function research ($id) {
+        $research = Research::find($id)->where('state', 1)->first();
+        if (!$research) {
+            abort(404,'Запрашеваемая страница не найдена или не существует');
+        }
+
+        $researches = Research::where('state', 1)->take(10)->get();
+
+        return view('research', [
+            'researches' => $researches,
+            'description' => $research->description,
+            'name' => $research->name,
+            'title' => $research->name
+        ]);
+    }
+
     public function hospital($id) {
         $hospital = Hospital::find($id)->where('status', 1)->first();
 

@@ -22,6 +22,7 @@ Route::get('/hospitals/{id}', 'FrontEndController@hospital');
 
 Route::get('/researches', 'FrontEndController@researches');
 
+Route::get('/researches/{id}', 'FrontEndController@research');
 
 Route::auth();
 
