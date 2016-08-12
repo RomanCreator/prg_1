@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Image;
+use Storage;
 
 /**
  * Class Hospital
@@ -137,8 +139,39 @@ class Hospital extends Model
         return $this->belongsToMany('App\Research', 'prices');
     }
 
+    /**
+     * Возвращает район в котором находится медицинское учреждение
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function getDistrict() {
         return $this->belongsTo('App\District', 'district');
     }
+
+    /**
+     * Возвращает лого медицинского учреждения
+     *
+     * @param int $width
+     * @param int $height
+     * @return null|string
+     */
+    public function getLogo($width = 150, $height = 200) {
+
+        if (Storage::disk('public')->exists('hospitals/'.$this->id)) {
+            if (!Storage::disk('public')->exists('hospitals/'.$this->id.'.derived_150x200.png')) {
+                Image::make(Storage::disk('public')
+                    ->get('hospitals/'.$this->id))
+                    ->crop($width,$height)
+                    ->save(public_path().'/storage/hospitals/'.$this->id.'.derived_150x200.png');
+            }
+
+            $logo = Storage::disk('public')->url('hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
+            $logo .= '?'.time();
+            return $logo;
+        }
+
+        return null;
+    }
+
 
 }

@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="mainmenu-item">
-                    <a href="#" class="mainmenu-item-label">
+                    <a href="/hospitals" class="mainmenu-item-label">
                         <span>Медицинские центры</span>
                     </a>
                 </li>

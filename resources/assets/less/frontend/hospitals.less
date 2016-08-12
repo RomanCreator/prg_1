@@ -1,6 +1,14 @@
 .hospitals {
     .make-row();
 
+    &.hospitals_small {
+        .hospitals__item {
+            .hospitals__item__action {
+                display: none;
+            }
+        }
+    }
+
     .hospitals__item {
         .make-md-column(12);
         .make-lg-column(12);

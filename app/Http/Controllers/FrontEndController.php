@@ -87,11 +87,25 @@ class FrontEndController extends Controller
     }
 
     public function hospitals () {
-        /* Выяснить как делается пагинация с условиями выборки и реализовать это тут */
-        $hospitals = Hospital::paginate(20);
+        $hospitals = Hospital::where('status', 1)->paginate(20);
+        $research = Research::where('state', 1)->take(10)->get();
 
         return view('hospitals', [
+            'researches' => $research,
             'hospitals'=>$hospitals
         ]);
+    }
+
+    public function hospital($id) {
+        $hospital = Hospital::find('id', $id);
+        if (!$hospital) {
+            abort(404,'Запрашеваемая страница не найдена или не существует');
+        }
+
+        /* Вытаскиваем галерею */
+        /* Район, адрес, время работы */
+        /* Прайс лист */
+
+
     }
 }

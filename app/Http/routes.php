@@ -18,6 +18,8 @@ Route::get('/', 'FrontEndController@index');
 
 Route::get('/hospitals', 'FrontEndController@hospitals');
 
+Route::get('/hospitals/{id}', 'FrontEndController@hospital');
+
 
 Route::auth();
 
