@@ -94,7 +94,17 @@ class FrontEndController extends Controller
 
         return view('hospitals', [
             'researches' => $research,
-            'hospitals'=>$hospitals
+            'hospitals'=>$hospitals,
+            'title'=>'Медицинские центры'
+        ]);
+    }
+
+
+    public function researches () {
+        $researches = Research::where('state', 1)->paginate(20);
+        return view('researches', [
+            'researches' => $researches,
+            'title' => 'Исследования'
         ]);
     }
 

@@ -158,11 +158,11 @@ class Hospital extends Model
     public function getLogo($width = 150, $height = 200) {
 
         if (Storage::disk('public')->exists('hospitals/'.$this->id)) {
-            if (!Storage::disk('public')->exists('hospitals/'.$this->id.'.derived_150x200.png')) {
+            if (!Storage::disk('public')->exists('hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png')) {
                 Image::make(Storage::disk('public')
                     ->get('hospitals/'.$this->id))
                     ->crop($width,$height)
-                    ->save(public_path().'/storage/hospitals/'.$this->id.'.derived_150x200.png');
+                    ->save(public_path().'/storage/hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
             }
 
             $logo = Storage::disk('public')->url('hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png');

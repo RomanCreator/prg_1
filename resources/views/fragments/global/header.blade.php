@@ -58,11 +58,12 @@
                         </li>
                     </ul>
                 </li>
+                <!--
                 <li class="mainmenu-item">
                     <a href="#" class="mainmenu-item-label">
                         <span>Поиск по карте</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
 
         </div>

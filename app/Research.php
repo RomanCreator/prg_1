@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Image;
+use Storage;
 
 /**
  * App\Research
@@ -24,4 +26,29 @@ use Illuminate\Database\Eloquent\Model;
 class Research extends Model
 {
     protected $fillable = ['name', 'description', 'state'];
+
+    /**
+     * Возвращает лого медицинского учреждения
+     *
+     * @param int $width
+     * @param int $height
+     * @return null|string
+     */
+    public function getLogo($width = 150, $height = 200) {
+
+        if (Storage::disk('public')->exists('researches/'.$this->id)) {
+            if (!Storage::disk('public')->exists('researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png')) {
+                Image::make(Storage::disk('public')
+                    ->get('researches/'.$this->id))
+                    ->crop($width,$height)
+                    ->save(public_path().'/storage/researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
+            }
+
+            $logo = Storage::disk('public')->url('researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
+            $logo .= '?'.time();
+            return $logo;
+        }
+
+        return null;
+    }
 }
