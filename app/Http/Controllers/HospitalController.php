@@ -61,6 +61,7 @@ class HospitalController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'tags' => 'max:255',
             'description' => 'required',
             'address' => 'required',
         ]);
@@ -95,6 +96,7 @@ class HospitalController extends Controller
                 $hospital->status = $request->status;
                 $hospital->district = $request->district;
                 $hospital->technical_address = $request->technical_address;
+                $hospital->tags = $request->tags;
                 /* Сохранение метро */
                 $technicalJSON = json_decode($request->technical_address, true);
                 if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
@@ -201,6 +203,7 @@ class HospitalController extends Controller
             'status' => $hospital->status,
             'technical_address' => $hospital->technical_address,
             'gallery' => $gallery,
+            'tags' => $hospital->tags,
 
             'nameAction' => $hospital->name,
             'idEntity' => $hospital->id,
@@ -253,6 +256,7 @@ class HospitalController extends Controller
         $hospital->weekwork = $request->worktime;
         $hospital->district = $request->district;
         $hospital->status = $request->status;
+        $hospital->tags = $request->tags;
         $hospital->save();
 
         if ($request->logo) {

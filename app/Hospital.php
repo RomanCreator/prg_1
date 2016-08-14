@@ -174,4 +174,14 @@ class Hospital extends Model
     }
 
 
+    /**
+     * Возвращает все теги прикрепелнные к медицинскому учреждению
+     * @return array
+     */
+    public function getTags() {
+        $tags = explode(',', $this->tags);
+        return $tags;
+    }
+
+
 }

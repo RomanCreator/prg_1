@@ -550,6 +550,18 @@ select::-ms-expand {
   width: 725px;
   margin-right: 20px;
 }
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__tags {
+  display: block;
+  margin: 0 0 20px 0;
+}
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__tags .hospitals__item__tag {
+  display: inline-block;
+  background: #79c47d;
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: #fff;
+  font-size: 15px;
+}
 .hospitals .hospitals__item .hospitals__item__info .hospitals__item__name {
   color: #5ab6e7;
   text-transform: uppercase;

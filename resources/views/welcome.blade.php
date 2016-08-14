@@ -68,6 +68,15 @@
                         <img class="hospitals__item__cover" src="{{ $hospital->logo }}">
                         <div class="hospitals__item__info">
                             <a class="hospitals__item__name" href="hospitals/{{$hospital->id}}">{{$hospital->name}}</a>
+                            <div class="hospitals__item__tags">
+                                @if (!empty($hospital->getTags()))
+                                    @foreach($hospital->getTags() as $tag)
+                                        @if(!empty($tag))
+                                            <span class="hospitals__item__tag">{{ $tag }}</span>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </div>
                             <div class="hospitals__item__address">
                                 <span class="hospitals__item__address__district">{{ !empty($hospital->getDistrict) ? $hospital->getDistrict->name : '' }}</span>
                                 {{ $hospital->address }}<br>

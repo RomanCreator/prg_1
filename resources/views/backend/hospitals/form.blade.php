@@ -88,6 +88,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="tags" class="control-label col-sm-3">Теги (через , )</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="tags" class="form-control" id="tags" value="{{ isset($tags) ? $tags : '' }}">
+                        </div>
+                    </div>
+
 
 
                     <div class="form-group">
