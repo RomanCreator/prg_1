@@ -57,13 +57,11 @@ class ImageStorage {
             return;
         }
 
-        //dd($_REQUEST);
-
         /* Удалим изображения, которые удалил пользователь в форме */
         if (isset($_REQUEST[$nameSpace])) {
-            foreach($_REQUEST[$nameSpace] as $fileToDelete) {
+            foreach($_REQUEST[$nameSpace] as $key => $fileToDelete) {
                 if (isset($fileToDelete['remove'])) {
-                    $this->deleteFile($nameSpace, $fileToDelete['remove']);
+                    $this->deleteFile($nameSpace, urldecode($fileToDelete['remove']));
                 }
             }
         }
@@ -71,9 +69,9 @@ class ImageStorage {
         $notSaveImage = [];
         /* Определим файлы которые были удалены перед отправкой формы */
         if (isset($_REQUEST[$nameSpace])) {
-            foreach($_REQUEST[$nameSpace] as $filename) {
+            foreach($_REQUEST[$nameSpace] as $key => $filename) {
                 if (isset($filename['notupload'])) {
-                    $notSaveImage[] = $filename['notupload'];//urlencode($filename['notupload']);
+                    $notSaveImage[] = urlencode($filename['notupload']);//$filename['notupload'];
                 }
             }
         }
@@ -81,10 +79,17 @@ class ImageStorage {
         /**
          * @var $uploadedFile UploadedFile
          */
+        //dd(count($uploadedFiles));
+
         foreach ($uploadedFiles as $uploadedFile) {
+
+            if (gettype($uploadedFile) !== 'object') {
+                continue;
+            }
             if (!empty($uploadedFile) && !isset($uploadedFile->remove) && !isset($uploadedFile->notupload)) {
                 /*Тут добавить проверку на наличие такого же файла по имени*/
                 $name = $uploadedFile->getClientOriginalName();//urlencode($uploadedFile->getClientOriginalName());
+
 
                 /* Поищем полученное имя в массиве для файлов которые не надо загружать */
                 if (!empty($notSaveImage)) {
