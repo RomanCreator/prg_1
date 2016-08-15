@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="gridin__content">
-            <h1>{{ $name }}</h1>
+            <h1>{{ isset($name) ? $name : '' }}</h1>
             @if (isset($gallerySmall))
             <div class="gallery">
                 <div class="gallery__big">
