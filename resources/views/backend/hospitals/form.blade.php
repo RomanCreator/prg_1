@@ -135,6 +135,28 @@
                     @endif
 
                     <div class="form-group">
+                        <label class="control-label col-sm-3" for="is_general">Головная организация сети</label>
+                        <div class="col-sm-1">
+                            <input type="checkbox" class="form-control" name="is_general" {{ $is_general ? 'checked' : ''}}>
+                        </div>
+                    </div>
+
+                    @if ($controllerAction === 'add' || !$is_general)
+                        @if ($generalOrganizations)
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="general_hospital_id">Является частью сети</label>
+                            <div class="col-sm-9">
+                                <select name="general_hospital_id" class="form-control">
+                                    @foreach($generalOrganizations as $generalOrganization)
+                                        <option value="{{ $generalOrganization->id }}" {{ $generalOrganization->selected }}>{{ $generalOrganization->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
+
+                    <div class="form-group">
                         <label for="therapeutic_areas" class="control-label col-sm-3">Лечебные направления (через ",")</label>
                         <div class="col-sm-9">
                             <input type="text" name="therapeutic_areas" class="form-control" id="therapeutic_areas" value="{{ isset($therapeutic_areas) ? $therapeutic_areas : '' }}" >

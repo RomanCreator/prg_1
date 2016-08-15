@@ -45,6 +45,7 @@ class HospitalController extends Controller
         $scripts[] = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
         $typeResearches = TypeResearch::all();
         $tomographTypes = TomographType::all();
+        $generalOrganization = Hospital::where('is_general', true)->get();
         return view ('backend.hospitals.form', [
             'districts' => District::all(),
             'typeResearches' => $typeResearches,
@@ -53,6 +54,8 @@ class HospitalController extends Controller
             'controllerPathList' => '/home/hospitals/',
             'controllerAction' => 'add',
             'controllerEntity' => new Hospital(),
+            'is_general' => false,
+            'generalOrganizations' => $generalOrganization,
             'scripts' => $scripts
         ]);
     }
@@ -74,6 +77,10 @@ class HospitalController extends Controller
 
         if ($validator->fails()) {
             return redirect('/home/hospitals/create/')->withInput()->withErrors($validator);
+        }
+
+        if (isset($request->is_general)) {
+            dd('work');
         }
 
         /**
@@ -131,8 +138,7 @@ class HospitalController extends Controller
                 return true;
             });
         } catch (Exception $e) {
-            $message = new MessageBag([$e->getMessage()]);
-            return redirect('/home/hospitals/create/')->with($message);
+            return redirect('/home/hospitals/create/')->with(['error'=>[$e->getMessage()]]);
         }
 
         return redirect('/home/hospitals/')->with(['success'=>['Учреждение успешно создано']]);

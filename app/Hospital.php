@@ -198,5 +198,25 @@ class Hospital extends Model
         return $this->belongsToMany('App\TomographType', 'hospital_tomograph_type');
     }
 
+    /**
+     * Возвращает false если нет головного офиса или является головным офисом, в
+     * противном случае возвращает головное медицинское учреждение
+     * @return bool|\Illuminate\Database\Eloquent\Collection|Model|null|static|static[]
+     */
+    public function GeneralHospital() {
+        if ($this->is_general) {
+            return false;
+        }
+
+        if (!is_null($this->general_hospital_id)) {
+            $generalHospital = Hospital::find($this->general_hospital_id);
+            if ($generalHospital) {
+                return $generalHospital;
+            }
+        }
+
+        return false;
+    }
+
 
 }
