@@ -61,8 +61,9 @@ class ImageStorage {
         if (isset($_REQUEST[$nameSpace])) {
             foreach($_REQUEST[$nameSpace] as $key => $fileToDelete) {
                 if (isset($fileToDelete['remove'])) {
-                    dd($fileToDelete['remove']);
-                    $this->deleteFile($nameSpace, urldecode($fileToDelete['remove']));
+                    if (!$this->deleteFile($nameSpace, urldecode($fileToDelete['remove']))) {
+                        $this->deleteFile($nameSpace, $fileToDelete['remove']);
+                    }
                 }
             }
         }
@@ -188,6 +189,7 @@ class ImageStorage {
      * Удаляет файл а так же его диревативы
      * @param $namespace
      * @param $fullNameOfFile
+     * @return bool
      */
     public function deleteFile ($namespace, $fullNameOfFile) {
         list($baseName, $extension) = $this->getFileNameAndExtension($fullNameOfFile);
@@ -206,9 +208,10 @@ class ImageStorage {
             if (preg_match("/(.*){$baseName}_derived_(.*)/", $file)) {
                 /*Удаляем файл*/
                 list($nameDeletedFiles, $extensionDeletedFiles) = $this->getFileNameAndExtension($file);
-                Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$nameDeletedFiles.'.'.$extensionDeletedFiles);
+                return Storage::disk('public')->delete($this->pathToDir.$namespace.'/'.$nameDeletedFiles.'.'.$extensionDeletedFiles);
             }
         }
+        return false;
     }
 
 
