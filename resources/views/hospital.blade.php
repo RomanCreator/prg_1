@@ -34,7 +34,7 @@
         </div>
         <div class="gridin__content">
             <h1>{{ isset($name) ? $name : '' }}</h1>
-            @if (isset($gallerySmall))
+            @if (isset($gallerySmall) && !empty($gallerySmall))
             <div class="gallery">
                 <div class="gallery__big">
                     <img src="{{ $galleryBig[0] }}" class="gallery__big__elem">
