@@ -61,6 +61,7 @@ class ImageStorage {
         if (isset($_REQUEST[$nameSpace])) {
             foreach($_REQUEST[$nameSpace] as $key => $fileToDelete) {
                 if (isset($fileToDelete['remove'])) {
+                    dd($fileToDelete['remove']);
                     $this->deleteFile($nameSpace, urldecode($fileToDelete['remove']));
                 }
             }
