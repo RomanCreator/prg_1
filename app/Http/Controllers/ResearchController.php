@@ -213,6 +213,10 @@ class ResearchController extends Controller
                 Storage::disk('public')->delete('researches/'.$id.'.derived_300x300.png');
             }
 
+            if (Storage::disk('public')->exists('hospitals/'.$id.'.derived_150x200.png')) {
+                Storage::disk('public')->delete('hospitals/'.$id.'.derived_150x200.png');
+            }
+
             Storage::disk('public')->put(
                 'researches/'.$research->id,
                 file_get_contents($request->file('diagram')->getRealPath())
