@@ -10,6 +10,8 @@ use App\Research;
 use App\Role;
 use App\RolePermission;
 use App\StaticPage;
+use App\TomographType;
+use App\TypeResearch;
 use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +36,8 @@ class AuthServiceProvider extends ServiceProvider
         Hospital::class => ModelPolicy::class,
         Price::class => ModelPolicy::class,
         District::class => ModelPolicy::class,
+        TypeResearch::class => ModelPolicy::class,
+        TomographType::class => ModelPolicy::class,
     ];
 
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\District;
 use App\Hospital;
 use App\ImageStorage;
+use App\TomographType;
+use App\TypeResearch;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,8 +43,12 @@ class HospitalController extends Controller
     {
         $scripts = [];
         $scripts[] = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+        $typeResearches = TypeResearch::all();
+        $tomographTypes = TomographType::all();
         return view ('backend.hospitals.form', [
             'districts' => District::all(),
+            'typeResearches' => $typeResearches,
+            'tomographTypes' => $tomographTypes,
             'nameAction' => 'Создание нового учреждения',
             'controllerPathList' => '/home/hospitals/',
             'controllerAction' => 'add',
@@ -97,12 +103,24 @@ class HospitalController extends Controller
                 $hospital->district = $request->district;
                 $hospital->technical_address = $request->technical_address;
                 $hospital->tags = $request->tags;
+                $hospital->doctor_price = $request->doctor_price;
+                foreach ($request->type_researches as $typeId) {
+                    $typeResearch = TypeResearch::find($typeId);
+                    $hospital->TypeResearches()->save($typeResearch);
+                }
+
+                foreach ($request->tomograph_types as $tomographId) {
+                    $tomographType = TomographType::find($tomographId);
+                    $hospital->TomographTypes()->save($tomographType);
+                }
                 /* Сохранение метро */
                 $technicalJSON = json_decode($request->technical_address, true);
                 if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
                     $hospital->subway = $technicalJSON['stops'][0]['name'];
                 }
                 $hospital->weekwork = $request->worktime;
+                $hospital->type_researches_price = $request->type_researches_price;
+                $hospital->therapeutic_areas = $request->therapeutic_areas;
                 $hospital->save();
                 if (!empty($request->logo) && $request->file('logo')->isValid()) {
                     Storage::disk('public')->put(
@@ -193,6 +211,26 @@ class HospitalController extends Controller
             }
         }
 
+        $typeResearches = TypeResearch::all();//$hospital->TypeResearches;
+        foreach ($typeResearches as &$typeResearch) {
+            foreach ($hospital->TypeResearches as $type) {
+                if ($typeResearch->id === $type->id) {
+                    $typeResearch->active = 'active';
+                }
+            }
+        }
+
+        $tomographTypes = TomographType::all();
+        foreach ($tomographTypes as &$tomographType) {
+            foreach ($hospital->TomographTypes as $type) {
+                if ($tomographType->id === $type->id) {
+                    $tomographType->active = 'active';
+                }
+            }
+        }
+
+        $doctorPrice = $hospital->doctor_price;
+
         return view ('backend.hospitals.form', [
             'districts' => $districts,
             'worktime' => $hospital->weekwork,
@@ -204,6 +242,11 @@ class HospitalController extends Controller
             'technical_address' => $hospital->technical_address,
             'gallery' => $gallery,
             'tags' => $hospital->tags,
+            'typeResearches' => $typeResearches,
+            'doctor_price' => $doctorPrice,
+            'type_researches_price'=> $hospital->type_researches_price,
+            'therapeutic_areas'=> $hospital->therapeutic_areas,
+            'tomographTypes' => $tomographTypes,
 
             'nameAction' => $hospital->name,
             'idEntity' => $hospital->id,
@@ -257,6 +300,13 @@ class HospitalController extends Controller
         $hospital->district = $request->district;
         $hospital->status = $request->status;
         $hospital->tags = $request->tags;
+        $hospital->doctor_price = $request->doctor_price;
+        $hospital->type_researches_price = $request->type_researches_price;
+        $hospital->therapeutic_areas = $request->therapeutic_areas;
+
+        $hospital->TypeResearches()->sync($request->type_researches);
+        $hospital->TomographTypes()->sync($request->tomograph_types);
+
         $hospital->save();
 
         if ($request->logo) {

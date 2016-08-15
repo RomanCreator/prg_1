@@ -95,6 +95,59 @@
                         </div>
                     </div>
 
+                    @if (isset($typeResearches))
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Типы диагностики</label>
+                        <div class="col-sm-9">
+                            <div class="btn-group" data-toggle="buttons">
+                                @foreach($typeResearches as $typeResearch)
+                                    <label class="btn btn-default {{ $typeResearch->active }}">
+                                        <input type="checkbox" autocomplete="off" name="type_researches[]" value="{{ $typeResearch->id }}" {{ isset($typeResearch->active) ? 'checked' : '' }}>
+                                        {{ $typeResearch->name }}
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type_researches_price" class="control-label col-sm-3">Базовые цены на типы исследований (через ",")</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="type_researches_price" class="form-control" id="type_researches_price" value="{{ isset($type_researches_price) ? $type_researches_price : '' }}">
+                        </div>
+                    </div>
+                    @endif
+
+                    @if (isset($tomographTypes))
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Типы томографов</label>
+                        <div class="col-sm-9">
+                            <div class="btn-group" data-toggle="buttons">
+                                @foreach($tomographTypes as $tomographType)
+                                    <label class="btn btn-default {{ $tomographType->active }}">
+                                        <input type="checkbox" autocomplete="off" name="tomograph_types[]" value="{{ $tomographType->id }}" {{ isset($tomographType->active) ? 'checked' : '' }}>
+                                        {{ $tomographType->name }}
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="form-group">
+                        <label for="therapeutic_areas" class="control-label col-sm-3">Лечебные направления (через ",")</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="therapeutic_areas" class="form-control" id="therapeutic_areas" value="{{ isset($therapeutic_areas) ? $therapeutic_areas : '' }}" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doctor_price" class="control-label col-sm-3">Прием врача от (руб.)</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="doctor_price" class="form-control" id="doctor_price" value="{{isset($doctor_price) ? $doctor_price : ''}}">
+                        </div>
+                    </div>
+
 
 
                     <div class="form-group">

@@ -18,6 +18,12 @@
                 <i class="fa fa-book" aria-hidden="true"></i> Справочники <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+                @can('index', new App\TomographType())
+                    <li><a href="{{ url('/home/tomograph_types/') }}"><i class="fa fa-object-group" aria-hidden="true"></i> Типы томографов</a></li>
+                @endcan
+                @can('index', new App\TypeResearch())
+                <li><a href="{{ url('/home/type_researches/') }}"><i class="fa fa-code-fork" aria-hidden="true"></i> Типы исследований</a></li>
+                @endcan
                 @can('index', new App\Research())
                 <li><a href="{{ url('/home/research/') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Исследования</a></li>
                 @endcan

@@ -183,5 +183,20 @@ class Hospital extends Model
         return $tags;
     }
 
+    /**
+     * Возвращает все типы поддерживаемых диагностики
+     */
+    public function TypeResearches () {
+        return $this->belongsToMany('App\TypeResearch', 'hospital_type_research');
+    }
+
+    /**
+     * Возвращает все типы томографов данного учреждения
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function TomographTypes () {
+        return $this->belongsToMany('App\TomographType', 'hospital_tomograph_type');
+    }
+
 
 }

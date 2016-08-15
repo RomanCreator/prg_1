@@ -89,6 +89,16 @@ Route::group(['middleware' => 'auth'], function() {
      */
     Route::resource('/home/districts', 'DistrictController');
 
+    /**
+     * Управление типами исследований
+     */
+    Route::resource('/home/type_researches', 'TypeResearchController');
+
+    /**
+     * Управление типами томографов
+     */
+    Route::resource('/home/tomograph_types', 'TomographTypeController');
+
 });
 
 
