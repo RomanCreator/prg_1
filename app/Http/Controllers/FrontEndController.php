@@ -109,8 +109,8 @@ class FrontEndController extends Controller
     }
 
     public function research ($id) {
-        $research = Research::find($id)->where('state', 1)->first();
-        if (!$research) {
+        $research = Research::find($id);
+        if (!$research || $research->state != 1) {
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
@@ -125,9 +125,10 @@ class FrontEndController extends Controller
     }
 
     public function hospital($id) {
-        $hospital = Hospital::find($id)->where('status', 1)->first();
+        $hospital = Hospital::find($id);
 
-        if (!$hospital) {
+
+        if (!$hospital || $hospital->status != 1) {
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
