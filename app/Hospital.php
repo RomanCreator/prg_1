@@ -39,7 +39,7 @@ use Storage;
  */
 class Hospital extends Model
 {
-    protected $fillable = ['name', 'description', 'address', 'technical_address', 'description_about', 'status'];
+    protected $fillable = ['name', 'description', 'address', 'technical_address', 'description_about', 'status', 'general_hospital_id'];
 
     /**
      * Возвращает массив со строками содержащими время работы медицинского учреждения

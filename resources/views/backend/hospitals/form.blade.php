@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">Название медицинского учреждения</label>
                         <div class="col-sm-9">
-                            <input name="name" id="name" class="form-control" value="{{ isset($name) ? $name : '' }}" required>
+                            <input name="name" id="name" class="form-control" value="{{ isset($name) ? $name : '' }}">
                         </div>
                     </div>
 
@@ -57,7 +57,7 @@
                             <textarea name="description"
                                       id="description"
                                       class="form-control"
-                                      rows="10" data-toggle="ckeditor" required>{!! isset($description) ? $description : '' !!}</textarea>
+                                      rows="10" data-toggle="ckeditor">{!! isset($description) ? $description : '' !!}</textarea>
                         </div>
                     </div>
 
@@ -147,6 +147,7 @@
                             <label class="control-label col-sm-3" for="general_hospital_id">Является частью сети</label>
                             <div class="col-sm-9">
                                 <select name="general_hospital_id" class="form-control">
+                                    <option value="">Выберите головную организацию</option>
                                     @foreach($generalOrganizations as $generalOrganization)
                                         <option value="{{ $generalOrganization->id }}" {{ $generalOrganization->selected }}>{{ $generalOrganization->name }}</option>
                                     @endforeach
