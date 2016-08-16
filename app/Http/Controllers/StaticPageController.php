@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ImageStorage;
 use App\StaticPage;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\MessageBag;
 use Validator;
 
 class StaticPageController extends Controller
@@ -119,6 +121,10 @@ class StaticPageController extends Controller
     {
         $page = StaticPage::find($id);
 
+        $IM = new ImageStorage($page);
+        $gallery = $IM->getCropped('gallery', 300, 300);
+        $gallerySrc = $IM->getOrigImage('gallery', true);
+
         return view('backend.pages.form', [
             'nameAction' => isset($page->title) ? $page->title : $page->path,
             'path' => $page->path,
@@ -131,7 +137,9 @@ class StaticPageController extends Controller
             'updated_at' => $page->updated_at,
             'controllerPathList' => '/home/pages/',
             'controllerAction' => 'edit',
-            'controllerEntity' => new StaticPage()
+            'controllerEntity' => new StaticPage(),
+            'gallery' => $gallery,
+            'gallerySrc' => $gallerySrc
         ]);
     }
 
@@ -168,6 +176,11 @@ class StaticPageController extends Controller
         $page->description = $request->description;
         $page->content = $request->content;
         $page->save();
+
+        if ($request->gallery) {
+            $IS = new ImageStorage($page);
+            $IS->save($request->gallery, 'gallery');
+        }
 
         return redirect('/home/pages/'.$page->id.'/edit/')->with(['success'=>['Данные страницы успешно изменены.']]);
     }
