@@ -7,6 +7,13 @@
 
     <title>{{ isset($title) ? $title : '' }}</title>
 
+    @if(isset($keywords) && !empty($keywords))
+        <meta name="keywords" content="{{ $keywords }}">
+    @endif
+    @if(isset($description) && !empty($description))
+        <meta name="description" content="$description">
+    @endif
+
 
     @include('fragments.global.scriptsandstyles')
 
