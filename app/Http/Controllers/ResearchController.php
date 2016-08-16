@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ImageStorage;
 use App\Research;
 use DB;
 use Exception;
@@ -156,11 +157,17 @@ class ResearchController extends Controller
             $diagram .= '?'.time();
         }
 
+        $IM = new ImageStorage($research);
+        $gallery = $IM->getCropped('gallery', 300, 300);
+        $gallerySrc = $IM->getOrigImage('gallery', true);
+
         return view ('backend.research.form', [
             'name' => $research->name,
             'diagram' => $diagram,
             'description' => $research->description,
             'state' => $research->state,
+            'gallery' => $gallery,
+            'gallerySrc' => $gallerySrc,
 
             'nameAction' => $research->name,
             'idEntity' => $research->id,
@@ -203,6 +210,11 @@ class ResearchController extends Controller
         $research->description = $request->description;
         $research->state = $request->state;
         $research->save();
+
+        if ($request->gallery) {
+            $IS = new ImageStorage($research);
+            $IS->save($request->gallery, 'gallery');
+        }
 
         if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
             if (Storage::disk('public')->exists('researches/'.$id)) {
