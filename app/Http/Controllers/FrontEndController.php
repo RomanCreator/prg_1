@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\District;
 use App\Hospital;
 use App\ImageStorage;
 use App\Price;
 use App\Research;
 use App\TomographType;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,9 +18,50 @@ use Storage;
 class FrontEndController extends Controller
 {
     public function index() {
-        $hospitals = Hospital::where('status', 1)
-            ->take(5)
-            ->get();
+
+        $hospitals = Hospital::query()
+            ->leftJoin('hospital_type_research', 'hospitals.id', '=', 'hospital_type_research.hospital_id')
+            ->leftJoin('hospital_tomograph_type', 'hospitals.id', '=', 'hospital_tomograph_type.hospital_id');
+
+        $districtSelected = false;
+        $typeEquipmentSelected = false;
+        $typeResearchSelected = false;
+
+        if (!isset($_REQUEST['district']) && !isset($_REQUEST['type_equipment']) && !isset($_REQUEST['type_research'])) {
+            $hospitals = $hospitals
+                ->take(5);
+        }
+
+
+        if (isset($_REQUEST['type_research'])) {
+            $typeResearchSelected = $_REQUEST['type_research'];
+            $hospitals->where('type_research_id', $_REQUEST['type_research']);
+        }
+
+        if (isset($_REQUEST['type_equipment'])) {
+            $typeEquipmentSelected = $_REQUEST['type_equipment'];
+            $hospitals->where('tomograph_type_id', $_REQUEST['type_equipment']);
+        }
+
+        if (isset($_REQUEST['district'])) {
+            $districtSelected = $_REQUEST['district'];
+            $districts = District::where('name', 'like', '%'.$_REQUEST['district'].'%');
+            $districtsId = [];
+            foreach ($districts as $district) {
+                $districtsId[] = $district->id;
+            }
+
+            $hospitals->whereIn('district', $districtsId)
+                ->orWhere('subway', 'like', '%'.$_REQUEST['district'].'%');
+        }
+
+
+
+
+        $hospitals = $hospitals
+                        ->where('status', 1)
+                        ->get();
+
 
         foreach ($hospitals as &$hospital) {
             /* Получим рабочее время нашего медицинского центра */
@@ -88,7 +131,10 @@ class FrontEndController extends Controller
             'researches' => $researches,
             'hospitals' => $hospitals,
             'hospitalsData' => $hospitalsData,
-            'tomographTypes' => $tomographTypes
+            'tomographTypes' => $tomographTypes,
+            'districtSelected' => $districtSelected,
+            'typeEquipmentSelected' => $typeEquipmentSelected,
+            'typeResearchSelected' => $typeResearchSelected
         ]);
     }
 

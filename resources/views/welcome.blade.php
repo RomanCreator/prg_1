@@ -40,24 +40,41 @@
             </div>
             <form action="/" method="get" class="search-panel">
                 <div class="search-panel__elem col-lg-4 col-md-4">
-                    <input type="text" name="district" class="form-element" placeholder="Введите метро или район">
+                    <input type="text" name="district" class="form-element" placeholder="Введите метро или район"
+                    @if($districtSelected)
+                        value="{{ $districtSelected }}"
+                    @endif
+                    >
                 </div>
                 <div class="search-panel__elem col-lg-3 col-md-3">
                     <select name="type_equipment" class="form-element" data-toggle="jselect">
-                        <option selected disabled>Тип томографа</option>
+                        <option value="">Тип томографа</option>
                         @if(isset($tomographTypes))
                             @foreach($tomographTypes as $tomographType)
-                                <option value="{{ $tomographType->id }}">{{ $tomographType->name }}</option>
+                                <option value="{{ $tomographType->id }}"
+                                @if($typeEquipmentSelected)
+                                    @if($typeEquipmentSelected == $tomographType->id)
+                                        selected
+                                    @endif
+                                @endif
+
+                                >{{ $tomographType->name }}</option>
                             @endforeach
                         @endif
                     </select>
                 </div>
                 <div class="search-panel__elem col-lg-4 col-md-4">
-                    <select name="type_equipment" class="form-element" data-toggle="jselect">
-                        <option selected disabled>Тип исследования</option>
+                    <select name="type_research" class="form-element" data-toggle="jselect">
+                        <option value="">Тип исследования</option>
                         @if(isset($researches))
                             @foreach($researches as $research)
-                                <option value="{{ $research->id }}">{{ $research->name }}</option>
+                                <option value="{{ $research->id }}"
+                                @if($typeResearchSelected)
+                                    @if($typeResearchSelected == $research->id)
+                                        selected
+                                    @endif
+                                @endif
+                                >{{ $research->name }}</option>
                             @endforeach
                         @endif
                     </select>
