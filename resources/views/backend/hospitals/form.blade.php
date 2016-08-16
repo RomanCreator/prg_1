@@ -46,6 +46,7 @@
                             <div class="col-sm-9">
                                 <input name="gallery[]" id="gallery" type="file" data-toggle="imagepickermult" accept="image/*" multiple
                                 data-upload-images="@foreach($gallery as $gal){{ $gal }},@endforeach"
+                                data-upload-images-orig="@foreach($gallerySrc as $gal){{ $gal }},@endforeach"
                                 >
                             </div>
                         </div>

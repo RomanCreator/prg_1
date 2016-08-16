@@ -17,7 +17,7 @@
 
             <div class="phone-panel enabled">
                 <div class="phone-panel__body">
-                    <form class="form-horizontal" method="post">
+                    <form class="form-horizontal" method="get">
                         <div class="form-group">
                             <input type="text" class="form-control" name="phone" placeholder="Введите номер телефона" required>
                         </div>
@@ -38,7 +38,7 @@
             <div class="searchmap" id="searchmap" data-hospitals='{!! $hospitalsData !!}'>
 
             </div>
-            <form action="/" method="post" class="search-panel">
+            <form action="/" method="get" class="search-panel">
                 <div class="search-panel__elem col-lg-4 col-md-4">
                     <input type="text" name="district" class="form-element" placeholder="Введите метро или район">
                 </div>

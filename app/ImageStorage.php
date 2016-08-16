@@ -147,7 +147,7 @@ class ImageStorage {
 
         foreach ($files as $file) {
             if ($urlPathType) {
-                $filesArray[] = Storage::disk($this::$defaultDisk)->url($file);
+                $filesArray[] = Storage::disk($this::$defaultDisk)->url(urlencode($file));
             } else {
                 $filesArray[] = $file;
             }
@@ -155,6 +155,29 @@ class ImageStorage {
 
         return $filesArray;
     }
+
+
+
+    public function getOrigImage ($namespace, $urlPathType=true) {
+        $files = Storage::disk($this::$defaultDisk)->files($this->pathToDir.$namespace);
+        $filesArray = [];
+
+        foreach ($files as $file) {
+            list($baseName, $extension) = $this->getFileNameAndExtension($file);
+            if (!preg_match("/(.*)_derived_(.*).{$extension}/", $file)) {
+                /* Оригинальный файл */
+                if ($urlPathType) {
+                    $filesArray[] = Storage::disk($this::$defaultDisk)->url($this->pathToDir.$namespace.'/'.urlencode($baseName).'.'.$extension);
+                } else {
+                    $filesArray[] = $file;
+                }
+            }
+        }
+
+        return $filesArray;
+    }
+
+
 
     /**
      * Возвращает массив кропированных изображений находящихся в неймспейсе

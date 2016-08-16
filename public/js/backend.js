@@ -228,7 +228,7 @@ $(document).ready(function () {
 +function ($) {
     'use strict';
 
-    var ImagePickerMultItem = function ($pathToImage, $template) {
+    var ImagePickerMultItem = function ($pathToImage, $template, $pathToOrig) {
         var template = '<div class="imagepickermult__item">'+
                             '<div class="imagepickermult__item__container">'+
                                 '<img>'+
@@ -237,11 +237,23 @@ $(document).ready(function () {
                                 '</span>'+
                             '</div>'+
                        '</div>';
+        var linkTemplate = '<button class="imagepickermult__btn imagepickermult__btn_link" data-original-url=""><i class="fa fa-link" aria-hidden="true"></i></button>';
+
         this.$elem = $(template);
         this.$elem.find('img').attr('src', $pathToImage);
         var nameOfFile = $pathToImage.split('/');
         nameOfFile = nameOfFile[nameOfFile.length-1];
         this.$elem.find('button.imagepickermult__btn_remove').data('name', nameOfFile);
+        if ($pathToOrig) {
+            var $btnLink = $(linkTemplate);
+            $btnLink.data('content', $pathToOrig);
+            $btnLink.attr('title', 'Ссылка на оригинал');
+            $btnLink.data('placement', 'right');
+            $btnLink.data('container', 'body');
+            this.$elem.find('.imagepickermult__ation-panel').append($btnLink);
+            $btnLink.popover();
+        }
+
         $template.prepend(this.$elem);
         this.$template = $template;
 
@@ -250,6 +262,10 @@ $(document).ready(function () {
         /* Тут инициализация действий при нажатии на кнопку */
         this.$elem.find('.imagepickermult__btn_remove').bind('click.imagepickermult', function () {
             self.deleteItem();
+            return false;
+        });
+
+        this.$elem.find('.imagepickermult__btn_link').bind('click.imagepickermult', function () {
             return false;
         });
     };
@@ -356,6 +372,14 @@ $(document).ready(function () {
             images = images.split(',');
             images.pop();
 
+            /* Оригиналы загруженных изображений */
+            var imagesOrig = $elem.data('upload-images-orig');
+            if (imagesOrig && imagesOrig.length > 0) {
+                imagesOrig = imagesOrig.split(',');
+                imagesOrig.pop();
+            }
+
+
 
             /* Неймспейс в котором храняться изображения */
             var namespace = $elem.attr('id');
@@ -372,7 +396,12 @@ $(document).ready(function () {
 
 
             for (var i = 0; i < images.length; i++) {
-                new ImagePickerMultItem(images[i], $template);
+                if (imagesOrig && imagesOrig[i]) {
+                    new ImagePickerMultItem(images[i], $template, imagesOrig[i]);
+                } else {
+                    new ImagePickerMultItem(images[i], $template)
+                }
+
             }
 
 

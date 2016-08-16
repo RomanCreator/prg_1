@@ -104,7 +104,7 @@ class HospitalController extends Controller
         }
 
         /**
-         * Создаем новое исследование
+         * Создаем новое медицинское учреждение
          */
         try {
             DB::transaction(function () use ($request) {
@@ -126,10 +126,11 @@ class HospitalController extends Controller
 
 
 
-
-                    foreach ($request->type_researches as $typeId) {
-                        $typeResearch = TypeResearch::find($typeId);
-                        $hospital->TypeResearches()->save($typeResearch);
+                    if (isset($request->type_researches) && !empty($request->type_researches)) {
+                        foreach ($request->type_researches as $typeId) {
+                            $typeResearch = TypeResearch::find($typeId);
+                            $hospital->TypeResearches()->save($typeResearch);
+                        }
                     }
 
                     if (isset($request->tomograph_types) && !empty($request->tomograph_types)) {
@@ -353,6 +354,7 @@ class HospitalController extends Controller
 
         $IM = new ImageStorage($hospital);
         $gallery = $IM->getCropped('gallery', 300, 300);
+        $gallerySrc = $IM->getOrigImage('gallery', true);
 
         $districts = District::all();
         foreach ($districts as &$district) {
@@ -398,6 +400,7 @@ class HospitalController extends Controller
             'status' => $hospital->status,
             'technical_address' => $hospital->technical_address,
             'gallery' => $gallery,
+            'gallerySrc' => $gallerySrc,
             'tags' => $hospital->tags,
             'typeResearches' => $typeResearches,
             'doctor_price' => $doctorPrice,
