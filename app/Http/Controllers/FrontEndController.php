@@ -6,6 +6,7 @@ use App\Hospital;
 use App\ImageStorage;
 use App\Price;
 use App\Research;
+use App\TomographType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -81,10 +82,13 @@ class FrontEndController extends Controller
 
         $researches = Research::where('state', 1)->get();
 
+        $tomographTypes = TomographType::all();
+
         return view('welcome', [
             'researches' => $researches,
             'hospitals' => $hospitals,
-            'hospitalsData' => $hospitalsData
+            'hospitalsData' => $hospitalsData,
+            'tomographTypes' => $tomographTypes
         ]);
     }
 
@@ -178,7 +182,8 @@ class FrontEndController extends Controller
             'description' => $description,
             'name' => $name,
             'prices' => $prices,
-            'title' => $name
+            'title' => $name,
+            'tags' => $hospital->getTags()
         ]);
     }
 }

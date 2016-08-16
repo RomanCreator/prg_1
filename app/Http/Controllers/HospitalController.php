@@ -555,6 +555,12 @@ class HospitalController extends Controller
     {
         $hospital = Hospital::find($id);
         $nameOfHospital = $hospital->name;
+        if ($hospital->is_general) {
+            $hospitalsInWeb = Hospital::where('general_hospital_id', $hospital->id)->get();
+            foreach ($hospitalsInWeb as $hospitalInWeb) {
+                $hospitalInWeb->delete();
+            }
+        }
         $hospital->delete();
         return redirect('/home/hospitals/')->with(['success'=>['Медицинское учреждение '.$nameOfHospital.' успешно удалено!']]);
     }

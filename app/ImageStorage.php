@@ -214,6 +214,15 @@ class ImageStorage {
         return false;
     }
 
+    /**
+     * Удаляет директорию с деривативами
+     */
+    public function deleteNamespaceDir () {
+        if (Storage::disk($this::$defaultDisk)->exists($this->pathToDir)) {
+            Storage::disk($this::$defaultDisk)->deleteDirectory($this->pathToDir);
+        }
+    }
+
 
     /**
      * Возвращает имя файла и его расширение в виде массива

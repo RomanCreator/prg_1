@@ -850,6 +850,7 @@ select::-ms-expand {
   margin-bottom: 20px;
   width: 150px;
   height: 90px;
+  cursor: pointer;
 }
 .hospital-info {
   display: block;
@@ -859,6 +860,18 @@ select::-ms-expand {
   display: inline-block;
   width: 486px;
   vertical-align: top;
+}
+.hospital-info .hospital-info__data .hospital-info__data__tag {
+  display: block;
+  margin: 0 0 20px 0;
+}
+.hospital-info .hospital-info__data .hospital-info__data__tag .hospital-info__data__tag__tag {
+  display: inline-block;
+  background: #79c47d;
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: #fff;
+  font-size: 15px;
 }
 .hospital-info .hospital-info__data .hospital-info__data__label {
   display: block;

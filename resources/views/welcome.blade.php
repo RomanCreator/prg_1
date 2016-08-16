@@ -45,6 +45,11 @@
                 <div class="search-panel__elem col-lg-3 col-md-3">
                     <select name="type_equipment" class="form-element" data-toggle="jselect">
                         <option selected disabled>Тип томографа</option>
+                        @if(isset($tomographTypes))
+                            @foreach($tomographTypes as $tomographType)
+                                <option value="{{ $tomographType->id }}">{{ $tomographType->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="search-panel__elem col-lg-4 col-md-4">

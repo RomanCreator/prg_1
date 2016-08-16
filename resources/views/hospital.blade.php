@@ -35,7 +35,7 @@
         <div class="gridin__content">
             <h1>{{ isset($name) ? $name : '' }}</h1>
             @if (isset($gallerySmall) && !empty($gallerySmall))
-            <div class="gallery">
+            <div class="gallery" data-toggle="simple_gallery">
                 <div class="gallery__big">
                     <img src="{{ $galleryBig[0] }}" class="gallery__big__elem">
                 </div>
@@ -53,10 +53,18 @@
 
             <div class="hospital-info">
                 <div class="hospital-info__data">
-                    <span class="hospital-info__data__tag"></span>
+                    <span class="hospital-info__data__tag">
+                        @if (isset($tags))
+                            @foreach($tags as $tag)
+                                @if(!empty($tag))
+                                    <span class="hospital-info__data__tag__tag">{{ $tag }}</span>
+                                @endif
+                            @endforeach
+                        @endif
+                    </span>
                     <span class="hospital-info__data__label">{{ $district }}</span>
                     <span class="hospital-info__data__label">{{ $address }}</span>
-                    <span class="hospital-info__data__label">м. {{ $subway }}</span>
+                    <span class="hospital-info__data__label">{{ $subway }}</span>
                     <ul class="hospital-info__data__timeToWork">
                         @if (isset($timeToWork))
                             @foreach($timeToWork as $time)
