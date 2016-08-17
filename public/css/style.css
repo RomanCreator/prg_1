@@ -723,7 +723,7 @@ select::-ms-expand {
   background: #5ab6e7 url("/img/icon_search.png") no-repeat center;
 }
 .gridin {
-  padding: 30px 0 0 0;
+  padding: 30px 0;
 }
 .gridin .gridin__content {
   display: block;
