@@ -54,7 +54,7 @@ class Hospital extends Model
             if (isset($workTime[$i])) {
                 $returnedArr[$i] = [
                     'day' => $daysOfWeek[$i],
-                    'time' => $workTime[$i]['timeFrom'] . '-' . $workTime[$i]['timeTo']
+                    'time' => $workTime[$i]['timeFrom'] . ' - ' . $workTime[$i]['timeTo']
                 ];
             }
         }
@@ -79,7 +79,7 @@ class Hospital extends Model
                             $stringTime[1] = $returnedArr[$i]['day'];
                             $nextIndex = $i;
                         } else {
-                            $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                            $time[] = $stringTime[0].'-'.$stringTime[1].': '.$previousTime;
                             $stringTime = [];
                             $stringTime[0] = $returnedArr[$i]['day'];
                             $previousTime = $returnedArr[$i]['time'];
@@ -87,9 +87,9 @@ class Hospital extends Model
                         }
                     } else {
                         if (isset($stringTime[1])) {
-                            $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                            $time[] = $stringTime[0].'-'.$stringTime[1].': '.$previousTime;
                         } else {
-                            $time[] = $stringTime[0].':'.$previousTime;
+                            $time[] = $stringTime[0].': '.$previousTime;
                         }
 
                         $stringTime = [];
@@ -101,9 +101,9 @@ class Hospital extends Model
             } else {
                 if (!empty($stringTime)) {
                     if (isset($stringTime[1])) {
-                        $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                        $time[] = $stringTime[0].'-'.$stringTime[1].': '.$previousTime;
                     } else {
-                        $time[] = $stringTime[0].':'.$previousTime;
+                        $time[] = $stringTime[0].': '.$previousTime;
                     }
 
                     $stringTime = [];
@@ -115,9 +115,9 @@ class Hospital extends Model
             if ($i == 6) {
                 if (!empty($stringTime)) {
                     if (isset($stringTime[1])) {
-                        $time[] = $stringTime[0].'-'.$stringTime[1].':'.$previousTime;
+                        $time[] = $stringTime[0].'-'.$stringTime[1].': '.$previousTime;
                     } else {
-                        $time[] = $stringTime[0].':'.$previousTime;
+                        $time[] = $stringTime[0].': '.$previousTime;
                     }
 
                     $stringTime = [];
