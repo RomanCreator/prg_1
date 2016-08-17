@@ -106,7 +106,7 @@ SearchMap.prototype.setObjectsOnAMap = function () {
 /* Отображает информацию о медицинском центре */
 SearchMap.prototype.showInfo = function (placemark) {
     var $window = $(this.templateInfoWindow);
-    this.$mapContainer.find($window.attr('class')).remove();
+    this.$mapContainer.find('.'+$window.attr('class')).remove();
     $window.find('.searchmap__window__header__label').text(placemark._cache.target.properties._data.name);
     $window.find('.searchmap__window__district').text(placemark._cache.target.properties._data.district);
     $window.find('.searchmap__window__address').html(placemark._cache.target.properties._data.address+'<br>'+'м. '+placemark._cache.target.properties._data.subway);
