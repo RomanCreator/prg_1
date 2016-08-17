@@ -218,6 +218,21 @@ class Hospital extends Model
         return false;
     }
 
+    /**
+     * Возвращает массив с перечислением всех цен на типовые услуги
+     * @return array
+     */
+    public function typeResearchesPrice () {
+        $researches = explode(',', $this->type_researches_price);
+        $returnedArr = [];
+        foreach ($researches as $research) {
+            if (!empty($research)) {
+                $returnedArr[] = $research;
+            }
+        }
+        return $returnedArr;
+    }
+
     public function delete()
     {
         /* удалим все миниатюры связанные с этим итемом */

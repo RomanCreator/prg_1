@@ -609,11 +609,15 @@ select::-ms-expand {
   margin: 0;
   text-transform: uppercase;
 }
+.hospitals .hospitals__item .hospitals__item__action .hospitals__item__action__type-price {
+  display: block;
+}
 .hospitals .hospitals__item .hospitals__item__action .btn {
   font-size: 18px;
   padding: 10px 33px 7px 33px;
   text-transform: uppercase;
   line-height: 1.5em;
+  margin: 10px 0 0 0;
 }
 .searchmap {
   display: block;
