@@ -92,6 +92,8 @@ var OrderWindow = function (name, phone, typeResearchesOptions) {
     var key = $('body').data('key');
     this.$template.find('input[name="_token"]').val(key);
 
+    /* Перед добавление в дум дерево, удалим старые окна с заявками, ибо они не отработали, а окно может быть только одно */
+    $('body').find('.order-window').closest('div').remove();
     $('body').append(this.$template);
 };
 
@@ -120,3 +122,11 @@ OrderWindow.prototype.show = function () {
         }
     });
 };
+
+$(document).ready(function () {
+    $('.info-panel__link').click(function () {
+        var OW = new OrderWindow();
+        OW.show();
+        return false;
+    });
+});

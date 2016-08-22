@@ -92,6 +92,8 @@ var OrderWindow = function (name, phone, typeResearchesOptions) {
     var key = $('body').data('key');
     this.$template.find('input[name="_token"]').val(key);
 
+    /* Перед добавление в дум дерево, удалим старые окна с заявками, ибо они не отработали, а окно может быть только одно */
+    $('body').find('.order-window').closest('div').remove();
     $('body').append(this.$template);
 };
 
@@ -120,6 +122,14 @@ OrderWindow.prototype.show = function () {
         }
     });
 };
+
+$(document).ready(function () {
+    $('.info-panel__link').click(function () {
+        var OW = new OrderWindow();
+        OW.show();
+        return false;
+    });
+});
 /**
  * Created by roman on 25.07.16.
  */
@@ -131,18 +141,27 @@ var PhonePanel = function (selector) {
     this.$body.find('input[name="phone"]').mask('0 (000) 000-00-00', {placeholder:"+_ (___) ___-__-__"});
 
     var self = this;
-    this.$buttonToggle.bind('click', function(ev) {
-        ev.stopPropagation();
-        self.showForm();
-    });
+    if (this.$panel.hasClass('enabled')) {
+        this.$buttonToggle.bind('click', function(ev) {
+            ev.stopPropagation();
+            self.showForm();
+        });
 
-    this.$body.bind('click', function (ev) {
-        ev.stopPropagation();
-    });
+        this.$body.bind('click', function (ev) {
+            ev.stopPropagation();
+        });
 
-    $('body').bind('click', function (){
-        self.hideForm();
-    });
+        $('body').bind('click', function (){
+            self.hideForm();
+        });
+    } else {
+
+        this.$buttonToggle.bind('click', function(ev) {
+            self.sendForm();
+            return false;
+        });
+    }
+
 }
 
 PhonePanel.prototype.showForm = function () {
@@ -167,6 +186,7 @@ PhonePanel.prototype.sendForm = function () {
 }
 
 $(document).ready (function (){
+    new PhonePanel('.phone-panel:not(.enabled)');
     new PhonePanel('.phone-panel.enabled');
 });
 /**
