@@ -87,7 +87,16 @@
                 <div class="hospitals">
                 @foreach($hospitals as $hospital)
                     <div class="hospitals__item">
-                        <img class="hospitals__item__cover" src="{{ $hospital->logo }}">
+                        <div class="hospitals__item__cover">
+                            <img src="{{ $hospital->logo }}">
+                            <div class="hospitals__item__prices_mobile">
+                                @if (!empty($hospital->typeResearchesPrice()))
+                                    @foreach($hospital->typeResearchesPrice() as $price)
+                                        <span class="hospitals__item__action__type-price mobile">{{ $price }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                         <div class="hospitals__item__info">
                             <a class="hospitals__item__name" href="hospitals/{{$hospital->id}}">{{$hospital->name}}</a>
                             <div class="hospitals__item__tags">

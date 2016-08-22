@@ -3,12 +3,21 @@
 
     .gridin__content {
         display: block;
-        width: 895px;
+        width: auto;
+        padding-right: 255px;
+
+        @media (max-width: 768px) {
+            padding-right: 15px;
+        }
     }
 
     .gridin__rightside {
         display: block;
         width: 255px;
         float: right;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 }

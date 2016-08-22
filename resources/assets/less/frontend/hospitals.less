@@ -2,7 +2,22 @@
     .make-row();
 
     &.hospitals_small {
+        margin-left: 15px!important;
+        margin-right: 15px!important;
+
         .hospitals__item {
+            display: block;
+            width: auto;
+            float: none;
+
+            .hospitals__item__cover {
+                float: left;
+            }
+
+            .hospitals__item__info {
+                width: auto;
+            }
+
             .hospitals__item__action {
                 display: none;
             }
@@ -27,6 +42,53 @@
             width: 150px;
             height: 200px;
             margin-right: 20px;
+
+            @media (max-width: 992px) {
+                display: block;
+                float: left;
+            }
+
+            img {
+                border: 0;
+                width: 150px;
+                height: 200px;
+            }
+
+            .hospitals__item__prices_mobile {
+                @media(min-width: 1200px) {
+                    display: none;
+                }
+
+                @media(max-width: 1200px) {
+                    display: block;
+                }
+            }
+        }
+
+
+
+        .hospitals__item__action__type-price {
+
+
+            @media(min-width: 1200px) {
+                display: block;
+            }
+
+            @media(max-width: 1200px) {
+                display: none;
+            }
+
+            &.mobile {
+                @media(min-width: 1200px) {
+                    display: none;
+                }
+
+                @media(max-width: 1200px) {
+                    display: block;
+                }
+
+
+            }
         }
 
         .hospitals__item__info {
@@ -34,6 +96,11 @@
             vertical-align: top;
             width: 725px;
             margin-right: 20px;
+
+            @media (max-width: 992px) {
+                display: block;
+                padding: 0 0 0 160px;
+            }
 
             .hospitals__item__tags {
                 display: block;
@@ -112,8 +179,8 @@
 
             text-transform: uppercase;
 
-            .hospitals__item__action__type-price {
-                display: block;
+            @media(max-width: 1200px) {
+                padding: 0 0 0 160px;
             }
 
             .btn {
