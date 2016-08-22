@@ -58,6 +58,24 @@ input[type="text"] {
     }
 }
 
+textarea {
+    border: 1px solid #5ab6e7;
+    color: #54677a;
+    padding: 10px 20px;
+    background: #ffffff;
+    text-overflow: ellipsis;
+    outline: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+textarea::-webkit-input-placeholder {color:#54677a;}
+textarea::-moz-placeholder          {color:#54677a;}/* Firefox 19+ */
+textarea:-moz-placeholder           {color:#54677a;}/* Firefox 18- */
+textarea:-ms-input-placeholder      {color:#54677a;}
+
 input[type="text"]::-webkit-input-placeholder {color:#54677a;}
 input[type="text"]::-moz-placeholder          {color:#54677a;}/* Firefox 19+ */
 input[type="text"]:-moz-placeholder           {color:#54677a;}/* Firefox 18- */

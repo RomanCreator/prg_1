@@ -14,6 +14,10 @@
 use App\Hospital;
 use App\Research;
 
+Route::get('/allresearches/', 'FrontEndController@allresearches');
+
+Route::post('/callback_order/', 'FrontEndController@callback_order');
+
 Route::get('/', 'FrontEndController@index');
 
 Route::get('/hospitals', 'FrontEndController@hospitals');

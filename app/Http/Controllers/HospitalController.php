@@ -441,7 +441,7 @@ class HospitalController extends Controller
 
         if ($request->logo && !$request->file('logo')->isValid()) {
             $message = new MessageBag(['Не корректный файл']);
-            return redirect('/home/research/'.$id.'/edit')->with($message);
+            return redirect('/home/hospitals/'.$id.'/edit')->with($message);
         }
 
         if (!$request->status) {

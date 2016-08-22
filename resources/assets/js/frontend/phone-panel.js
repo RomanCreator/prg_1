@@ -6,6 +6,8 @@ var PhonePanel = function (selector) {
     this.$panel = $(selector);
     this.$buttonToggle = this.$panel.find('.phone-panel__footer');
     this.$body = this.$panel.find('.phone-panel__body');
+    this.$body.find('input[name="phone"]').mask('0 (000) 000-00-00', {placeholder:"+_ (___) ___-__-__"});
+
     var self = this;
     this.$buttonToggle.bind('click', function(ev) {
         ev.stopPropagation();
@@ -22,7 +24,12 @@ var PhonePanel = function (selector) {
 }
 
 PhonePanel.prototype.showForm = function () {
-    this.$body.show();
+    if  (this.$body.css('display') == 'block') {
+        //Запускаем функцию проверки и отправки формы
+        this.sendForm();
+    } else {
+        this.$body.show();
+    }
 }
 
 PhonePanel.prototype.hideForm = function () {
@@ -30,7 +37,11 @@ PhonePanel.prototype.hideForm = function () {
 }
 
 PhonePanel.prototype.sendForm = function () {
-    console.log ('Отрпавляем форму');
+    var phone = this.$body.find('input[name="phone"]').val();
+    var name = this.$body.find('input[name="name"]').val();
+    console.log (name);
+    var window = new OrderWindow(name, phone);
+    window.show();
 }
 
 $(document).ready (function (){

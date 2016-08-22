@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CallBackRequest;
 use App\District;
 use App\Hospital;
 use App\ImageStorage;
@@ -231,5 +232,41 @@ class FrontEndController extends Controller
             'title' => $name,
             'tags' => $hospital->getTags()
         ]);
+    }
+
+    public function allresearches () {
+        $researches = Research::where('state', 1)->get();
+        $response = [];
+
+        foreach ($researches as $research) {
+            $row['val'] = $research->id;
+            $row['name'] = $research->name;
+            $response[] = $row;
+        }
+
+        return json_encode($response);
+    }
+
+    public function callback_order(Request $request) {
+        $order = new CallBackRequest();
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        if (isset($request->research)) {
+            $order->research = $request->research;
+        }
+
+        if (isset($request->message)) {
+            $order->message = $request->message;
+        }
+
+        if (isset($request->hospital_id)) {
+            $order->hospital_id = $request->hospital_id;
+        }
+
+        $order->status = 0;
+
+        $order->save();
+
+        return json_encode(['success' => true]);
     }
 }

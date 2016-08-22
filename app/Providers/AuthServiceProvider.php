@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use App\CallBackRequest;
 use App\District;
 use App\Hospital;
 use App\Price;
@@ -38,6 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         District::class => ModelPolicy::class,
         TypeResearch::class => ModelPolicy::class,
         TomographType::class => ModelPolicy::class,
+        CallBackRequest::class => ModelPolicy::class,
     ];
 
     /**

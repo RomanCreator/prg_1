@@ -60,6 +60,31 @@ input[type="text"] {
 input[type="text"]:focus {
   outline: none;
 }
+textarea {
+  border: 1px solid #5ab6e7;
+  color: #54677a;
+  padding: 10px 20px;
+  background: #ffffff;
+  text-overflow: ellipsis;
+  outline: none;
+}
+textarea:focus {
+  outline: none;
+}
+textarea::-webkit-input-placeholder {
+  color: #54677a;
+}
+textarea::-moz-placeholder {
+  color: #54677a;
+}
+/* Firefox 19+ */
+textarea:-moz-placeholder {
+  color: #54677a;
+}
+/* Firefox 18- */
+textarea:-ms-input-placeholder {
+  color: #54677a;
+}
 input[type="text"]::-webkit-input-placeholder {
   color: #54677a;
 }
@@ -946,6 +971,52 @@ select::-ms-expand {
 }
 .price-list .price-list__body li .price-list__body__pice {
   float: right;
+}
+.fade.in {
+  z-index: 1500;
+}
+.modal.fade.in {
+  z-index: 1600;
+}
+.modal .modal-content {
+  border-radius: 0;
+  padding-left: 10px;
+}
+.modal .modal-content:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 10px;
+  background: #5ab6e7;
+}
+.modal .modal-header,
+.modal .modal-footer {
+  border: 0;
+}
+.modal .modal-header .close {
+  opacity: 0.7;
+}
+.modal .modal-header .close:hover {
+  opacity: 1;
+}
+.modal .modal-header .close img {
+  width: 20px;
+}
+.order-window .order-window__label {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.order-window .order-window__promophone {
+  text-align: center;
+  font-size: 28px;
+  color: #5ab6e7;
+  line-height: normal;
+}
+.order-window .order-window__action-group {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

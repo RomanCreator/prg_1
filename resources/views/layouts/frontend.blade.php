@@ -19,7 +19,7 @@
 
 
 </head>
-<body id="app-layout">
+<body id="app-layout" data-key="{{ csrf_token() }}">
     @include('fragments.global.header')
     @yield('content')
     @include('fragments.global.footer')
