@@ -139,8 +139,7 @@ class CallBackRequestController extends Controller
             $request->status = 0 + $request->status;
             if (is_int($request->status)) {
                 if (!$callBack->changeStatusTo($request->status)) {
-                    $message = new MessageBag(['Невозможно перевести заявку в указанный статус']);
-                    return redirect('/home/callback/'.$callBack->id.'/edit')->with($message);
+                    return redirect('/home/callback/'.$callBack->id.'/edit')->with(['error' => 'Невозможно перевести заявку в указанный статус']);
                 }
             }
         }
