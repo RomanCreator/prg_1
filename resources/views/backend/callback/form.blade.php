@@ -85,7 +85,7 @@
                         <label class="col-sm-3 control-label">Текущий статус:</label>
                         <div class="col-sm-9">
                             <select class="form-control" name="status">
-                                <option>{{ $status }}</option>
+                                <option value="">{{ $status }}</option>
                                 @if ($allowedStatus)
                                     @foreach($allowedStatus as $stat)
                                         <option value="{{ $stat['value'] }}">{{ $stat['name'] }}</option>
