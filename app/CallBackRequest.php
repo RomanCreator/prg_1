@@ -51,7 +51,7 @@ class CallBackRequest extends Model
      * @return bool
      */
     public function changeStatusTo($idStatus) {
-        if ($idStatus != $this->status) {
+        if ($idStatus != 0 && $idStatus != $this->status) {
             $allowedStatuses = CallBackRequest::$transitionAllowed[$this->status];
             $nextTransitionKey = array_search($idStatus, $allowedStatuses);
 
