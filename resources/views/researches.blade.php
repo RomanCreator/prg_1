@@ -38,7 +38,9 @@
                 <div class="hospitals hospitals_small">
                     @foreach($researches as $research)
                         <div class="hospitals__item">
-                            <img class="hospitals__item__cover" src="{{ $research->getLogo() }}">
+                            <div class="hospitals__item__cover">
+                                <img src="{{ $research->getLogo() }}">
+                            </div>
                             <div class="hospitals__item__info">
                                 <a class="hospitals__item__name" href="researches/{{$research->id}}">{{$research->name}}</a>
                             </div>

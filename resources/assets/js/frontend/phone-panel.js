@@ -6,7 +6,7 @@ var PhonePanel = function (selector) {
     this.$panel = $(selector);
     this.$buttonToggle = this.$panel.find('.phone-panel__footer');
     this.$body = this.$panel.find('.phone-panel__body');
-    this.$body.find('input[name="phone"]').mask('0 (000) 000-00-00', {placeholder:"+_ (___) ___-__-__"});
+    this.$body.find('input[name="phone"]').mask('0 (000) 000-00-00', {placeholder:"Телефон"});
 
     var self = this;
     if (this.$panel.hasClass('enabled')) {
