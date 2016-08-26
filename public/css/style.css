@@ -493,6 +493,17 @@ p {
   margin-left: -15px;
   margin-right: -15px;
 }
+@media (max-width: 1200px) {
+  .footer__list__item {
+    margin: 30px 0;
+  }
+  .footer__list__item:first-child {
+    margin: 0 0 30px 0;
+  }
+  .footer__list__item:last-child {
+    margin: 30px 0 0 0;
+  }
+}
 .footer__list__item:nth-child(1) {
   position: relative;
   min-height: 1px;
@@ -647,6 +658,13 @@ p {
   text-transform: uppercase;
   font-size: 23px;
   word-wrap: break-word;
+  text-decoration: none;
+}
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__name:active,
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__name:focus,
+.hospitals .hospitals__item .hospitals__item__info .hospitals__item__name:hover {
+  text-decoration: none;
+  color: #23527c;
 }
 .hospitals .hospitals__item .hospitals__item__info .hospitals__item__address {
   margin: 10px 0 20px 0;

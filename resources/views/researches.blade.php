@@ -33,16 +33,21 @@
             </div>
         </div>
         <div class="gridin__content">
-            <h1>Медицинские центры</h1>
+            <h1>Исследования</h1>
             @if (isset($researches))
                 <div class="hospitals hospitals_small">
                     @foreach($researches as $research)
                         <div class="hospitals__item">
+                            @if (!empty($research->getLogo()))
                             <div class="hospitals__item__cover">
                                 <img src="{{ $research->getLogo() }}">
                             </div>
+                            @endif
                             <div class="hospitals__item__info">
                                 <a class="hospitals__item__name" href="researches/{{$research->id}}">{{$research->name}}</a>
+                                <div>
+                                    {{ str_limit(strip_tags($research->description), 100, '...') }}
+                                </div>
                             </div>
                             <div class="hospitals__item__action">
                             </div>
