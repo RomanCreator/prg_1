@@ -128,7 +128,7 @@
                                     <span class="hospitals__item__action__type-price">{{ $price }}</span>
                                 @endforeach
                             @endif
-                            <button class="btn btn-info checkin">Записаться</button>
+                            <button class="btn btn-info checkin" data-id="{{ $hospital->id }}">Записаться</button>
                         </div>
                     </div>
                 @endforeach

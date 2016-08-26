@@ -126,6 +126,10 @@ select::-ms-expand {
 .form-element {
   width: 100%;
 }
+p {
+  margin: 30px 0;
+  line-height: 1.3em;
+}
 .navbar {
   height: 142px;
   margin-bottom: 0px;
@@ -540,16 +544,27 @@ select::-ms-expand {
   display: block;
   width: auto;
 }
+.hospitals.hospitals_small .hospitals__item .hospitals__item__cover {
+  float: left;
+}
 .hospitals.hospitals_small .hospitals__item .hospitals__item__info {
+  display: block;
   width: auto;
+  padding: 0 0 0 160px;
 }
 .hospitals.hospitals_small .hospitals__item .hospitals__item__action {
   display: none;
 }
 .hospitals .hospitals__item {
+  min-height: 260px;
   display: block;
   padding: 30px 0;
   border-bottom: 1px solid #e2e2e2;
+}
+@media (max-width: 1200px) {
+  .hospitals .hospitals__item {
+    padding: 30px 10px;
+  }
 }
 .hospitals .hospitals__item:last-child {
   border-bottom: 0;
@@ -561,6 +576,11 @@ select::-ms-expand {
   width: 150px;
   height: 200px;
   margin-right: 20px;
+}
+@media (max-width: 1200px) {
+  .hospitals .hospitals__item .hospitals__item__cover {
+    float: left;
+  }
 }
 .hospitals .hospitals__item .hospitals__item__cover img {
   border: 0;
@@ -607,6 +627,7 @@ select::-ms-expand {
   .hospitals .hospitals__item .hospitals__item__info {
     display: block;
     padding: 0 0 0 160px;
+    width: auto;
   }
 }
 .hospitals .hospitals__item .hospitals__item__info .hospitals__item__tags {
@@ -625,6 +646,7 @@ select::-ms-expand {
   color: #5ab6e7;
   text-transform: uppercase;
   font-size: 23px;
+  word-wrap: break-word;
 }
 .hospitals .hospitals__item .hospitals__item__info .hospitals__item__address {
   margin: 10px 0 20px 0;
@@ -670,6 +692,8 @@ select::-ms-expand {
 }
 @media (max-width: 1200px) {
   .hospitals .hospitals__item .hospitals__item__action {
+    display: block;
+    margin: 20px 0 0 0;
     padding: 0 0 0 160px;
   }
 }
@@ -800,11 +824,11 @@ select::-ms-expand {
 .gridin .gridin__content {
   display: block;
   width: auto;
-  padding-right: 255px;
+  padding-right: 280px;
 }
 @media (max-width: 768px) {
   .gridin .gridin__content {
-    padding-right: 15px;
+    padding: 20px;
   }
 }
 .gridin .gridin__rightside {
@@ -908,6 +932,14 @@ select::-ms-expand {
   border: 3px solid #d5dbe1;
   overflow: hidden;
 }
+@media (max-width: 1200px) {
+  .gallery .gallery__big {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0 0 20px 0;
+  }
+}
 .gallery .gallery__big .gallery__big__elem {
   display: block;
   width: 100%;
@@ -917,11 +949,27 @@ select::-ms-expand {
   vertical-align: top;
   width: 150px;
   margin-left: 31px;
+  position: relative;
+}
+@media (max-width: 1200px) {
+  .gallery .gallery__nav {
+    display: block;
+    width: auto;
+    margin: 0 auto;
+  }
 }
 .gallery .gallery__nav .gallery__nav__wrapper {
   display: block;
   height: 416px;
   overflow: hidden;
+}
+@media (max-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__wrapper {
+    width: auto;
+    margin: 0 20px;
+    height: 90px;
+    white-space: nowrap;
+  }
 }
 .gallery .gallery__nav .gallery__nav__control {
   display: block;
@@ -931,10 +979,48 @@ select::-ms-expand {
   margin-bottom: 20px;
   background: transparent url('/img/gallery_arrow.png') no-repeat center;
 }
+@media (max-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__control.gallery__nav__control_up {
+    display: none;
+  }
+}
 .gallery .gallery__nav .gallery__nav__control.gallery__nav__control_down {
   background: transparent url('/img/gallery_arrow.png') no-repeat center;
   margin-top: 20px;
   transform: rotate(180deg);
+}
+@media (max-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__control.gallery__nav__control_down {
+    display: none;
+  }
+}
+.gallery .gallery__nav .gallery__nav__control.gallery__nav__control_left {
+  position: absolute;
+  width: 20px;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  background: transparent url('/img/gallery_arrow.png') no-repeat center;
+  transform: rotate(-90deg);
+}
+@media (min-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__control.gallery__nav__control_left {
+    display: none;
+  }
+}
+.gallery .gallery__nav .gallery__nav__control.gallery__nav__control_right {
+  position: absolute;
+  width: 20px;
+  right: 0;
+  top: 50%;
+  margin-top: -10px;
+  background: transparent url('/img/gallery_arrow.png') no-repeat center;
+  transform: rotate(90deg);
+}
+@media (min-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__control.gallery__nav__control_right {
+    display: none;
+  }
 }
 .gallery .gallery__nav .gallery__nav__elem {
   display: block;
@@ -942,6 +1028,18 @@ select::-ms-expand {
   width: 150px;
   height: 90px;
   cursor: pointer;
+}
+@media (max-width: 1200px) {
+  .gallery .gallery__nav .gallery__nav__elem {
+    display: inline-block;
+    margin: 0 20px;
+  }
+  .gallery .gallery__nav .gallery__nav__elem:first-child {
+    margin: 0 20px 0 0;
+  }
+  .gallery .gallery__nav .gallery__nav__elem:last-child {
+    margin: 0 0 0 20px;
+  }
 }
 .hospital-info {
   display: block;
@@ -1002,10 +1100,21 @@ select::-ms-expand {
   vertical-align: top;
   margin-left: 30px;
 }
+@media (max-width: 1200px) {
+  .hospital-info .hospital-info__action {
+    display: block;
+    margin: 20px 0;
+  }
+}
 .price-list {
   display: block;
   width: 696px;
   margin: 30px 0;
+}
+@media (max-width: 768px) {
+  .price-list {
+    width: auto;
+  }
 }
 .price-list .price-list__header {
   display: inline-block;

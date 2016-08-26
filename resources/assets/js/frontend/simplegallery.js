@@ -6,6 +6,8 @@ var simplegallery = function (element) {
     this.$bigImg = this.$gallery.find('.gallery__big > .gallery__big__elem');
     this.$controlUp = this.$gallery.find('.gallery__nav > .gallery__nav__control.gallery__nav__control_up');
     this.$controlDown = this.$gallery.find('.gallery__nav > .gallery__nav__control.gallery__nav__control_down');
+    this.$controlLeft = this.$gallery.find('.gallery__nav > .gallery__nav__control.gallery__nav__control_left');
+    this.$controlRight = this.$gallery.find('.gallery__nav > .gallery__nav__control.gallery__nav__control_right');
     this.$wrapper = this.$gallery.find('.gallery__nav > .gallery__nav__wrapper');
     this.miniature = this.$gallery.find('.gallery__nav > .gallery__nav__wrapper > .gallery__nav__elem');
 
@@ -26,6 +28,15 @@ var simplegallery = function (element) {
         return false;
     });
 
+    this.$controlLeft.bind('click', function () {
+        self.scrollLeft();
+        return false;
+    });
+
+    this.$controlRight.bind('click', function () {
+        self.scrollRight();
+        return false;
+    });
 };
 
 simplegallery.prototype.changeMiniature = function (elem) {
@@ -52,7 +63,27 @@ simplegallery.prototype.scrollDown = function () {
     } else {
         this.$wrapper.scrollTop(this.miniature.length*height);
     }
-}
+};
+
+simplegallery.prototype.scrollLeft = function () {
+    var currentScroll = this.$wrapper.scrollLeft();
+    var width = this.miniature.eq(1).outerWidth(true);
+    if (currentScroll > 0 && (currentScroll-width >= 0)) {
+        this.$wrapper.scrollLeft(currentScroll-width);
+    } else {
+        this.$wrapper.scrollLeft(0);
+    }
+};
+
+simplegallery.prototype.scrollRight = function () {
+    var currentScroll = this.$wrapper.scrollLeft();
+    var width = this.miniature.eq(1).outerWidth(true);
+    if (currentScroll < (this.miniature.length*width)) {
+        this.$wrapper.scrollLeft(currentScroll+width);
+    } else {
+        this.$wrapper.scrollTop(this.miniature.length*width);
+    }
+};
 
 $(document).ready(function () {
     new simplegallery($('[data-toggle="simple_gallery"]'));

@@ -10,6 +10,13 @@
         border: 3px solid #d5dbe1;
         overflow: hidden;
 
+        @media (max-width: 1200px) {
+            display: block;
+            width: auto;
+            height: auto;
+            margin: 0 0 20px 0;
+        }
+
         .gallery__big__elem {
             display: block;
             width: 100%;
@@ -21,11 +28,25 @@
         vertical-align: top;
         width: 150px;
         margin-left: 31px;
+        position: relative;
+
+        @media (max-width: 1200px) {
+            display: block;
+            width: auto;
+            margin: 0 auto;
+        }
 
         .gallery__nav__wrapper {
             display: block;
             height: 416px;
             overflow: hidden;
+
+            @media (max-width: 1200px) {
+                width: auto;
+                margin: 0 20px;
+                height: 90px;
+                white-space: nowrap;
+            }
         }
 
         .gallery__nav__control {
@@ -35,13 +56,51 @@
             &.gallery__nav__control_up {
                 margin-bottom: 20px;
                 background: transparent url('/img/gallery_arrow.png') no-repeat center;
+                @media (max-width: 1200px) {
+                    display: none;
+                }
             }
 
             &.gallery__nav__control_down {
                 background: transparent url('/img/gallery_arrow.png') no-repeat center;
                 margin-top: 20px;
                 .rotate(180deg);
+                @media (max-width: 1200px) {
+                    display: none;
+                }
             }
+
+            &.gallery__nav__control_left {
+                position: absolute;
+                width: 20px;
+                left: 0;
+                top: 50%;
+                margin-top: -10px;
+
+
+                background: transparent url('/img/gallery_arrow.png') no-repeat center;
+                .rotate(-90deg);
+
+                @media (min-width: 1200px) {
+                    display: none;
+                }
+            }
+
+            &.gallery__nav__control_right {
+                position: absolute;
+                width: 20px;
+                right: 0;
+                top: 50%;
+                margin-top: -10px;
+
+                background: transparent url('/img/gallery_arrow.png') no-repeat center;
+                .rotate(90deg);
+
+                @media (min-width: 1200px) {
+                    display: none;
+                }
+            }
+
         }
 
         .gallery__nav__elem {
@@ -50,6 +109,20 @@
             width: 150px;
             height: 90px;
             cursor: pointer;
+
+            @media (max-width: 1200px) {
+                display: inline-block;
+
+                margin: 0 20px;
+
+                &:first-child {
+                    margin: 0 20px 0 0;
+                }
+
+                &:last-child {
+                    margin: 0 0 0 20px;
+                }
+            }
         }
 
     }

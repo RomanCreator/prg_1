@@ -41,11 +41,13 @@
                 </div>
                 <div class="gallery__nav">
                     <a href="#" class="gallery__nav__control gallery__nav__control_up"></a>
+                    <a href="#" class="gallery__nav__control gallery__nav__control_left"></a>
                     <div class="gallery__nav__wrapper">
                         @foreach($gallerySmall as $key => $value)
                         <img src="{{ $value }}" class="gallery__nav__elem" data-orig="{{ $galleryBig[$key] }}">
                         @endforeach
                     </div>
+                    <a href="#" class="gallery__nav__control gallery__nav__control_right"></a>
                     <a href="#" class="gallery__nav__control gallery__nav__control_down"></a>
                 </div>
             </div>
@@ -75,7 +77,7 @@
                     <span class="hospital-info__data__phone">(812) 490-75-73</span>
                 </div>
                 <div class="hospital-info__action">
-                    <a href="#" class="btn btn-info">Записаться</a>
+                    <a href="#" class="btn btn-info checkin" data-id="{{ $id }}">Записаться</a>
                 </div>
             </div>
 

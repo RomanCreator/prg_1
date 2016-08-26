@@ -1,7 +1,7 @@
 /**
  * Created by roman on 22.08.16.
  */
-var OrderWindow = function (name, phone, typeResearchesOptions) {
+var OrderWindow = function (name, phone, typeResearchesOptions, hospitalId) {
     this.template = '<div class="modal fade" id="callOrder" tabindex="-1" role="dialog">'+
                         '<div class="modal-dialog modal-sm order-window" role="document">'+
                             '<div class="modal-content">'+
@@ -40,6 +40,7 @@ var OrderWindow = function (name, phone, typeResearchesOptions) {
                         '</div>'+
                     '</div>';
     this.$template = $(this.template);
+    this.researchesFiled = false;
 
 
     if (name) {
@@ -55,6 +56,11 @@ var OrderWindow = function (name, phone, typeResearchesOptions) {
             typeResearchesOptions = JSON.parse(typeResearchesOptions);
         } catch (e) {}
         this.fillResearches(typeResearchesOptions);
+        this.researchesFiled = true;
+    }
+
+    if (hospitalId) {
+        this.$template.find('input[name="hospital_id"]').val(hospitalId);
     }
 
     this.$template.find('input[name="phone"]').mask('0 (000) 000-00-00', {placeholder:"+_ (___) ___-__-__"});
@@ -67,12 +73,13 @@ var OrderWindow = function (name, phone, typeResearchesOptions) {
         var research = self.$template.find('select[name="type_research"]').val();
         var message = self.$template.find('textarea[name="message"]').val();
         var token = self.$template.find('input[name="_token"]').val();
+        var hospitalId = self.$template.find('input[name="hospital_id"]').val();
         self.$template.find('btn').css('display', 'none');
         $.ajax({
             method:'post',
             cache: false,
             url: '/callback_order',
-            data: 'name='+name+'&phone='+phone+'&research='+research+'&message='+message+'&_token='+token,
+            data: 'name='+name+'&phone='+phone+'&research='+research+'&message='+message+'&hospital_id='+hospitalId+'&_token='+token,
             context: self,
             success: function (data) {
                 console.log (data);
@@ -105,22 +112,26 @@ OrderWindow.prototype.fillResearches = function (typeResearchesOptions) {
 }
 
 OrderWindow.prototype.show = function () {
-    $.ajax({
-        method:'get',
-        context: this,
-        url: '/allresearches',
-        chache: false,
-        success: function (data) {
-            try {
-                data = JSON.parse(data);
-            } catch (e) {}
-            this.fillResearches(data);
-            this.$template.modal('show');
-        },
-        error: function (xhr) {
-            console.log (xhr);
-        }
-    });
+    if (!this.researchesFiled) {
+        $.ajax({
+            method:'get',
+            context: this,
+            url: '/allresearches',
+            chache: false,
+            success: function (data) {
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {}
+                this.fillResearches(data);
+                this.$template.modal('show');
+            },
+            error: function (xhr) {
+                console.log (xhr);
+            }
+        });
+    } else {
+        this.$template.modal('show');
+    }
 };
 
 $(document).ready(function () {

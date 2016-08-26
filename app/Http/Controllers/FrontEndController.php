@@ -219,6 +219,7 @@ class FrontEndController extends Controller
         }
 
         return view('hospital', [
+            'id' => $hospital->id,
             'researches' => $research,
             'gallerySmall' => $gallerySmall,
             'galleryBig' => $galleryBig,
@@ -244,6 +245,21 @@ class FrontEndController extends Controller
             $response[] = $row;
         }
 
+        return json_encode($response);
+    }
+
+    public function researchesfor ($id) {
+        $hospital = Hospital::find($id);
+        $response = [];
+        if ($hospital) {
+            $researches = $hospital->getResearches()->where('state', 1)->get();
+
+            foreach ($researches as $research) {
+                $row['val'] = $research->id;
+                $row['name'] = $research->name;
+                $response[] = $row;
+            }
+        }
         return json_encode($response);
     }
 
