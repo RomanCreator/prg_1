@@ -17,7 +17,7 @@ class StaticPageFrontendController extends Controller
             'keywords' => $page->keywords,
             'description' => $page->description,
             'title' => $page->title,
-            'researches' => $research,
+            'researches' => $researches,
             'content' => $page->content
         ]);
     }
