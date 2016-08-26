@@ -28,6 +28,7 @@
 @include('fragments.global.header')
 <div class="container gridin">
     <div class="gridin__rightside">
+        @if ($researches->count())
         <div class="sidelist">
             <div class="sidelist__header">Виды исследований</div>
             <ul class="sidelist__body">
@@ -36,6 +37,7 @@
                 @endforeach
             </ul>
         </div>
+        @endif
 
         <form class="sidesearch" method="post" action="/search">
             <input type="text" class="form-element sidesearch__elem" name="search" placeholder="Поиск">

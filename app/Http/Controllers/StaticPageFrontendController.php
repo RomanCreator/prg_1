@@ -10,7 +10,8 @@ use App\Http\Requests;
 class StaticPageFrontendController extends Controller
 {
     public function showPage($page) {
-        $research = Research::where('state', 1)->take(10)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches->sortBy('show_position');
 
         return view('static', [
             'keywords' => $page->keywords,

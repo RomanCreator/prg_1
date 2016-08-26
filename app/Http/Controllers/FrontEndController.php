@@ -124,7 +124,8 @@ class FrontEndController extends Controller
 
         $hospitalsData = json_encode($hospitalsData);
 
-        $researches = Research::where('state', 1)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches->sortBy('show_position');
 
         $tomographTypes = TomographType::all();
 
@@ -141,10 +142,11 @@ class FrontEndController extends Controller
 
     public function hospitals () {
         $hospitals = Hospital::where('status', 1)->paginate(20);
-        $research = Research::where('state', 1)->take(10)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches->sortBy('show_position');
 
         return view('hospitals', [
-            'researches' => $research,
+            'researches' => $researches,
             'hospitals'=>$hospitals,
             'title'=>'Медицинские центры'
         ]);
@@ -153,8 +155,11 @@ class FrontEndController extends Controller
 
     public function researches () {
         $researches = Research::where('state', 1)->paginate(20);
+        $researchesTab = Research::where('state', 1)->where('show_state', 1)->get();
+        $researchesTab->sortBy('show_position');
         return view('researches', [
             'researches' => $researches,
+            'researchesTab' => $researchesTab,
             'title' => 'Исследования'
         ]);
     }
@@ -165,10 +170,11 @@ class FrontEndController extends Controller
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
-        $researches = Research::where('state', 1)->take(10)->get();
+        $researchesTab = Research::where('state', 1)->where('show_state', 1)->get();
+        $researchesTab->sortBy('show_position');
 
         return view('research', [
-            'researches' => $researches,
+            'researchesTab' => $researchesTab,
             'description' => $research->description,
             'name' => $research->name,
             'title' => $research->name
@@ -183,7 +189,8 @@ class FrontEndController extends Controller
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
-        $research = Research::where('state', 1)->take(10)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches->sortBy('show_position');
 
         /* Вытаскиваем галерею */
         /* Район, адрес, время работы */
@@ -220,7 +227,7 @@ class FrontEndController extends Controller
 
         return view('hospital', [
             'id' => $hospital->id,
-            'researches' => $research,
+            'researches' => $researches,
             'gallerySmall' => $gallerySmall,
             'galleryBig' => $galleryBig,
             'address' => $address,
