@@ -63,6 +63,34 @@
                     @endif
 
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">Отображать на внутренних страницах</label>
+                        <div class="col-sm-9">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default
+                                @if ($showState)
+                                        active
+                                @endif
+                                ">
+                                <input type="checkbox" autocomplete="off" name="show_state" value="1"
+                                @if($showState)
+                                    checked
+                                @endif
+                                > <i class="fa fa-power-off" aria-hidden="true"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Позиция в списке на внутренних страницах</label>
+                        <div class="col-sm-9">
+                            <input name="show_position" type="text" class="form-control" value="{{ isset($show_position) ? $show_position : '' }}">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
                         <label for="state" class="col-sm-3 control-label">Статус исследования</label>
                         <div class="col-sm-9">
                             <div class="btn-group" data-toggle="buttons">

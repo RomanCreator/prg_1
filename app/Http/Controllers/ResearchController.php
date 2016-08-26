@@ -45,7 +45,8 @@ class ResearchController extends Controller
             'nameAction' => 'Создание нового исследования',
             'controllerPathList' => '/home/research/',
             'controllerAction' => 'add',
-            'controllerEntity' => new Research()
+            'controllerEntity' => new Research(),
+            'showState' => false
         ]);
     }
 
@@ -88,6 +89,8 @@ class ResearchController extends Controller
                 $research->name = $request->name;
                 $research->description = $request->description;
                 $research->state = $request->state;
+                $research->show_state = $request->show_state;
+                $research->show_position = $request->show_position;
                 $research->save();
                 if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
                     Storage::disk('public')->put(
@@ -132,7 +135,9 @@ class ResearchController extends Controller
             'diagram' => $diagram,
             'description' => $research->description,
             'status' => $research->status,
-            'controllerPathList' => '/home/research/'
+            'controllerPathList' => '/home/research/',
+            'showState' => $research->show_state,
+            'show_position' => $research->show_position,
         ]);
     }
 
@@ -168,12 +173,14 @@ class ResearchController extends Controller
             'state' => $research->state,
             'gallery' => $gallery,
             'gallerySrc' => $gallerySrc,
+            'show_position' => $research->show_position,
 
             'nameAction' => $research->name,
             'idEntity' => $research->id,
             'controllerPathList' => '/home/research/',
             'controllerAction' => 'edit',
-            'controllerEntity' => new Research()
+            'controllerEntity' => new Research(),
+            'showState' => $research->show_state,
         ]);
     }
 
@@ -188,6 +195,7 @@ class ResearchController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'show_position' => 'integer',
         ]);
 
         if ($validator->fails()) {
@@ -209,6 +217,14 @@ class ResearchController extends Controller
         $research->name = $request->name;
         $research->description = $request->description;
         $research->state = $request->state;
+        $research->show_position = $request->show_position;
+
+        if (!$request->show_state) {
+            $research->show_state = 0;
+        } else {
+            $research->show_state = 1;
+        }
+
         $research->save();
 
         if ($request->gallery) {
