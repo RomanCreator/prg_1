@@ -124,7 +124,7 @@ class FrontEndController extends Controller
 
         $hospitalsData = json_encode($hospitalsData);
 
-        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
         $researches->sortBy('show_position');
 
         $tomographTypes = TomographType::all();
@@ -142,7 +142,7 @@ class FrontEndController extends Controller
 
     public function hospitals () {
         $hospitals = Hospital::where('status', 1)->paginate(20);
-        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
         $researches->sortBy('show_position');
 
         return view('hospitals', [
@@ -155,7 +155,7 @@ class FrontEndController extends Controller
 
     public function researches () {
         $researches = Research::where('state', 1)->paginate(20);
-        $researchesTab = Research::where('state', 1)->where('show_state', 1)->get();
+        $researchesTab = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
         $researchesTab->sortBy('show_position');
         return view('researches', [
             'researches' => $researches,
@@ -170,7 +170,7 @@ class FrontEndController extends Controller
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
-        $researchesTab = Research::where('state', 1)->where('show_state', 1)->get();
+        $researchesTab = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
         $researchesTab->sortBy('show_position');
 
         return view('research', [
@@ -189,7 +189,7 @@ class FrontEndController extends Controller
             abort(404,'Запрашеваемая страница не найдена или не существует');
         }
 
-        $researches = Research::where('state', 1)->where('show_state', 1)->get();
+        $researches = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
         $researches->sortBy('show_position');
 
         /* Вытаскиваем галерею */
