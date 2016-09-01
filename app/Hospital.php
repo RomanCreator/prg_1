@@ -161,7 +161,7 @@ class Hospital extends Model
             if (!Storage::disk('public')->exists('hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png')) {
                 Image::make(Storage::disk('public')
                     ->get('hospitals/'.$this->id))
-                    ->fit($width,$height)
+                    ->fit($width)
                     ->save(public_path().'/storage/hospitals/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
             }
 
