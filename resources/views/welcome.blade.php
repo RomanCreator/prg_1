@@ -133,6 +133,8 @@
                     </div>
                 @endforeach
                 </div>
+
+                {{ $hospitals->links() }}
             @endif
         </div>
     </div>

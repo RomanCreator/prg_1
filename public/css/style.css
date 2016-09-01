@@ -563,6 +563,9 @@ p {
   width: auto;
   padding: 0 0 0 160px;
 }
+.hospitals.hospitals_small .hospitals__item .hospitals__item__info .hospitals__item__phone:before {
+  margin-left: 12px;
+}
 .hospitals.hospitals_small .hospitals__item .hospitals__item__action {
   display: none;
 }

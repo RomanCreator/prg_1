@@ -61,7 +61,8 @@ class FrontEndController extends Controller
 
         $hospitals = $hospitals
                         ->where('status', 1)
-                        ->get();
+                        ->distinct()
+                        ->paginate(10);
 
 
         foreach ($hospitals as &$hospital) {
@@ -88,7 +89,7 @@ class FrontEndController extends Controller
                 if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_150x200.png')) {
                     Image::make(Storage::disk('public')
                         ->get('hospitals/'.$hospital->id))
-                        ->crop(150,200)
+                        ->fit(150,200)
                         ->save(public_path().'/storage/hospitals/'.$hospital->id.'.derived_150x200.png');
                 }
 
@@ -149,6 +150,38 @@ class FrontEndController extends Controller
             'researches' => $researches,
             'hospitals'=>$hospitals,
             'title'=>'Медицинские центры'
+        ]);
+    }
+
+
+    public function search() {
+        $searchStr = $_REQUEST['search'];
+
+        $researches = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
+        $researches->sortBy('show_position');
+
+        $hospitals = null;
+        $researchesList = null;
+        if (!empty ($searchStr)) {
+
+
+            $hospitals = Hospital::where('status', 1)
+                ->where(function ($query) use($searchStr) {
+                    $query->where('name', 'like', '%'.$searchStr.'%')
+                    ->orWhere('tags', 'like', '%'.$searchStr.'%');
+                })->distinct()->get();
+
+            $researchesList = Research::where('state', 1)
+                ->where(function ($query) use($searchStr) {
+                    $query->where('name', 'like', '%'.$searchStr.'%');
+                })->distinct()->get();
+        }
+
+        return view('search', [
+            'researches' => $researches,
+            'search' => $searchStr,
+            'hospitals' => $hospitals,
+            'researchList' => $researchesList
         ]);
     }
 

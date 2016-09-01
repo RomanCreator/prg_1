@@ -14,6 +14,9 @@
 use App\Hospital;
 use App\Research;
 
+
+Route::post('/search', 'FrontEndController@search');
+
 Route::get('/researchesfor/{id}', 'FrontEndController@researchesfor');
 
 Route::get('/allresearches/', 'FrontEndController@allresearches');

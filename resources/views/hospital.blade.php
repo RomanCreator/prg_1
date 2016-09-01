@@ -15,6 +15,7 @@
             @endif
 
             <form class="sidesearch" method="post" action="/search">
+                {{ csrf_field() }}
                 <input type="text" class="form-element sidesearch__elem" name="search" placeholder="Поиск">
             </form>
 

@@ -4,19 +4,19 @@
     <div class="container gridin">
         <div class="gridin__rightside">
             @if ($researches->count())
-            <div class="sidelist">
-                <div class="sidelist__header">Виды исследований</div>
-                <ul class="sidelist__body">
-                    @foreach($researches as $research)
-                        <li><a href="/researches/{{$research->id}}">{{$research->name}}</a></li>
-                    @endforeach
-                </ul>
-            </div>
+                <div class="sidelist">
+                    <div class="sidelist__header">ВИДЫ ИССЛЕДОВАНИЙ</div>
+                    <ul class="sidelist__body">
+                        @foreach($researches as $research)
+                            <li><a href="/researches/{{$research->id}}">{{$research->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
             <form class="sidesearch" method="post" action="/search">
                 {{ csrf_field() }}
-                <input type="text" class="form-element sidesearch__elem" name="search" placeholder="Поиск">
+                <input type="text" class="form-element sidesearch__elem" name="search" placeholder="Поиск" value="{{ isset($search) ? $search : '' }}">
             </form>
 
             <div class="phone-panel phone-panel_right-side">
@@ -36,9 +36,9 @@
             </div>
         </div>
         <div class="gridin__content">
-            <h1>Медицинские центры</h1>
+            <h1>Результаты поиска по запросу: {{ $search }}</h1>
+            <div class="hospitals hospitals_small">
             @if (isset($hospitals))
-                <div class="hospitals hospitals_small">
                     @foreach($hospitals as $hospital)
                         <div class="hospitals__item">
                             <div class="hospitals__item__cover">
@@ -68,9 +68,9 @@
                                     {{ $hospital->subway }}
                                 </div>
                                 <ul class="hospitals__item__timeToWork">
-                                        @foreach($hospital->getWeekWorksTime() as $time)
-                                            <li>{{ $time }}</li>
-                                        @endforeach
+                                    @foreach($hospital->getWeekWorksTime() as $time)
+                                        <li>{{ $time }}</li>
+                                    @endforeach
                                 </ul>
                                 <div class="hospitals__item__phone">(812) 490-75-73</div>
                             </div>
@@ -79,10 +79,33 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
-                <?php echo $hospitals->render(); ?>
-            @elseif(!isset($hospitals))
-                <div class="alert alert-info">Нет медицинских центров</div>
+            @endif
+
+            @if (isset($researchList))
+
+                    @foreach($researchList as $research)
+                        <div class="hospitals__item">
+                            @if (!empty($research->getLogo()))
+                                <div class="hospitals__item__cover">
+                                    <img src="{{ $research->getLogo() }}">
+                                </div>
+                            @endif
+                            <div class="hospitals__item__info">
+                                <a class="hospitals__item__name" href="researches/{{$research->id}}">{{$research->name}}</a>
+                                <div>
+                                    {{ str_limit(strip_tags($research->description), 100, '...') }}
+                                </div>
+                            </div>
+                            <div class="hospitals__item__action">
+                            </div>
+                        </div>
+                    @endforeach
+
+            @endif
+            </div>
+
+            @if (!$hospitals && !$researchList)
+                <div class="alert alert-info">К сожалению нет результатов поиска удовлетворяющих запросу</div>
             @endif
         </div>
     </div>
