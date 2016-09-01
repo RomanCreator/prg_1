@@ -40,7 +40,7 @@ class Research extends Model
             if (!Storage::disk('public')->exists('researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png')) {
                 Image::make(Storage::disk('public')
                     ->get('researches/'.$this->id))
-                    ->crop($width,$height)
+                    ->fit($width)
                     ->save(public_path().'/storage/researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png');
             }
 

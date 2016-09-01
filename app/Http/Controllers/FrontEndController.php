@@ -89,7 +89,7 @@ class FrontEndController extends Controller
                 if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_150x200.png')) {
                     Image::make(Storage::disk('public')
                         ->get('hospitals/'.$hospital->id))
-                        ->fit(150,200)
+                        ->fit(150)
                         ->save(public_path().'/storage/hospitals/'.$hospital->id.'.derived_150x200.png');
                 }
 
