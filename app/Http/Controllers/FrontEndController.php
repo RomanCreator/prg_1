@@ -22,7 +22,8 @@ class FrontEndController extends Controller
 
         $hospitals = Hospital::query()
             ->leftJoin('hospital_type_research', 'hospitals.id', '=', 'hospital_type_research.hospital_id')
-            ->leftJoin('hospital_tomograph_type', 'hospitals.id', '=', 'hospital_tomograph_type.hospital_id');
+            ->leftJoin('hospital_tomograph_type', 'hospitals.id', '=', 'hospital_tomograph_type.hospital_id')
+            ->distinct();
 
         $districtSelected = false;
         $typeEquipmentSelected = false;
@@ -61,7 +62,6 @@ class FrontEndController extends Controller
 
         $hospitals = $hospitals
                         ->where('status', 1)
-                        ->distinct()
                         ->paginate(10);
 
 
