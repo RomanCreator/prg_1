@@ -170,7 +170,7 @@ class FrontEndController extends Controller
                 ->where(function ($query) use($searchStr) {
                     $query->where('hospitals.name', 'like', '%'.$searchStr.'%')
                     ->orWhere('hospitals.tags', 'like', '%'.$searchStr.'%')
-                    ->orWhere('districts.id', 'like', '%'.$searchStr.'%');
+                    ->orWhere('districts.name', 'like', '%'.$searchStr.'%');
                 })->distinct('hospitals.id')->get();
 
             $researchesList = Research::where('state', 1)
