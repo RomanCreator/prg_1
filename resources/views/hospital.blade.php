@@ -93,7 +93,7 @@
                 </div>
                 <ul class="price-list__body">
                     @foreach($prices as $price)
-                        <li>  <a href="/researches/{{ $price->id }}">{{ $price->research->name }}</a>
+                        <li>  <a href="/researches/{{ $price->research->id }}">{{ $price->research->name }}</a>
                             <span class="price-list__body__pice">
                                 @if (isset($price->price_to) && $price->price_to > 0)
                                     от {{ $price->price_from }}
