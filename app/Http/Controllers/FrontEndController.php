@@ -166,15 +166,17 @@ class FrontEndController extends Controller
 
 
             $hospitals = Hospital::where('status', 1)
+                ->leftJoin('districts', 'hospitals.district', '=', 'districts.id' )
                 ->where(function ($query) use($searchStr) {
-                    $query->where('name', 'like', '%'.$searchStr.'%')
-                    ->orWhere('tags', 'like', '%'.$searchStr.'%');
-                })->distinct()->get();
+                    $query->where('hospitals.name', 'like', '%'.$searchStr.'%')
+                    ->orWhere('hospitals.tags', 'like', '%'.$searchStr.'%')
+                    ->orWhere('districts.id', 'like', '%'.$searchStr.'%');
+                })->distinct('hospitals.id')->get();
 
             $researchesList = Research::where('state', 1)
                 ->where(function ($query) use($searchStr) {
                     $query->where('name', 'like', '%'.$searchStr.'%');
-                })->distinct()->get();
+                })->distinct('id')->get();
         }
 
         return view('search', [
