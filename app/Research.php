@@ -34,7 +34,7 @@ class Research extends Model
      * @param int $height
      * @return null|string
      */
-    public function getLogo($width = 150, $height = 200) {
+    public function getLogo($width = 200, $height = 200) {
 
         if (Storage::disk('public')->exists('researches/'.$this->id)) {
             if (!Storage::disk('public')->exists('researches/'.$this->id.'.derived_'.$width.'x'.$height.'.png')) {

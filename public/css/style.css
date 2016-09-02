@@ -555,16 +555,11 @@ p {
   display: block;
   width: auto;
 }
-.hospitals.hospitals_small .hospitals__item .hospitals__item__cover {
-  float: left;
-}
 .hospitals.hospitals_small .hospitals__item .hospitals__item__info {
-  display: block;
+  display: inline-block;
   width: auto;
-  padding: 0 0 0 160px;
-}
-.hospitals.hospitals_small .hospitals__item .hospitals__item__info .hospitals__item__phone:before {
-  margin-left: 12px;
+  max-width: 500px;
+  padding: 0px;
 }
 .hospitals.hospitals_small .hospitals__item .hospitals__item__action {
   display: none;
@@ -587,18 +582,18 @@ p {
   display: inline-block;
   vertical-align: top;
   border: 0;
-  width: 150px;
+  width: 200px;
   height: 200px;
   margin-right: 20px;
 }
 @media (max-width: 1200px) {
   .hospitals .hospitals__item .hospitals__item__cover {
-    float: left;
+    display: none;
   }
 }
 .hospitals .hospitals__item .hospitals__item__cover img {
   border: 0;
-  width: 150px;
+  width: 200px;
   height: 200px;
 }
 @media (min-width: 1200px) {
@@ -634,13 +629,12 @@ p {
 .hospitals .hospitals__item .hospitals__item__info {
   display: inline-block;
   vertical-align: top;
-  width: 725px;
+  width: 670px;
   margin-right: 20px;
 }
 @media (max-width: 992px) {
   .hospitals .hospitals__item .hospitals__item__info {
     display: block;
-    padding: 0 0 0 160px;
     width: auto;
   }
 }
@@ -715,7 +709,7 @@ p {
   .hospitals .hospitals__item .hospitals__item__action {
     display: block;
     margin: 20px 0 0 0;
-    padding: 0 0 0 160px;
+    padding: 0;
   }
 }
 .hospitals .hospitals__item .hospitals__item__action .btn {

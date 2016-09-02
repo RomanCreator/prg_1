@@ -9,20 +9,12 @@
             display: block;
             width: auto;
 
-            .hospitals__item__cover {
-                float: left;
-            }
 
             .hospitals__item__info {
-                display: block;
+                display: inline-block;
                 width: auto;
-                padding: 0 0 0 160px;
-
-                .hospitals__item__phone {
-                    &:before {
-                        margin-left: 12px;
-                    }
-                }
+                max-width: 500px;
+                padding: 0px;
             }
 
             .hospitals__item__action {
@@ -49,17 +41,17 @@
             display: inline-block;
             vertical-align: top;
             border: 0;
-            width: 150px;
+            width: 200px;
             height: 200px;
             margin-right: 20px;
 
             @media(max-width: 1200px) {
-                float: left;
+                display: none;
             }
 
             img {
                 border: 0;
-                width: 150px;
+                width: 200px;
                 height: 200px;
             }
 
@@ -103,12 +95,11 @@
         .hospitals__item__info {
             display: inline-block;
             vertical-align: top;
-            width: 725px;
+            width: 670px;
             margin-right: 20px;
 
             @media (max-width: 992px) {
                 display: block;
-                padding: 0 0 0 160px;
                 width: auto;
             }
 
@@ -202,7 +193,7 @@
             @media(max-width: 1200px) {
                 display: block;
                 margin: 20px 0 0 0;
-                padding: 0 0 0 160px;
+                padding: 0;
             }
 
             .btn {

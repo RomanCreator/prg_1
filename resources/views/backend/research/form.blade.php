@@ -41,6 +41,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="lead" class="col-sm-3 control-label">Лид (не более 255 символов)</label>
+                        <div class="col-sm-9">
+                            <textarea name="lead" id="lead" class="form-control" maxlength="255">{{ isset($lead) ? $lead : '' }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Описание исследлования</label>
                         <div class="col-sm-9">
                             <textarea name="description"

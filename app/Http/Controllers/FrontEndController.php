@@ -86,14 +86,14 @@ class FrontEndController extends Controller
 
 
             if (Storage::disk('public')->exists('hospitals/'.$hospital->id)) {
-                if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_150x200.png')) {
+                if (!Storage::disk('public')->exists('hospitals/'.$hospital->id.'.derived_200x200.png')) {
                     Image::make(Storage::disk('public')
                         ->get('hospitals/'.$hospital->id))
-                        ->fit(150)
-                        ->save(public_path().'/storage/hospitals/'.$hospital->id.'.derived_150x200.png');
+                        ->fit(200)
+                        ->save(public_path().'/storage/hospitals/'.$hospital->id.'.derived_200x200.png');
                 }
 
-                $hospital->logo = Storage::disk('public')->url('hospitals/'.$hospital->id.'.derived_150x200.png');
+                $hospital->logo = Storage::disk('public')->url('hospitals/'.$hospital->id.'.derived_200x200.png');
                 $hospital->logo .= '?'.time();
             }
 

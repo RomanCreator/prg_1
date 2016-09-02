@@ -91,6 +91,7 @@ class ResearchController extends Controller
                 $research->state = $request->state;
                 $research->show_state = $request->show_state;
                 $research->show_position = $request->show_position;
+                $research->lead = $request->lead;
                 $research->save();
                 if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
                     Storage::disk('public')->put(
@@ -174,6 +175,7 @@ class ResearchController extends Controller
             'gallery' => $gallery,
             'gallerySrc' => $gallerySrc,
             'show_position' => $research->show_position,
+            'lead' => $research->lead,
 
             'nameAction' => $research->name,
             'idEntity' => $research->id,
@@ -218,6 +220,7 @@ class ResearchController extends Controller
         $research->description = $request->description;
         $research->state = $request->state;
         $research->show_position = $request->show_position;
+        $research->lead = $request->lead;
 
         if (!$request->show_state) {
             $research->show_state = 0;

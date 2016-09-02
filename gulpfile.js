@@ -1,3 +1,4 @@
+var gulp = require('gulp');
 var elixir = require('laravel-elixir');
 
 /*
@@ -25,8 +26,7 @@ elixir(function(mix) {
     mix.copy('resources/assets/img', 'public/img');
     mix.copy('resources/assets/fonts', 'public/fonts');
     mix.copy('resources/assets/js/lib', 'public/js/');
-
-
-
-
 });
+
+
+

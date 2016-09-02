@@ -38,7 +38,7 @@
             <div class="searchmap" id="searchmap" data-hospitals='{!! $hospitalsData !!}'>
 
             </div>
-            <form action="/" method="get" class="search-panel">
+            <form id="search" action="/#search" method="get" class="search-panel">
                 <div class="search-panel__elem col-lg-4 col-md-4">
                     <input type="text" name="district" class="form-element" placeholder="Введите метро или район"
                     @if($districtSelected)

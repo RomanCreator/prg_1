@@ -49,7 +49,7 @@
                             <div class="hospitals__item__info">
                                 <a class="hospitals__item__name" href="researches/{{$research->id}}">{{$research->name}}</a>
                                 <div>
-                                    {{ str_limit(strip_tags($research->description), 100, '...') }}
+                                    {{ $research->lead }}
                                 </div>
                             </div>
                             <div class="hospitals__item__action">
