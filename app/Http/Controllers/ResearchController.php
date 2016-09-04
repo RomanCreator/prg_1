@@ -235,7 +235,21 @@ class ResearchController extends Controller
             $IS->save($request->gallery, 'gallery');
         }
 
-        if (!empty($request->diagram) && $request->file('diagram')->isValid()) {
+        if (!empty($request->deletediagram) && Storage::disk('public')->exists('researches/'.$id)) {
+            if (Storage::disk('public')->exists('researches/'.$id)) {
+                Storage::disk('public')->delete('researches/'.$id);
+            }
+
+            if (Storage::disk('public')->exists('researches/'.$id.'.derived_300x300.png')) {
+                Storage::disk('public')->delete('researches/'.$id.'.derived_300x300.png');
+            }
+
+            if (Storage::disk('public')->exists('hospitals/'.$id.'.derived_150x200.png')) {
+                Storage::disk('public')->delete('hospitals/'.$id.'.derived_150x200.png');
+            }
+        }
+
+        if (!empty($request->diagram) && $request->file('diagram')->isValid() && empty($request->deletediagram)) {
             if (Storage::disk('public')->exists('researches/'.$id)) {
                 Storage::disk('public')->delete('researches/'.$id);
             }

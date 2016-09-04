@@ -9,6 +9,9 @@
                             '<label class="imagepicker">'+
                                 '<div class="imagepicker__hover-place">'+
                                 '</div>'+
+                                '<div class="imagepicker__action">'+
+                                    '<button class="imagepicker__btn imagepicker__btn_remove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>'+
+                                '</div>'+
                             '</label>'+
                         '</div>';
         this.inputClass = 'imagepicker__input';
@@ -21,6 +24,16 @@
         this.$element.on('change', function () {
             self.changedImage();
         });
+
+        this.$removeBth.bind('click', function () {
+            var nameDeleteInput = self.$element.attr('name');
+            var removeImg = self.$element.data('src');
+            removeImg = removeImg.replace(/\?\d+/, '');
+            self.$template.append('<input type="hidden" name="delete'+nameDeleteInput+'" value="'+removeImg+'">');
+            self.$template.find('img').attr('src', '');
+            self.$template.find('.imagepicker__action').css({'display': 'none'});
+            return false;
+        });
     }
 
     ImagePickerElem.prototype.init = function () {
@@ -28,10 +41,13 @@
         var src = this.$element.data('src');
         this.$template = $(this.template);
         this.$element.after(this.$template);
+        this.$removeBth  = this.$template.find('button');
 
-        if (src != undefined) {
+        if (src != undefined && src != '') {
             var $img = $(this.templateImg).attr('src', src);
             this.$template.find('.imagepicker__hover-place').append($img);
+        } else {
+            this.$template.find('.imagepicker__action').css({'display': 'none'});
         }
 
         this.$template.find('.imagepicker__hover-place').append(this.$element);
@@ -40,6 +56,7 @@
     ImagePickerElem.prototype.changedImage = function () {
         if (this.$element[0] && this.$element[0].files[0]) {
             var file = this.$element[0].files[0];
+            this.$template.find('.imagepicker__action').css({'display': 'block'});
 
             var reader = new FileReader();
             var self = this;
