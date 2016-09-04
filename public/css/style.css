@@ -1084,6 +1084,7 @@ p {
   display: block;
   padding: 0;
   list-style-type: none;
+  margin: 15px 0 0 0;
 }
 .hospital-info .hospital-info__data .hospital-info__data__timeToWork li {
   display: block;

@@ -21,7 +21,6 @@ class FrontEndController extends Controller
     public function index() {
 
         $hospitals = Hospital::query()
-            ->distinct()
             ->leftJoin('hospital_type_research', 'hospitals.id', '=', 'hospital_type_research.hospital_id')
             ->leftJoin('hospital_tomograph_type', 'hospitals.id', '=', 'hospital_tomograph_type.hospital_id')
             ->groupBy('id');
