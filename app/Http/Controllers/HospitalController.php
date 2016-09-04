@@ -457,7 +457,7 @@ class HospitalController extends Controller
         $hospital->technical_address = $request->technical_address;
         $technicalJSON = json_decode($request->technical_address, true);
         if (isset($technicalJSON['stops']) && !empty($technicalJSON['stops'])) {
-            $hospital->subway = $technicalJSON['stops'][0]['name'];
+            $hospital->subway = 'м. '.$technicalJSON['stops'][0]['name'].' - '.$technicalJSON['stops'][0]['distance'];
         }
         $hospital->weekwork = $request->worktime;
         $hospital->district = $request->district;
