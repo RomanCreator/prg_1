@@ -19,7 +19,7 @@
         <div class="promophone">
             <span class="promophone__label">Звоните нам</span>
             <div class="promophone__number">
-                8 800 888-00-00
+                +7 (812) 243-18-30
             </div>
         </div>
 

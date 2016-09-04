@@ -77,7 +77,7 @@
                             @endforeach
                         @endif
                     </ul>
-                    <span class="hospital-info__data__phone">(812) 490-75-73</span>
+                    <span class="hospital-info__data__phone">+7 (812) 243-18-30</span>
                 </div>
                 <div class="hospital-info__action">
                     <a href="#" class="btn btn-info checkin" data-id="{{ $id }}">Записаться</a>

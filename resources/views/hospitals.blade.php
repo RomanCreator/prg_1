@@ -72,7 +72,7 @@
                                             <li>{{ $time }}</li>
                                         @endforeach
                                 </ul>
-                                <div class="hospitals__item__phone">(812) 490-75-73</div>
+                                <div class="hospitals__item__phone">+7 (812) 243-18-30</div>
                             </div>
                             <div class="hospitals__item__action">
                                 <button class="btn btn-info checkin">Записаться</button>
