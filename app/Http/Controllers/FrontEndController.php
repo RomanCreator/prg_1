@@ -9,6 +9,7 @@ use App\ImageStorage;
 use App\Price;
 use App\Research;
 use App\TomographType;
+use App\TypeResearch;
 use DB;
 use Illuminate\Http\Request;
 
@@ -125,8 +126,7 @@ class FrontEndController extends Controller
 
         $hospitalsData = json_encode($hospitalsData);
 
-        $researches = Research::where('state', 1)->where('show_state', 1)->orderBy('show_position', 'asc')->get();
-        $researches->sortBy('show_position');
+        $researches = TypeResearch::all();
 
         $tomographTypes = TomographType::all();
 
