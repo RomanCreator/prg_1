@@ -52,6 +52,10 @@
                 @can('index', new App\RolePermission())
                 <li><a href="{{ url('/home/permissions/') }}"><i class="fa fa-user-times" aria-hidden="true"></i> Права доступа</a></li>
                 @endcan
+
+                @can('index', new App\CallCenterPhoneNumber())
+                    <li><a href="{{ url('/home/callcenternumbers') }}"><i class="fa fa-mobile" aria-hidden="true"></i> Телефоны МРТ Центра</a></li>
+                @endcan
             </ul>
         </li>
     @endif

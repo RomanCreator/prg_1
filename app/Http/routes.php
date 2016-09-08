@@ -108,6 +108,11 @@ Route::group(['middleware' => 'auth'], function() {
      */
     Route::resource('/home/tomograph_types', 'TomographTypeController');
 
+    /**
+     * Управление номерами колл центра
+     */
+    Route::resource('/home/callcenternumbers', 'CallCenterPhoneNumberController');
+
 });
 
 
