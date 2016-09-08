@@ -1,8 +1,14 @@
 .search-panel {
     .make-row();
+    max-width: 1000px;
+    margin: 0 auto;
 
     &__elem {
         display: block;
+
+        &:first-child {
+            padding-left: 0;
+        }
 
         @media(max-width: 990px) {
             margin-bottom: 20px;
