@@ -16,6 +16,10 @@
             .navbar-brand {
                 height: 74px;
                 padding: 28px 28px 101px 15px;
+
+                @media (max-width: 920px) {
+                    float: right;
+                }
             }
 
             .navbar-toggle {
@@ -24,6 +28,21 @@
                 margin-top: 50px;
                 border-radius: 0;
                 color: #54677a;
+
+                @media (max-width: 920px) {
+                    float: left;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+                    background-color: #5ab5e6;
+                    color: #ffffff;
+                    margin-left: 20px;
+
+                    .icon-bar {
+                        background-color: #ffffff;
+                        width: 19px;
+                    }
+                }
 
 
                 .transition(@transitionAll);

@@ -6,6 +6,10 @@
     min-height: 327px;
     padding: 58px 0;
 
+    @media (max-width: 920px) {
+        padding: 0;
+    }
+
     &:before {
         content: " ";
         display: block;
@@ -43,12 +47,34 @@
                 }
             }
 
+            @media (max-width: 920px) {
+                margin: 0;
+            }
+
             &:nth-child(1) {
                 .make-lg-column(5);
+
+                @media (max-width: 920px) {
+                    float: right;
+
+
+                    img {
+                        width: 194px;
+                    }
+                }
             }
 
             &:nth-child(2) {
                 .make-lg-column(3);
+
+                @media (max-width: 920px) {
+                    float: left;
+                    background: transparent;
+
+                    .mainmenu {
+                        background-color: transparent;
+                    }
+                }
             }
 
             &:nth-child(3) {
