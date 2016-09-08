@@ -37,7 +37,8 @@
                 <div class="promophone promophone_static">
                     <span class="promophone__label">Звоните нам</span>
                     <div class="promophone__number">
-                        +7 (812) 243-18-30
+                        <?php $CallCenterNumber = \App\CallCenterPhoneNumber::first() ? $CallCenterNumber = \App\CallCenterPhoneNumber::first()->number : $CallCenterNumber = '' ?>
+                        {{ $CallCenterNumber }}
                     </div>
                 </div>
 

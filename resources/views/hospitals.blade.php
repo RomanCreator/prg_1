@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-
+<?php $CallCenterNumber = \App\CallCenterPhoneNumber::first() ? $CallCenterNumber = \App\CallCenterPhoneNumber::first()->number : $CallCenterNumber = '' ?>
 @section('content')
     <div class="container gridin">
         <div class="gridin__rightside">
@@ -72,7 +72,7 @@
                                             <li>{{ $time }}</li>
                                         @endforeach
                                 </ul>
-                                <div class="hospitals__item__phone">+7 (812) 243-18-30</div>
+                                <div class="hospitals__item__phone">{{ $CallCenterNumber }}</div>
                             </div>
                             <div class="hospitals__item__action">
                                 <button class="btn btn-info checkin">Записаться</button>

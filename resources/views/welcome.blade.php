@@ -1,3 +1,4 @@
+<?php $CallCenterNumber = \App\CallCenterPhoneNumber::first() ? $CallCenterNumber = \App\CallCenterPhoneNumber::first()->number : $CallCenterNumber = '' ?>
 @extends('layouts.frontend')
 
 @section('content')
@@ -120,7 +121,7 @@
                                     @endforeach
                                 @endif
                             </ul>
-                            <div class="hospitals__item__phone">+7 (812) 243-18-30</div>
+                            <div class="hospitals__item__phone">{{ $CallCenterNumber }}</div>
                         </div>
                         <div class="hospitals__item__action">
                             @if (!empty($hospital->typeResearchesPrice()))

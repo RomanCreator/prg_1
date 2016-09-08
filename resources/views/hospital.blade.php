@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+<?php $CallCenterNumber = \App\CallCenterPhoneNumber::first() ? $CallCenterNumber = \App\CallCenterPhoneNumber::first()->number : $CallCenterNumber = '' ?>
 
 @section('content')
     <div class="container gridin">
@@ -77,7 +78,7 @@
                             @endforeach
                         @endif
                     </ul>
-                    <span class="hospital-info__data__phone">+7 (812) 243-18-30</span>
+                    <span class="hospital-info__data__phone">{{ $CallCenterNumber }}</span>
                 </div>
                 <div class="hospital-info__action">
                     <a href="#" class="btn btn-info checkin" data-id="{{ $id }}">Записаться</a>
