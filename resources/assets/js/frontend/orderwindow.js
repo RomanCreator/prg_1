@@ -11,7 +11,7 @@ var OrderWindow = function (name, phone, typeResearchesOptions, hospitalId) {
                                     '</div>'+
                                     '<div class="modal-body">'+
                                         '<div class="order-window__label">Запишитесь по телефону</div>'+
-                                        '<div class="order-window__promophone">8 800 888-00-00</div>'+
+                                        '<div class="order-window__promophone">+7 (812) 243-18-30</div>'+
                                         '<div class="order-window__label">или отправьте заявку online:</div>'+
                                         '<div class="form-group">'+
                                             '<input type="text" name="phone" class="form-element" required>'+
